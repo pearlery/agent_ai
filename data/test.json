@@ -1,0 +1,58 @@
+[
+        {
+          "node": {
+            "id": "e18a80fe-bc18-47fc-bf29-467807cee2eb",
+            "alert_id": "MSCS-2504-002744",
+            "alert_name": "teams.events.data.microsoft.com accessed by 192.168.130.17",
+            "tags": "Alert",
+            "incident_type": "webfilter",
+            "severity": "Low",
+            "alert_status": "Opened",
+            "log_source": "Fortigate",
+            "case_result": null,
+            "detected_time": "2025-04-20T12:52:58.000Z",
+            "mitre": null,
+            "objectMarking": [],
+            "contexts": {
+              "domain": null,
+              "endpoint_type": null,
+              "os": null,
+              "user": null,
+              "user_priv": null,
+              "src_ip": [
+                "192.168.130.17"
+              ]
+            },
+            "events": [
+              {
+                "domain": "teams.events.data.microsoft.com",
+                "dst_ip": [
+                  "104.208.16.88"
+                ],
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": null,
+                "file_name": null,
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": null,
+                "parent_process": null,
+                "event_type": null
+              }
+            ],
+            "sla": {
+              "mttd": null,
+              "mtta": null,
+              "mttt": null,
+              "mtti": null,
+              "mttn": null,
+              "mttv": null,
+              "mttr": null
+            }
+          }
+        }
+    ]
