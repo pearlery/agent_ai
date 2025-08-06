@@ -1,0 +1,90 @@
+{
+  "agent.overview.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": {
+        "description": "test."
+      }
+    }
+  ],
+  "agent.tools.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": [
+        {
+          "name": "Suricata IDS",
+          "status": "active"
+        },
+        {
+          "name": "OSQuery",
+          "status": "inactive"
+        },
+        {
+          "name": "YARA Scanner",
+          "status": "missing"
+        }
+      ]
+    }
+  ],
+  "agent.recommendation.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": {
+        "description": "Analyze the log data...",
+        "content": "The task is to analyze the log data..."
+      }
+    }
+  ],
+  "agent.checklist.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": {
+        "title": "Review Log Data",
+        "content": "Review the log data..."
+      }
+    }
+  ],
+  "agent.executive.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": {
+        "title": "Security Event Detected",
+        "content": "A potential security event was detected..."
+      }
+    }
+  ],
+  "agent.attack.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": [
+        {
+          "tacticID": "TA0001",
+          "tacticName": "Initial Access",
+          "confidence": 0.9
+        },
+        {
+          "tacticID": "TA0002",
+          "tacticName": "Execution",
+          "confidence": 0.75
+        }
+      ]
+    }
+  ],
+  "agent.timeline.updated": [
+    {
+      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
+      "data": [
+        {
+          "stage": "Received Alert",
+          "status": "success",
+          "errorMessage": ""
+        },
+        {
+          "stage": "Type Agent",
+          "status": "error",
+          "errorMessage": "test123"
+        }
+      ]
+    }
+  ]
+}

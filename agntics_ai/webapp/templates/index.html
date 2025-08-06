@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agntics AI - Latest Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        .report-card {
+            border-left: 4px solid #0d6efd;
+        }
+        .mitre-badge {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
+            color: white;
+        }
+        .alert-info-card {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+        }
+        .json-container {
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+        }
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-online { background-color: #28a745; }
+        .status-offline { background-color: #dc3545; }
+        .markdown-content {
+            line-height: 1.6;
+        }
+        .markdown-content h1 { color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 0.3em; }
+        .markdown-content h2 { color: #6f42c1; border-bottom: 1px solid #6f42c1; padding-bottom: 0.2em; }
+        .markdown-content h3 { color: #0d6efd; }
+        .markdown-content pre { background-color: #f8f9fa; padding: 1rem; border-radius: 0.375rem; overflow-x: auto; }
+        .markdown-content code { background-color: #f8f9fa; padding: 0.2rem 0.4rem; border-radius: 0.25rem; }
+        .markdown-content blockquote { border-left: 4px solid #6c757d; padding-left: 1rem; margin-left: 0; color: #6c757d; }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="display-6 mb-0">🔍 Agntics AI - Latest Report</h1>
+                        <p class="text-muted mb-0">Multi-Agent Cybersecurity Analysis System</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="mb-2">
+                            <span class="status-indicator status-online"></span>
+                            <small class="text-muted">System Online</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="refreshPage()">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Alert Summary Card -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card alert-info-card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">📋 Alert Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Alert ID:</strong> <code>{{ alert_id }}</code></p>
+                                {% if raw_log_data.get('timestamp') %}
+                                <p><strong>Timestamp:</strong> {{ raw_log_data.get('timestamp') }}</p>
+                                {% endif %}
+                                {% if raw_log_data.get('hostname') %}
+                                <p><strong>Hostname:</strong> <code>{{ raw_log_data.get('hostname') }}</code></p>
+                                {% endif %}
+                                {% if raw_log_data.get('severity') %}
+                                <p><strong>Severity:</strong> 
+                                    <span class="badge bg-{{ 'danger' if raw_log_data.get('severity') == 'Critical' else 'warning' if raw_log_data.get('severity') == 'High' else 'info' }}">
+                                        {{ raw_log_data.get('severity') }}
+                                    </span>
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if raw_log_data.get('process_name') %}
+                                <p><strong>Process:</strong> <code>{{ raw_log_data.get('process_name') }}</code></p>
+                                {% endif %}
+                                {% if raw_log_data.get('user') %}
+                                <p><strong>User:</strong> {{ raw_log_data.get('user') }}</p>
+                                {% endif %}
+                                {% if raw_log_data.get('source_ip') %}
+                                <p><strong>Source IP:</strong> <code>{{ raw_log_data.get('source_ip') }}</code></p>
+                                {% endif %}
+                                {% if raw_log_data.get('log_source') %}
+                                <p><strong>Log Source:</strong> {{ raw_log_data.get('log_source') }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">🎯 MITRE ATT&CK Mapping</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if mitre_analysis %}
+                        <div class="text-center mb-3">
+                            <span class="badge mitre-badge fs-6 px-3 py-2">
+                                {{ mitre_analysis.get('technique_id', 'Unknown') }}
+                            </span>
+                        </div>
+                        <p><strong>Technique:</strong> {{ mitre_analysis.get('technique_name', 'Unknown') }}</p>
+                        <p><strong>Tactic:</strong> {{ mitre_analysis.get('tactic', 'Unknown') }}</p>
+                        {% if mitre_analysis.get('confidence_score') %}
+                        <p><strong>Confidence:</strong> 
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ (mitre_analysis.get('confidence_score', 0) * 100)|round }}%"
+                                     aria-valuenow="{{ (mitre_analysis.get('confidence_score', 0) * 100)|round }}" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                    {{ (mitre_analysis.get('confidence_score', 0) * 100)|round }}%
+                                </div>
+                            </div>
+                        </p>
+                        {% endif %}
+                        {% else %}
+                        <p class="text-muted">No MITRE analysis available</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Incident Report -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card report-card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">📄 Incident Analysis Report</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="markdown-content">
+                            {% if incident_report %}
+                                <!-- Render Markdown content -->
+                                <div id="report-content">{{ incident_report | safe }}</div>
+                            {% else %}
+                                <div class="alert alert-info" role="alert">
+                                    <h6><i class="bi bi-info-circle"></i> No Report Available</h6>
+                                    <p class="mb-0">No incident reports have been generated yet. Please ensure the agents are running and processing alerts.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raw Data Accordion -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="accordion" id="rawDataAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#rawDataCollapse" 
+                                    aria-expanded="false" aria-controls="rawDataCollapse">
+                                <strong>🔧 Technical Details & Raw Data</strong>
+                            </button>
+                        </h2>
+                        <div id="rawDataCollapse" class="accordion-collapse collapse" 
+                             data-bs-parent="#rawDataAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Raw Log Data:</h6>
+                                        <div class="json-container">
+                                            <pre><code id="raw-log-data">{{ raw_log_data | tojson(indent=2) if raw_log_data else '{}' }}</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>MITRE Analysis Details:</h6>
+                                        <div class="json-container">
+                                            <pre><code id="mitre-analysis-data">{{ mitre_analysis | tojson(indent=2) if mitre_analysis else '{}' }}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-5">
+            <div class="text-muted">
+                <small>
+                    Powered by <strong>Agntics AI</strong> | 
+                    Multi-Agent Cybersecurity Analysis System | 
+                    Last Updated: <span id="last-updated">{{ moment().format('YYYY-MM-DD HH:mm:ss') }}</span>
+                </small>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="btn btn-primary refresh-btn rounded-circle" onclick="refreshPage()" title="Refresh">
+        <i class="bi bi-arrow-clockwise"></i> 🔄
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.1/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        // Refresh the page
+        function refreshPage() {
+            window.location.reload();
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(function() {
+            // Only auto-refresh if the page is visible
+            if (!document.hidden) {
+                refreshPage();
+            }
+        }, 30000);
+
+        // Process markdown content if marked library is available
+        document.addEventListener('DOMContentLoaded', function() {
+            const reportContent = document.getElementById('report-content');
+            if (reportContent && typeof marked !== 'undefined') {
+                const markdownText = reportContent.textContent || reportContent.innerText;
+                if (markdownText && markdownText.trim() !== '') {
+                    // Configure marked options
+                    marked.setOptions({
+                        gfm: true,
+                        breaks: true,
+                        sanitize: false
+                    });
+                    
+                    // Convert markdown to HTML
+                    reportContent.innerHTML = marked.parse(markdownText);
+                }
+            }
+            
+            // Update last updated timestamp
+            const lastUpdated = document.getElementById('last-updated');
+            if (lastUpdated) {
+                lastUpdated.textContent = new Date().toLocaleString();
+            }
+            
+            // Initialize syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // Page became visible, check for updates
+                setTimeout(refreshPage, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
