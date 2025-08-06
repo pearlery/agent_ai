@@ -5,8 +5,12 @@ import asyncio
 import json
 import logging
 from typing import Dict, Any
-from utils.nats_handler import NATSHandler
-from utils.llm_handler import get_llm_completion, create_recommendation_prompt
+from ..utils.nats_handler import NATSHandler
+from ..utils.llm_handler_ollama import get_llm_completion, create_recommendation_prompt
+from ..utils.output_handler import get_output_handler
+from ..utils.timeline_tracker import get_timeline_tracker, TimelineStage, TimelineStatus
+from ..utils.tools_monitor import get_tools_monitor
+from ..utils.persistence import get_default_persistence
 
 logger = logging.getLogger(__name__)
 
@@ -16,17 +20,22 @@ class RecommendationAgent:
     Recommendation Agent that processes MITRE analysis results and generates incident reports.
     """
     
-    def __init__(self, nats_handler: NATSHandler, llm_config: Dict[str, Any]):
+    def __init__(self, nats_handler: NATSHandler, llm_config: Dict[str, Any], output_file: str = "output.json"):
         """
         Initialize the Recommendation Agent.
         
         Args:
             nats_handler: Connected NATS handler instance
             llm_config: LLM configuration dictionary
+            output_file: Path to output JSON file
         """
         self.nats_handler = nats_handler
         self.llm_config = llm_config
         self.running = False
+        self.output_file = output_file
+        self.output_handler = get_output_handler(output_file)
+        self.tools_monitor = get_tools_monitor()
+        self.persistence = get_default_persistence()
     
     async def run(self) -> None:
         """
@@ -55,14 +64,34 @@ class RecommendationAgent:
                         try:
                             # Decode the message payload
                             payload = json.loads(msg.data.decode('utf-8'))
-                            logger.info(f"Generating recommendation for: {payload.get('alert_id', 'unknown')}")
+                            alert_id = payload.get('alert_id', 'unknown')
+                            session_id = payload.get('session_id', alert_id)
+                            logger.info(f"Generating recommendation for: {alert_id}")
+                            
+                            # Initialize timeline tracker
+                            timeline = get_timeline_tracker(session_id, self.output_file)
+                            timeline.mark_stage_in_progress(TimelineStage.RECOMMENDATION_AGENT)
+                            
+                            # Update tools status
+                            await self.tools_monitor.update_output(session_id, self.output_file)
                             
                             # Generate incident report
                             report = await self._generate_report(payload)
                             
+                            # Save report data
+                            self.persistence.save_report(session_id, {
+                                'markdown_report': report,
+                                'analysis_data': payload.get('mitre_analysis', {}),
+                                'alert_id': alert_id
+                            })
+                            
+                            # Update output with recommendations and other sections
+                            await self._update_output_sections(session_id, payload, report)
+                            
                             # Create final output payload
                             final_payload = {
-                                "alert_id": payload.get('alert_id'),
+                                "alert_id": alert_id,
+                                "session_id": session_id,
                                 "original_alert": payload.get('original_payload', {}),
                                 "raw_log_data": payload.get('raw_log_data', {}),
                                 "mitre_analysis": payload.get('mitre_analysis', {}),
@@ -77,15 +106,31 @@ class RecommendationAgent:
                                 payload=final_payload
                             )
                             
+                            # Mark timeline as successful and complete
+                            timeline.mark_stage_success(TimelineStage.RECOMMENDATION_AGENT)
+                            timeline.mark_stage_success(TimelineStage.OUTPUT_GENERATED)
+                            timeline.complete_processing(True, "All processing stages completed successfully")
+                            
                             # Acknowledge the message
                             await msg.ack()
-                            logger.info(f"Successfully generated and published report for: {payload.get('alert_id')}")
+                            logger.info(f"Successfully generated and published report for: {alert_id}")
                             
                         except json.JSONDecodeError as e:
                             logger.error(f"Failed to decode message JSON: {e}")
                             await msg.ack()  # Acknowledge to prevent redelivery
                         except Exception as e:
                             logger.error(f"Failed to process message: {e}")
+                            
+                            # Mark timeline as error if we have session info
+                            try:
+                                payload = json.loads(msg.data.decode('utf-8'))
+                                session_id = payload.get('session_id', payload.get('alert_id', 'unknown'))
+                                timeline = get_timeline_tracker(session_id, self.output_file)
+                                timeline.mark_stage_error(TimelineStage.RECOMMENDATION_AGENT, str(e))
+                                timeline.complete_processing(False, f"Processing failed: {str(e)}")
+                            except:
+                                pass
+                            
                             # Don't acknowledge - message will be redelivered
                 
                 except asyncio.TimeoutError:
@@ -224,6 +269,83 @@ An error occurred while generating the incident report for this alert.
 This alert requires manual analysis by a security analyst.
 """
     
+    async def _update_output_sections(self, session_id: str, payload: Dict[str, Any], report: str) -> None:
+        """
+        Update all output sections with the final analysis results.
+        
+        Args:
+            session_id: Session identifier
+            payload: Complete payload with analysis data
+            report: Generated markdown report
+        """
+        try:
+            analysis_data = payload.get('mitre_analysis', {})
+            
+            # Extract key information
+            technique_name = analysis_data.get('technique_name', 'Unknown')
+            tactic = analysis_data.get('tactic', 'Unknown')
+            confidence = analysis_data.get('confidence_score', 0.0)
+            
+            # Update recommendation section
+            recommendation_desc = f"Generated incident response recommendations for {technique_name} technique"
+            self.output_handler.update_recommendation(
+                session_id, 
+                recommendation_desc, 
+                report
+            )
+            
+            # Update executive summary
+            executive_title = f"Security Incident Analysis - {tactic}"
+            executive_content = f"Detected {technique_name} technique with {confidence:.2f} confidence score. Immediate containment and investigation recommended."
+            self.output_handler.update_executive_summary(
+                session_id,
+                executive_title,
+                executive_content
+            )
+            
+            # Update checklist
+            checklist_title = "Incident Response Checklist"
+            checklist_content = self._generate_checklist(analysis_data)
+            self.output_handler.update_checklist(
+                session_id,
+                checklist_title,
+                checklist_content
+            )
+            
+            # Save all updates
+            self.output_handler.save_to_file()
+            logger.info(f"Updated all output sections for session {session_id}")
+            
+        except Exception as e:
+            logger.error(f"Failed to update output sections: {e}")
+    
+    def _generate_checklist(self, analysis_data: Dict[str, Any]) -> str:
+        """
+        Generate a checklist based on analysis data.
+        
+        Args:
+            analysis_data: Analysis results
+            
+        Returns:
+            Formatted checklist string
+        """
+        technique_name = analysis_data.get('technique_name', 'Unknown')
+        tactic = analysis_data.get('tactic', 'Unknown')
+        
+        checklist_items = [
+            "[ ] Isolate affected host from network",
+            "[ ] Collect forensic evidence",
+            "[ ] Check for lateral movement",
+            "[ ] Review security logs for similar activity",
+            f"[ ] Implement {tactic} detection rules",
+            f"[ ] Update security controls for {technique_name}",
+            "[ ] Document incident timeline",
+            "[ ] Notify stakeholders",
+            "[ ] Begin remediation activities"
+        ]
+        
+        return "\n".join(checklist_items)
+
     def stop(self) -> None:
         """Stop the agent gracefully."""
         self.running = False

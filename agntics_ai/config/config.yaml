@@ -1,3 +1,4 @@
+# NATS Configuration
 nats:
   server_url: "nats://localhost:4222"
   stream_name: "AGENT_AI_PIPELINE"
@@ -6,11 +7,11 @@ nats:
     analysis: "agentAI.analysis"
     output: "agentAI.output"
 
+# LLM Configuration (Ollama only)
 llm:
-  api_base: "http://localhost:8000/v1"
-  api_key: "dummy_key"
-  model: "Qwen/Qwen3-32B"
-  temperature: 0.1
+  local_url: "http://localhost:11434/api/generate"
+  local_model: "qwen3:235b"
+  temperature: 0.05
   max_tokens: 2048
 
 webapp:

@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # NATS JetStream Server
+  nats-server:
+    image: nats:2.10-alpine
+    container_name: agent-ai-nats-server
+    command: 
+      - "--jetstream"
+      - "--store_dir=/data"
+      - "--max_memory_store=1GB"
+      - "--max_file_store=10GB"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+    volumes:
+      - nats-data:/data
+    networks:
+      - agent-ai-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nats", "server", "check", "--server=nats://localhost:4222"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Agent AI Application
+  agent-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent-ai-app
+    environment:
+      # NATS Configuration
+      - NATS_SERVER_URL=nats://nats-server:4222
+      - NATS_STREAM_NAME=AGENT_AI_PIPELINE
+      - AUTO_OPEN_CONNECTION=true
+      
+      # LLM Configuration
+      - LLM_API_BASE=http://localhost:8000/v1
+      - LLM_MODEL=Qwen/Qwen3-32B
+      - LLM_TEMPERATURE=0.05
+      - LLM_MAX_TOKENS=2048
+      
+      # Web App Configuration
+      - WEBAPP_HOST=0.0.0.0
+      - WEBAPP_PORT=5000
+      - WEBAPP_DEBUG=false
+      
+      # Logging
+      - LOG_LEVEL=INFO
+    ports:
+      - "5000:5000"
+    depends_on:
+      nats-server:
+        condition: service_healthy
+    networks:
+      - agent-ai-network
+    restart: unless-stopped
+    volumes:
+      - ./agntics_ai:/app/agntics_ai:ro
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Ollama (Optional - for local LLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: agent-ai-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - agent-ai-network
+    restart: unless-stopped
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    profiles:
+      - ollama  # Use with: docker-compose --profile ollama up
+
+volumes:
+  nats-data:
+    driver: local
+  ollama-data:
+    driver: local
+
+networks:
+  agent-ai-network:
+    driver: bridge
+    name: agent-ai-network

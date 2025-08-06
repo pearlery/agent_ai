@@ -1,114 +1,91 @@
 """
-Enhanced LLM handler supporting both OpenAI-compatible APIs and local Ollama.
+Simplified LLM handler for Ollama only.
 """
 import logging
-from typing import List, Dict, Any, Optional
-import openai
-from openai import AsyncOpenAI
+from typing import List, Dict, Any
 import aiohttp
 import json
 
 logger = logging.getLogger(__name__)
 
 
-async def get_llm_completion(messages: List[Dict[str, str]], llm_config: Dict[str, Any], use_local: bool = False) -> str:
+async def get_llm_completion(messages: List[Dict[str, str]], llm_config: Dict[str, Any], max_retries: int = 3) -> str:
     """
-    Get completion from LLM using either OpenAI-compatible API or local Ollama.
+    Get completion from Ollama local API with retry logic.
     
     Args:
         messages: List of message dictionaries with 'role' and 'content' keys
-        llm_config: LLM configuration containing api_base, api_key, model, etc.
-        use_local: Whether to use local Ollama instead of OpenAI-compatible API
+        llm_config: LLM configuration containing local_url, local_model, etc.
+        max_retries: Maximum number of retry attempts
         
     Returns:
         str: The content of the LLM response
         
     Raises:
-        Exception: If API call fails
+        Exception: If API call fails after all retries
     """
-    if use_local:
-        return await _get_ollama_completion(messages, llm_config)
-    else:
-        return await _get_openai_completion(messages, llm_config)
-
-
-async def _get_openai_completion(messages: List[Dict[str, str]], llm_config: Dict[str, Any]) -> str:
-    """Get completion using OpenAI-compatible API."""
-    try:
-        # Initialize OpenAI client with custom base URL
-        client = AsyncOpenAI(
-            api_key=llm_config.get('api_key', 'dummy_key'),
-            base_url=llm_config.get('api_base', 'http://localhost:8000/v1')
-        )
-        
-        # Make API call
-        response = await client.chat.completions.create(
-            model=llm_config.get('model', 'Qwen/Qwen3-32B'),
-            messages=messages,
-            temperature=llm_config.get('temperature', 0.05),
-            max_tokens=llm_config.get('max_tokens', 2048)
-        )
-        
-        # Extract content from response
-        if response.choices and response.choices[0].message:
-            content = response.choices[0].message.content
-            logger.info(f"OpenAI-compatible API completion successful, response length: {len(content) if content else 0}")
-            return content or ""
-        else:
-            logger.warning("OpenAI-compatible API response contains no content")
-            return ""
+    last_exception = None
+    
+    for attempt in range(max_retries + 1):
+        try:
+            # Convert messages to Ollama format
+            prompt = _convert_messages_to_prompt(messages)
             
-    except openai.APIError as e:
-        logger.error(f"OpenAI API error: {e}")
-        raise Exception(f"LLM API error: {e}")
-    except openai.APIConnectionError as e:
-        logger.error(f"OpenAI API connection error: {e}")
-        raise Exception(f"LLM connection error: {e}")
-    except openai.RateLimitError as e:
-        logger.error(f"OpenAI rate limit error: {e}")
-        raise Exception(f"LLM rate limit error: {e}")
-    except Exception as e:
-        logger.error(f"Unexpected error in OpenAI-compatible API completion: {e}")
-        raise Exception(f"LLM completion failed: {e}")
-
-
-async def _get_ollama_completion(messages: List[Dict[str, str]], llm_config: Dict[str, Any]) -> str:
-    """Get completion using local Ollama API."""
-    try:
-        # Convert messages to Ollama format
-        prompt = _convert_messages_to_prompt(messages)
-        
-        # Prepare Ollama request
-        ollama_data = {
-            "model": llm_config.get('local_model', 'qwen3:235b'),
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": llm_config.get('temperature', 0.05),
-                "num_predict": llm_config.get('max_tokens', 2048)
+            # Prepare Ollama request
+            ollama_data = {
+                "model": llm_config.get('local_model', 'qwen3:235b'),
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "temperature": llm_config.get('temperature', 0.05),
+                    "num_predict": llm_config.get('max_tokens', 2048)
+                }
             }
-        }
+            
+            # Make request to Ollama
+            local_url = llm_config.get('local_url', 'http://localhost:11434/api/generate')
+            
+            # Set timeout based on attempt (progressive timeout)
+            timeout = aiohttp.ClientTimeout(total=30 + (attempt * 10))
+            
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.post(local_url, json=ollama_data) as response:
+                    if response.status == 200:
+                        result = await response.json()
+                        content = result.get('response', '')
+                        if attempt > 0:
+                            logger.info(f"Ollama completion successful on attempt {attempt + 1}, response length: {len(content)}")
+                        else:
+                            logger.debug(f"Ollama completion successful, response length: {len(content)}")
+                        return content
+                    else:
+                        error_text = await response.text()
+                        logger.warning(f"Ollama API error on attempt {attempt + 1}: {response.status} - {error_text}")
+                        last_exception = Exception(f"Ollama API error: {response.status}")
+                        
+                        # Don't retry on client errors (4xx)
+                        if 400 <= response.status < 500:
+                            break
+                        
+        except aiohttp.ClientError as e:
+            logger.warning(f"Ollama connection error on attempt {attempt + 1}: {e}")
+            last_exception = Exception(f"Ollama connection error: {e}")
+        except asyncio.TimeoutError as e:
+            logger.warning(f"Ollama timeout on attempt {attempt + 1}: {e}")
+            last_exception = Exception(f"Ollama timeout error: {e}")
+        except Exception as e:
+            logger.warning(f"Unexpected error on attempt {attempt + 1}: {e}")
+            last_exception = Exception(f"Ollama completion failed: {e}")
         
-        # Make request to Ollama
-        local_url = llm_config.get('local_url', 'http://localhost:11434/api/generate')
-        async with aiohttp.ClientSession() as session:
-            async with session.post(local_url, json=ollama_data) as response:
-                if response.status == 200:
-                    result = await response.json()
-                    content = result.get('response', '')
-                    logger.info(f"Ollama completion successful, response length: {len(content)}")
-                    return content
-                else:
-                    error_text = await response.text()
-                    logger.error(f"Ollama API error: {response.status} - {error_text}")
-                    raise Exception(f"Ollama API error: {response.status}")
-                    
-    except aiohttp.ClientError as e:
-        logger.error(f"Ollama connection error: {e}")
-        raise Exception(f"Ollama connection error: {e}")
-    except Exception as e:
-        logger.error(f"Unexpected error in Ollama completion: {e}")
-        raise Exception(f"Ollama completion failed: {e}")
+        # Wait before retrying (exponential backoff)
+        if attempt < max_retries:
+            wait_time = min(2 ** attempt, 10)  # Cap at 10 seconds
+            logger.info(f"Retrying in {wait_time} seconds... (attempt {attempt + 2}/{max_retries + 1})")
+            await asyncio.sleep(wait_time)
+    
+    # All retries failed
+    logger.error(f"Ollama completion failed after {max_retries + 1} attempts")
+    raise last_exception or Exception("Ollama completion failed after all retries")
 
 
 def _convert_messages_to_prompt(messages: List[Dict[str, str]]) -> str:

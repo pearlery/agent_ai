@@ -15,7 +15,7 @@ from nats.aio.client import Client as NATS
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 
-from utils.nats_handler import NATSHandler
+from ..utils.nats_handler import NATSHandler
 
 logger = logging.getLogger(__name__)
 

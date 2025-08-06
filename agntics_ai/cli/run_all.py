@@ -12,10 +12,10 @@ import yaml
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-from utils.nats_handler import NATSHandler
-from agents.input_agent import run_input_agent
-from agents.analysis_agent import AnalysisAgent
-from agents.recommendation_agent import RecommendationAgent
+from ..utils.nats_handler import NATSHandler
+from ..agents.input_agent import run_input_agent
+from ..agents.analysis_agent import AnalysisAgent
+from ..agents.recommendation_agent import RecommendationAgent
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,8 @@ class AgentOrchestrator:
         try:
             alert_file_path = Path(__file__).parent.parent / "data" / "test.json"
             logger.info("Starting input phase...")
-            await run_input_agent(self.nats_handler, str(alert_file_path))
+            output_file_path = Path(__file__).parent.parent.parent / "output.json"
+            await run_input_agent(self.nats_handler, str(alert_file_path), str(output_file_path))
             logger.info("Input phase completed")
         except Exception as e:
             logger.error(f"Input phase failed: {e}")
@@ -86,9 +87,10 @@ class AgentOrchestrator:
         These agents run continuously to process alerts.
         """
         try:
-            # Create agent instances
-            analysis_agent = AnalysisAgent(self.nats_handler, self.config['llm'])
-            recommendation_agent = RecommendationAgent(self.nats_handler, self.config['llm'])
+            # Create agent instances  
+            output_file = str(Path(__file__).parent.parent.parent / "output.json")
+            analysis_agent = AnalysisAgent(self.nats_handler, self.config['llm'], output_file)
+            recommendation_agent = RecommendationAgent(self.nats_handler, self.config['llm'], output_file)
             
             # Store agent references for cleanup
             self.agents = [analysis_agent, recommendation_agent]
@@ -200,8 +202,9 @@ async def run_demo_mode():
         # Run processing for a limited time
         print("🔄 Processing alerts...")
         
-        analysis_agent = AnalysisAgent(orchestrator.nats_handler, orchestrator.config['llm'])
-        recommendation_agent = RecommendationAgent(orchestrator.nats_handler, orchestrator.config['llm'])
+        output_file = str(Path(__file__).parent.parent.parent / "output.json")
+        analysis_agent = AnalysisAgent(orchestrator.nats_handler, orchestrator.config['llm'], output_file)
+        recommendation_agent = RecommendationAgent(orchestrator.nats_handler, orchestrator.config['llm'], output_file)
         
         # Run for 30 seconds or until all alerts are processed
         processing_task = asyncio.gather(
