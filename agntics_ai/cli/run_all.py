@@ -18,6 +18,7 @@ from ..agents.input_agent import run_input_agent
 from ..agents.analysis_agent import AnalysisAgent
 from ..agents.recommendation_agent import RecommendationAgent
 from ..control.control_app import create_app
+from ..utils.graphql_publisher import init_graphql_publisher
 import threading
 import uvicorn
 
@@ -76,6 +77,11 @@ class AgentOrchestrator:
             logger.warning(f"Failed to initialize NATS: {e}")
             logger.info("Running without NATS - some features may be limited")
             self.nats_handler = None
+        
+        # Initialize GraphQL Publisher
+        graphql_topic = self.config.get('nats', {}).get('subjects', {}).get('graphql_mutation', 'agentAI.graphql.mutation')
+        init_graphql_publisher(self.nats_handler, graphql_topic)
+        logger.info(f"GraphQL Publisher initialized with topic: {graphql_topic}")
     
     def start_control_agent(self) -> None:
         """Start the Control Agent API server in a separate thread."""

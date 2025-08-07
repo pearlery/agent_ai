@@ -20,7 +20,9 @@
       "Bash(cp:*)",
       "Bash(grep:*)",
       "Bash(pip check)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(move:*)"
     ],
     "deny": []
   }

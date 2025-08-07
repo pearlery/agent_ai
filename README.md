@@ -6,9 +6,11 @@
 - [คุณสมบัติหลัก](#คุณสมบัติหลัก-key-features)
 - [การเริ่มต้นใช้งาน](#การเริ่มต้นใช้งาน-getting-started)
 - [การตั้งค่าและการกำหนดค่า](#การตั้งค่าและการกำหนดค่า-configuration)
+- [GraphQL Integration](#graphql-integration)
 - [คู่มือการใช้งาน](#คู่มือการใช้งาน-usage-guide)
 - [Web Interface และ Real-time Monitoring](#web-interface-และ-real-time-monitoring)
 - [API Documentation](#api-documentation)
+- [การทดสอบระบบ](#การทดสอบระบบ-testing)
 - [การพัฒนาและขยายระบบ](#การพัฒนาและขยายระบบ-development--extension)
 - [Troubleshooting](#troubleshooting)
 
@@ -380,6 +382,226 @@ logging:
 }]
 ```
 
+## 🔗 GraphQL Integration
+
+### ภาพรวม GraphQL Integration
+
+Agent AI ระบบสามารถส่งข้อมูลไป **Frontend GraphQL Server** ผ่าน **NATS Message Queue** แบบ real-time โดยใช้ pattern การทำ **Mutation** แล้วค่อย **Query** มาแสดงหน้าเว็บ
+
+### สถาปัตยกรรม GraphQL Flow
+
+```
+Agent AI → NATS → GraphQL Server → Frontend UI
+```
+
+#### Data Flow Details:
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────────┐
+│   Agent AI      │    │   NATS Queue     │    │  GraphQL Server     │
+│                 │    │                  │    │                     │
+│ ▶ Output Update │───▶│ agentAI.graphql  │───▶│ ▶ handleMutation()  │
+│ ▶ Timeline      │    │   .mutation      │    │ ▶ pubsub.publish()  │
+│ ▶ Analysis      │    │                  │    │                     │
+│ ▶ Recommendation│    └──────────────────┘    └─────────┬───────────┘
+└─────────────────┘                                      │
+                                                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend UI                              │
+│  ▶ GraphQL Subscriptions (Real-time)                      │
+│  ▶ onOverviewUpdated, onTimelineUpdated                   │
+│  ▶ onAttackTypeUpdated, onRecommendationUpdated           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### การตั้งค่า GraphQL Integration
+
+#### 1. NATS Topic Configuration
+ใน `agntics_ai/config/config.yaml`:
+```yaml
+nats:
+  subjects:
+    graphql_mutation: "agentAI.graphql.mutation"
+```
+
+#### 2. GraphQL Publisher
+ระบบใช้ `GraphQLPublisher` class สำหรับส่งข้อมูล:
+```python
+from agntics_ai.utils.graphql_publisher import init_graphql_publisher
+
+# Initialize ใน run_all.py
+publisher = init_graphql_publisher(nats_handler, "agentAI.graphql.mutation")
+```
+
+#### 3. Frontend GraphQL Server Setup
+Frontend Server รับข้อมูลจาก NATS และส่งต่อไป GraphQL subscriptions:
+
+```typescript
+// Frontend_AIAgent/server/SUB_Server.ts
+const topicToFieldMap = {
+  'agentAI.graphql.mutation': 'onMutationReceived',
+  // ... other topics
+}
+```
+
+### GraphQL Mutation Types
+
+ระบบรองรับ mutation types ต่อไปนี้:
+
+#### 1. **updateOverview**
+```json
+{
+  "mutation_type": "updateOverview",
+  "variables": {
+    "sessionId": "session-uuid",
+    "description": "Alert received and processing started",
+    "timestamp": "2025-08-07T16:30:00Z"
+  }
+}
+```
+
+#### 2. **updateAttackAnalysis**
+```json
+{
+  "mutation_type": "updateAttackAnalysis", 
+  "variables": {
+    "sessionId": "session-uuid",
+    "attackData": [
+      {
+        "tacticID": "TA0001",
+        "tacticName": "Initial Access",
+        "confidence": 0.85
+      }
+    ]
+  }
+}
+```
+
+#### 3. **updateTimeline**
+```json
+{
+  "mutation_type": "updateTimeline",
+  "variables": {
+    "sessionId": "session-uuid",
+    "timelineData": [
+      {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+      {"stage": "Type Agent", "status": "in_progress", "errorMessage": ""}
+    ]
+  }
+}
+```
+
+#### 4. **updateRecommendations**
+```json
+{
+  "mutation_type": "updateRecommendations",
+  "variables": {
+    "sessionId": "session-uuid",
+    "recommendations": [
+      {
+        "description": "Immediate Response",
+        "content": "Block suspicious IP addresses"
+      }
+    ]
+  }
+}
+```
+
+#### 5. **updateExecutiveSummary**
+```json
+{
+  "mutation_type": "updateExecutiveSummary",
+  "variables": {
+    "sessionId": "session-uuid",
+    "title": "Incident Summary",
+    "content": "Critical security incident detected"
+  }
+}
+```
+
+### การทำงานของ Output Handler Integration
+
+ทุกครั้งที่มีการอัพเดทข้อมูลผ่าน `OutputHandler` จะส่งข้อมูลไป GraphQL อัตโนมัติ:
+
+```python
+# ตัวอย่าง: เมื่อ update overview
+output_handler.update_overview(session_id, "New incident detected")
+# ▶ จะส่ง mutation ไป NATS topic อัตโนมัติ
+```
+
+### การเริ่มใช้งาน GraphQL Integration
+
+#### 1. เริ่ม NATS Server
+```bash
+nats-server -js
+```
+
+#### 2. เริ่ม Frontend GraphQL Server
+```bash
+cd C:\Users\p\Desktop\Agentic\Frontend_AIAgent
+npm install
+npm start
+```
+- GraphQL Server: http://localhost:4000/graphql
+- WebSocket Subscriptions: ws://localhost:4000/graphql
+
+#### 3. เริ่ม Agent AI System
+```bash
+cd C:\Users\p\Desktop\Agentic\agent_ai
+python -m agntics_ai.cli.run_all --docker
+```
+
+#### 4. ทดสอบ Integration
+```bash
+cd tests
+python test_graphql_integration.py
+```
+
+### Frontend GraphQL Subscriptions
+
+Frontend สามารถ subscribe ข้อมูลแบบ real-time:
+
+```graphql
+subscription {
+  onOverviewUpdated {
+    description
+  }
+  onTimelineUpdated {
+    stage
+    status
+    errorMessage
+  }
+  onAttackTypeUpdated {
+    tacticID
+    tacticName
+    confidence
+  }
+  onRecommendationUpdated {
+    description
+    content
+  }
+}
+```
+
+### การ Monitor และ Debug
+
+#### ตรวจสอบ NATS Messages:
+```bash
+nats sub "agentAI.graphql.mutation"
+```
+
+#### ตรวจสอบ GraphQL Server Console:
+- ดูข้อความ `🔄 GraphQL Mutation: [mutation_type]`
+- ตรวจสอบ WebSocket connections
+- Monitor subscription events
+
+### ข้อดีของ GraphQL Integration
+
+1. **Real-time Updates**: ข้อมูลอัพเดททันทีที่มีการเปลี่ยนแปลง
+2. **Type Safety**: GraphQL schema ป้องกันข้อผิดพลาดด้าน types
+3. **Flexible Queries**: Frontend สามารถเลือกข้อมูลที่ต้องการได้
+4. **Scalable**: รองรับ multiple frontend clients
+5. **Decoupled**: Agent AI ไม่ต้องรู้จัก Frontend directly
+
 ## 📚 คู่มือการใช้งาน (Usage Guide)
 
 ### 🎮 การทดสอบระบบ
@@ -683,6 +905,189 @@ Health check endpoint
 }
 ```
 
+## 🧪 การทดสอบระบบ (Testing)
+
+### Test Suite Overview
+
+ระบบ Agent AI มี test suite ที่ครอบคลุม สำหรับทดสอบการทำงานของแต่ละส่วน และการเชื่อมต่อระหว่างกัน
+
+### Test Files Structure
+
+```
+tests/
+├── __init__.py
+├── README.md
+├── test_graphql_integration.py    # ทดสอบ GraphQL integration
+└── test_system_integration.py     # ทดสอบระบบทั้งหมด
+```
+
+### 1. GraphQL Integration Test
+
+**ไฟล์**: `tests/test_graphql_integration.py`
+
+**การทดสอบ**:
+- การส่งข้อมูลผ่าน NATS ไป GraphQL mutations
+- การทำงานของ GraphQL Publisher
+- การอัพเดทข้อมูลแบบ real-time ใน Frontend
+
+**การรัน**:
+```bash
+cd tests
+python test_graphql_integration.py
+```
+
+**ผลลัพธ์ที่คาดหวัง**:
+- ✅ NATS connection established
+- ✅ GraphQL Publisher initialized
+- ✅ Overview/Attack/Timeline/Recommendation updates sent
+- ✅ Session management working
+
+### 2. System Integration Test
+
+**ไฟล์**: `tests/test_system_integration.py`
+
+**การทดสอบ**:
+- Complete workflow จาก alert → analysis → recommendation
+- Control Agent และ session management
+- Error handling และ graceful degradation
+- NATS communication และ message flow
+
+**การรัน**:
+```bash
+cd tests
+python test_system_integration.py
+```
+
+**ผลลัพธ์ที่คาดหวัง**:
+- ✅ End-to-end workflow completed
+- ✅ All agents communicate properly
+- ✅ Timeline tracking works
+- ✅ Error scenarios handled gracefully
+
+### การเตรียม Test Environment
+
+#### 1. เริ่ม Required Services
+```bash
+# NATS Server
+nats-server -js
+
+# Frontend GraphQL Server (ใน terminal แยก)
+cd C:\Users\p\Desktop\Agentic\Frontend_AIAgent
+npm install
+npm start
+```
+
+#### 2. ตรวจสอบ Services
+```bash
+# ตรวจสอบ NATS
+curl http://localhost:8222/varz
+
+# ตรวจสอบ GraphQL Server
+curl http://localhost:4000/graphql
+```
+
+### การ Monitor Test Results
+
+#### 1. NATS Messages
+```bash
+# ดู messages ทั้งหมด
+nats sub "agentAI.>"
+
+# ดู GraphQL mutations เฉพาะ
+nats sub "agentAI.graphql.mutation"
+```
+
+#### 2. Frontend GraphQL Console
+ดูใน Frontend Server console สำหรับข้อความ:
+- 📥 Topic → Field mappings
+- 🔄 GraphQL Mutation: [mutation_type]
+- ✅ Full Output Update processed
+
+#### 3. Test Output Files
+- `test_output.json` - Output จากการ test
+- Console logs - รายละเอียดการทดสอบ
+
+### การเขียน Test ใหม่
+
+#### Template สำหรับ Test ใหม่:
+```python
+#!/usr/bin/env python3
+"""
+Test [Component Name] - [Description]
+"""
+import asyncio
+import sys
+from pathlib import Path
+
+# Add agntics_ai to path
+sys.path.append(str(Path(__file__).parent.parent / "agntics_ai"))
+
+from agntics_ai.utils.nats_handler import NATSHandler
+# ... other imports
+
+async def test_your_component():
+    """ทดสอบ component ของคุณ"""
+    try:
+        # Setup
+        print("🔄 Starting test...")
+        
+        # Test logic here
+        
+        print("✅ Test passed")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Test failed: {e}")
+        return False
+        
+    finally:
+        # Cleanup
+        pass
+
+if __name__ == "__main__":
+    asyncio.run(test_your_component())
+```
+
+### Common Test Issues และ Solutions
+
+#### Issue: NATS Connection Timeout
+**Solution**: 
+- ตรวจสอบ NATS server ทำงานอยู่
+- เช็ค port 4222 ว่าเปิดอยู่
+- ดู firewall settings
+
+#### Issue: GraphQL Server Not Receiving Messages
+**Solution**:
+- ตรวจสอบ topic mapping ใน SUB_Server.ts
+- เช็ค WebSocket connections
+- ดู console errors ใน Frontend
+
+#### Issue: Test Data Not Persisted
+**Solution**:
+- เช็ค file permissions
+- ตรวจสอบ path สำหรับ output files
+- ดู error logs ใน console
+
+### Automated Testing
+
+สำหรับการทดสอบแบบอัตโนมัติ:
+
+```bash
+# รัน tests ทั้งหมด
+cd tests
+python test_system_integration.py && python test_graphql_integration.py
+
+# รัน test พร้อม timeout
+timeout 60s python test_graphql_integration.py
+```
+
+### Performance Testing
+
+สำหรับการทดสอบ performance:
+- Monitor memory usage ขณะรัน test
+- วัดเวลาในการส่ง message ไป GraphQL
+- ทดสอบ concurrent sessions
+
 ## 🔧 การพัฒนาและขยายระบบ (Development & Extension)
 
 ### การเพิ่ม Agent ใหม่
@@ -938,7 +1343,16 @@ nats sub "agentAI.>"
 
 ## 🎉 Latest Updates
 
-### v2.0 - Control Agent Integration (Current)
+### v2.1 - GraphQL Integration (Current)
+- ✅ **GraphQL Real-time Integration** - ส่งข้อมูลไป Frontend ผ่าน NATS
+- ✅ **GraphQL Publisher** - Auto-publish ทุก output updates
+- ✅ **Frontend GraphQL Subscriptions** - Real-time UI updates
+- ✅ **Mutation Handler** - จัดการ GraphQL mutations จาก Agent AI
+- ✅ **Test Suite** - ครอบคลุม integration และ system tests
+- ✅ **Improved Documentation** - GraphQL flow และ testing guide
+- ✅ **Bug Fixes** - แก้ไข NATS parameter naming และ configuration issues
+
+### v2.0 - Control Agent Integration
 - ✅ **Control Agent API** - FastAPI server พร้อม Timeline API
 - ✅ **7 Stages Timeline** - ติดตามขั้นตอนการประมวลผลแบบ real-time
 - ✅ **Docker Integration** - รวม Control Agent ใน Docker Compose
