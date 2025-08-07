@@ -1,0 +1,12 @@
+{
+  "session_id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
+  "timestamp": "2025-08-07T16:00:10.441039",
+  "analysis": {
+    "technique_id": "T1000",
+    "technique_name": "Unknown",
+    "tactic": "Unknown",
+    "confidence_score": 0.0,
+    "reasoning": "Analysis failed due to error: Ollama connection error: Cannot connect to host localhost:11434 ssl:default [The remote computer refused the network connection]",
+    "error": "Ollama connection error: Cannot connect to host localhost:11434 ssl:default [The remote computer refused the network connection]"
+  }
+}

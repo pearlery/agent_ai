@@ -86,11 +86,136 @@
         "stage": "Recommendation Agent",
         "status": "in_progress",
         "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Input Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Input Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
       }
     ]
   },
   "agentAI.tools.updated": {
-    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": [
       {
         "name": "Suricata IDS",
@@ -127,23 +252,23 @@
     ]
   },
   "agentAI.attack.updated": {
-    "id": "7654d9e1-8c40-482c-b17c-98150ae4d6a3",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": [
       {
-        "tacticID": "TA0006",
-        "tacticName": "Credential Access",
-        "confidence": 0.8
+        "tacticID": "TA0000",
+        "tacticName": "Unknown",
+        "confidence": 0.0
       }
     ]
   },
   "agentAI.overview.updated": {
-    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": {
       "description": "### Security Log Summary\n\nSecurity incident analysis completed with LLM-driven approach."
     }
   },
   "agentAI.recommendation.updated": {
-    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": [
       {
         "description": "Enterprise Tool Investigation Path",
@@ -152,7 +277,7 @@
     ]
   },
   "agentAI.executive.updated": {
-    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": [
       {
         "title": "High-Priority Security Event",
@@ -161,7 +286,7 @@
     ]
   },
   "agentAI.checklist.updated": {
-    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "id": "15ee41c9-1e41-4e90-8722-7c2e54fbeaf1",
     "data": [
       {
         "title": "Immediate Response",
