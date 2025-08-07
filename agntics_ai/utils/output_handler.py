@@ -24,17 +24,9 @@ class OutputHandler:
         self.output_file_path = Path(output_file_path)
         self.output_data = self._initialize_output_structure()
         
-    def _initialize_output_structure(self) -> Dict[str, List[Dict[str, Any]]]:
+    def _initialize_output_structure(self) -> Dict[str, Any]:
         """Initialize the output data structure."""
-        return {
-            "agent.overview.updated": [],
-            "agent.tools.updated": [],
-            "agent.recommendation.updated": [],
-            "agent.checklist.updated": [],
-            "agent.executive.updated": [],
-            "agent.attack.updated": [],
-            "agent.timeline.updated": []
-        }
+        return {}
     
     def generate_session_id(self) -> str:
         """Generate a unique session ID for tracking."""
@@ -48,21 +40,12 @@ class OutputHandler:
             session_id: Unique session identifier
             description: Overview description
         """
-        overview_data = {
+        self.output_data["agentAI.overview.updated"] = {
             "id": session_id,
             "data": {
                 "description": description
             }
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.overview.updated"] = [
-            item for item in self.output_data["agent.overview.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.overview.updated"].append(overview_data)
         logger.info(f"Updated overview for session {session_id}")
     
     def update_tools_status(self, session_id: str, tools: List[Dict[str, str]]) -> None:
@@ -73,19 +56,10 @@ class OutputHandler:
             session_id: Unique session identifier
             tools: List of tool status dictionaries with 'name' and 'status'
         """
-        tools_data = {
+        self.output_data["agentAI.tools.updated"] = {
             "id": session_id,
             "data": tools
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.tools.updated"] = [
-            item for item in self.output_data["agent.tools.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.tools.updated"].append(tools_data)
         logger.info(f"Updated tools status for session {session_id}")
     
     def update_recommendation(self, session_id: str, description: str, content: str) -> None:
@@ -97,22 +71,15 @@ class OutputHandler:
             description: Recommendation description
             content: Full recommendation content
         """
-        recommendation_data = {
+        self.output_data["agentAI.recommendation.updated"] = {
             "id": session_id,
-            "data": {
-                "description": description,
-                "content": content
-            }
+            "data": [
+                {
+                    "description": description,
+                    "content": content
+                }
+            ]
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.recommendation.updated"] = [
-            item for item in self.output_data["agent.recommendation.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.recommendation.updated"].append(recommendation_data)
         logger.info(f"Updated recommendation for session {session_id}")
     
     def update_checklist(self, session_id: str, title: str, content: str) -> None:
@@ -124,22 +91,15 @@ class OutputHandler:
             title: Checklist title
             content: Checklist content
         """
-        checklist_data = {
+        self.output_data["agentAI.checklist.updated"] = {
             "id": session_id,
-            "data": {
-                "title": title,
-                "content": content
-            }
+            "data": [
+                {
+                    "title": title,
+                    "content": content
+                }
+            ]
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.checklist.updated"] = [
-            item for item in self.output_data["agent.checklist.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.checklist.updated"].append(checklist_data)
         logger.info(f"Updated checklist for session {session_id}")
     
     def update_executive_summary(self, session_id: str, title: str, content: str) -> None:
@@ -151,22 +111,15 @@ class OutputHandler:
             title: Executive summary title
             content: Executive summary content
         """
-        executive_data = {
+        self.output_data["agentAI.executive.updated"] = {
             "id": session_id,
-            "data": {
-                "title": title,
-                "content": content
-            }
+            "data": [
+                {
+                    "title": title,
+                    "content": content
+                }
+            ]
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.executive.updated"] = [
-            item for item in self.output_data["agent.executive.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.executive.updated"].append(executive_data)
         logger.info(f"Updated executive summary for session {session_id}")
     
     def update_attack_mapping(self, session_id: str, tactics: List[Dict[str, Any]]) -> None:
@@ -177,19 +130,10 @@ class OutputHandler:
             session_id: Unique session identifier
             tactics: List of tactic dictionaries with tacticID, tacticName, confidence
         """
-        attack_data = {
+        self.output_data["agentAI.attack.updated"] = {
             "id": session_id,
             "data": tactics
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.attack.updated"] = [
-            item for item in self.output_data["agent.attack.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.attack.updated"].append(attack_data)
         logger.info(f"Updated attack mapping for session {session_id}")
     
     def update_timeline(self, session_id: str, timeline_entries: List[Dict[str, str]]) -> None:
@@ -200,19 +144,10 @@ class OutputHandler:
             session_id: Unique session identifier
             timeline_entries: List of timeline dictionaries with stage, status, errorMessage
         """
-        timeline_data = {
+        self.output_data["agentAI.timeline.updated"] = {
             "id": session_id,
             "data": timeline_entries
         }
-        
-        # Remove existing entry with same ID
-        self.output_data["agent.timeline.updated"] = [
-            item for item in self.output_data["agent.timeline.updated"] 
-            if item["id"] != session_id
-        ]
-        
-        # Add new entry
-        self.output_data["agent.timeline.updated"].append(timeline_data)
         logger.info(f"Updated timeline for session {session_id}")
     
     def add_timeline_entry(self, session_id: str, stage: str, status: str, error_message: str = "") -> None:
@@ -225,13 +160,6 @@ class OutputHandler:
             status: Status (success, error, in_progress)
             error_message: Error message if status is error
         """
-        # Find existing timeline for this session
-        existing_timeline = None
-        for item in self.output_data["agent.timeline.updated"]:
-            if item["id"] == session_id:
-                existing_timeline = item
-                break
-        
         # Create new timeline entry
         new_entry = {
             "stage": stage,
@@ -239,16 +167,15 @@ class OutputHandler:
             "errorMessage": error_message
         }
         
-        if existing_timeline:
-            # Update existing timeline
-            existing_timeline["data"].append(new_entry)
-        else:
-            # Create new timeline
-            timeline_data = {
+        # Get existing timeline or create new one
+        if "agentAI.timeline.updated" not in self.output_data:
+            self.output_data["agentAI.timeline.updated"] = {
                 "id": session_id,
-                "data": [new_entry]
+                "data": []
             }
-            self.output_data["agent.timeline.updated"].append(timeline_data)
+        
+        # Add new entry to timeline
+        self.output_data["agentAI.timeline.updated"]["data"].append(new_entry)
         
         logger.info(f"Added timeline entry for session {session_id}: {stage} - {status}")
     
@@ -276,7 +203,7 @@ class OutputHandler:
             # Continue with empty structure if loading fails
             self.output_data = self._initialize_output_structure()
     
-    def get_output_data(self) -> Dict[str, List[Dict[str, Any]]]:
+    def get_output_data(self) -> Dict[str, Any]:
         """Get the current output data."""
         return self.output_data.copy()
     
@@ -287,11 +214,15 @@ class OutputHandler:
         Args:
             session_id: Session ID to clear
         """
+        # Clear all sections that match the session_id
+        keys_to_remove = []
         for key in self.output_data:
-            self.output_data[key] = [
-                item for item in self.output_data[key] 
-                if item.get("id") != session_id
-            ]
+            if isinstance(self.output_data[key], dict) and self.output_data[key].get("id") == session_id:
+                keys_to_remove.append(key)
+        
+        for key in keys_to_remove:
+            del self.output_data[key]
+        
         logger.info(f"Cleared data for session {session_id}")
 
 

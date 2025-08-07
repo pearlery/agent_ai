@@ -145,49 +145,27 @@ class ToolLoader:
         
         relevant_tools = []
         
-        # Map common MITRE techniques to relevant tool types
-        technique_mapping = {
-            'T1059': ['EDR', 'ANTIVIRUS', 'ENDPOINT_PROTECTION'],  # Command and Scripting Interpreter
-            'T1548': ['EDR', 'PAM', 'ENDPOINT_PROTECTION'],        # Abuse Elevation Control
-            'T1112': ['EDR', 'ENDPOINT_PROTECTION'],               # Modify Registry
-            'T1055': ['EDR', 'ANTIVIRUS'],                         # Process Injection
-            'T1083': ['EDR', 'ENDPOINT_PROTECTION'],               # File and Directory Discovery
-            'T1135': ['NIDS_NIPS', 'NDR'],                         # Network Share Discovery
-            'T1016': ['NIDS_NIPS', 'NDR', 'NETWORKMONITORING'],   # System Network Configuration
-            'T1021': ['NIDS_NIPS', 'NAC', 'PAM'],                 # Remote Services
-            'T1190': ['WAF', 'NIDS_NIPS', 'VULNERABILITYASSESSMENT'], # Exploit Public-Facing
-            'T1566': ['EMAILGATEWAY', 'SANDBOX'],                 # Phishing
-        }
-        
-        # Extract technique ID (remove sub-technique if present)
-        base_technique = attack_technique.split('.')[0] if '.' in attack_technique else attack_technique
-        relevant_tech_types = technique_mapping.get(base_technique, [])
-        
-        # Find matching tools
+        # Return all available tools - let LLM decide which are relevant
+        # Add all current technologies
         for tech in current_tech:
-            if tech.get('technology', '').upper() in relevant_tech_types:
-                relevant_tools.append({
-                    'type': 'security_technology',
-                    'technology': tech.get('technology'),
-                    'product': tech.get('product'),
-                    'purpose': f'Detection and prevention of {attack_technique}'
-                })
+            relevant_tools.append({
+                'type': 'security_technology',
+                'technology': tech.get('technology'),
+                'product': tech.get('product'),
+                'purpose': f'Available security technology for {attack_technique} analysis'
+            })
         
-        # Find relevant monitoring assets
+        # Add all monitoring assets  
         for asset in monitor_assets:
-            asset_purpose = asset.get('purpose', '').lower()
-            if any(tech_type.lower().replace('_', ' ') in asset_purpose or 
-                   asset_purpose in tech_type.lower().replace('_', ' ') 
-                   for tech_type in relevant_tech_types):
-                relevant_tools.append({
-                    'type': 'monitoring_asset',
-                    'purpose': asset.get('purpose'),
-                    'product': asset.get('productName'),
-                    'hostname': asset.get('hostname'),
-                    'ip_address': asset.get('ipAddress'),
-                    'version': asset.get('version'),
-                    'in_production': asset.get('inProduction')
-                })
+            relevant_tools.append({
+                'type': 'monitoring_asset',
+                'purpose': asset.get('purpose'),
+                'product': asset.get('productName'),
+                'hostname': asset.get('hostname'),
+                'ip_address': asset.get('ipAddress'),
+                'version': asset.get('version'),
+                'in_production': asset.get('inProduction')
+            })
         
         return relevant_tools
     

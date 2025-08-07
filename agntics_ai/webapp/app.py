@@ -5,10 +5,12 @@ import asyncio
 import json
 import logging
 import threading
+import time
+import requests
 from pathlib import Path
 from typing import Dict, Any, Optional
 import yaml
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Response, request
 from nats.aio.client import Client as NATS
 
 # Add parent directory to path for imports
@@ -24,6 +26,9 @@ latest_reports = []
 nats_handler = None
 background_task = None
 app_config = None
+control_agent_url = None
+latest_output_data = {}
+connected_clients = []
 
 
 def create_app(config_path: Optional[str] = None) -> Flask:
@@ -43,8 +48,12 @@ def create_app(config_path: Optional[str] = None) -> Flask:
         config_path = Path(__file__).parent.parent / "config" / "config.yaml"
     
     with open(config_path, 'r') as f:
-        global app_config
+        global app_config, control_agent_url
         app_config = yaml.safe_load(f)
+        
+        # Set Control Agent URL
+        import os
+        control_agent_url = os.getenv('CONTROL_AGENT_URL', 'http://localhost:8000')
     
     # Setup logging
     log_config = app_config.get('logging', {})
@@ -239,11 +248,185 @@ def health():
     """
     Health check endpoint.
     """
+    # Check Control Agent health
+    control_agent_healthy = False
+    try:
+        response = requests.get(f'{control_agent_url}/health', timeout=2)
+        control_agent_healthy = response.status_code == 200
+    except:
+        control_agent_healthy = False
+    
     return jsonify({
         'status': 'healthy',
         'reports_count': len(latest_reports),
-        'nats_connected': nats_handler is not None
+        'nats_connected': nats_handler is not None,
+        'control_agent_healthy': control_agent_healthy,
+        'control_agent_url': control_agent_url
     })
+
+
+@app.route("/api/output")
+def api_output():
+    """
+    Get current output.json data.
+    """
+    try:
+        output_file = Path(__file__).parent.parent.parent / "output.json"
+        if output_file.exists():
+            with open(output_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return jsonify(data)
+        else:
+            return jsonify({'error': 'No output file found'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
+@app.route("/api/control/status")
+def control_status():
+    """
+    Get Control Agent status via API call.
+    """
+    try:
+        response = requests.get(f'{control_agent_url}/status', timeout=5)
+        if response.status_code == 200:
+            return jsonify(response.json())
+        else:
+            return jsonify({'error': f'Control Agent returned {response.status_code}'}), 500
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route("/api/control/start", methods=['POST'])
+def control_start():
+    """
+    Start processing via Control Agent.
+    """
+    try:
+        data = request.json or {}
+        response = requests.post(f'{control_agent_url}/start', json=data, timeout=10)
+        if response.status_code == 200:
+            return jsonify(response.json())
+        else:
+            return jsonify({'error': f'Control Agent returned {response.status_code}'}), 500
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route("/events")
+def events():
+    """
+    Server-Sent Events endpoint for real-time updates.
+    """
+    def event_generator():
+        global latest_output_data, connected_clients
+        
+        # Add client to connected clients list
+        client_id = f"client_{int(time.time() * 1000)}"
+        connected_clients.append(client_id)
+        
+        try:
+            # Send initial data
+            output_file = Path(__file__).parent.parent.parent / "output.json"
+            if output_file.exists():
+                try:
+                    with open(output_file, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                    yield f"data: {json.dumps({'type': 'initial', 'data': data})}\n\n"
+                except:
+                    pass
+            
+            # Send periodic updates
+            last_modified = 0
+            while True:
+                try:
+                    # Check if output.json has been modified
+                    if output_file.exists():
+                        current_modified = output_file.stat().st_mtime
+                        if current_modified > last_modified:
+                            last_modified = current_modified
+                            with open(output_file, 'r', encoding='utf-8') as f:
+                                data = json.load(f)
+                            yield f"data: {json.dumps({'type': 'update', 'data': data})}\n\n"
+                    
+                    # Send heartbeat
+                    yield f"data: {json.dumps({'type': 'heartbeat', 'timestamp': time.time()})}\n\n"
+                    
+                    time.sleep(3)  # Update every 3 seconds
+                    
+                except Exception as e:
+                    logger.error(f"Error in event generator: {e}")
+                    break
+                    
+        except Exception as e:
+            logger.error(f"Event generator error: {e}")
+        finally:
+            # Remove client from connected clients
+            if client_id in connected_clients:
+                connected_clients.remove(client_id)
+    
+    return Response(
+        event_generator(),
+        mimetype='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Access-Control-Allow-Origin': '*'
+        }
+    )
+
+
+@app.route("/dashboard")
+def dashboard():
+    """
+    Real-time dashboard page.
+    """
+    return render_template('dashboard.html')
+
+
+@app.route("/api/system/info")
+def system_info():
+    """
+    Get comprehensive system information.
+    """
+    try:
+        # Get Control Agent status
+        control_status_data = {}
+        try:
+            response = requests.get(f'{control_agent_url}/status', timeout=3)
+            if response.status_code == 200:
+                control_status_data = response.json()
+        except:
+            control_status_data = {'error': 'Control Agent unavailable'}
+        
+        # Get output data
+        output_data = {}
+        try:
+            output_file = Path(__file__).parent.parent.parent / "output.json"
+            if output_file.exists():
+                with open(output_file, 'r', encoding='utf-8') as f:
+                    output_data = json.load(f)
+        except:
+            output_data = {'error': 'Output file unavailable'}
+        
+        return jsonify({
+            'webapp': {
+                'status': 'running',
+                'connected_clients': len(connected_clients),
+                'reports_cached': len(latest_reports)
+            },
+            'control_agent': control_status_data,
+            'nats': {
+                'connected': nats_handler is not None,
+                'handler_status': 'active' if nats_handler else 'inactive'
+            },
+            'output': {
+                'available': bool(output_data and 'error' not in output_data),
+                'sections': len(output_data) if 'error' not in output_data else 0
+            }
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 def start_background_listener():

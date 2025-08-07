@@ -15,7 +15,9 @@
       "Bash(taskkill:*)",
       "Bash(del test_analysis_fix.py test_control_api.py quick_api_test.py)",
       "Bash(rm:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(del C:Userstanakorn.yDesktopagent_aiagent_aioutput.json)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }

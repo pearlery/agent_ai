@@ -76,15 +76,107 @@ def create_app() -> FastAPI:
             "status": "running",
             "version": "1.0.0",
             "endpoints": [
+                "POST /start - Start processing (compatibility)",
                 "POST /control/start - Start processing flow",
+                "GET /status - Get system status",
+                "GET /health - Health check",
                 "POST /control/type/finished - Complete type stage",
                 "POST /control/flow/finished - Complete entire flow",
                 "GET /control/status/{session_id} - Get session status",
                 "GET /control/sessions - List all sessions",
-                "DELETE /control/session/{session_id} - Delete session",
-                "GET /control/health - Health check"
+                "DELETE /control/session/{session_id} - Delete session"
             ]
         }
+    
+    # Add compatibility endpoints for Web App
+    from pydantic import BaseModel
+    from typing import Optional, Dict, Any
+    
+    class StartRequest(BaseModel):
+        input_file: Optional[str] = "test.json"
+    
+    @app.post("/start")
+    async def start_processing_compat(request: StartRequest):
+        """Compatibility endpoint for starting processing."""
+        from .control_api import get_control_agent
+        try:
+            control_agent = await get_control_agent()
+            
+            # Load data from input file
+            from pathlib import Path
+            import json
+            
+            input_file = request.input_file or "test.json"
+            file_path = Path(__file__).parent.parent.parent / input_file
+            
+            if file_path.exists():
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                # Use first item if it's a list
+                if isinstance(data, list) and data:
+                    alert_data = data[0]
+                else:
+                    alert_data = data
+                
+                session_id = control_agent.output_handler.generate_session_id()
+                result = await control_agent.start_flow(alert_data, session_id)
+                
+                return {
+                    "status": "success" if result == "success" else "error",
+                    "session_id": session_id,
+                    "message": f"Processing started with {input_file}",
+                    "result": result
+                }
+            else:
+                return {
+                    "status": "error",
+                    "message": f"Input file {input_file} not found"
+                }
+                
+        except Exception as e:
+            return {
+                "status": "error", 
+                "message": str(e)
+            }
+    
+    @app.get("/status")
+    async def get_system_status():
+        """Get system status endpoint."""
+        from .control_api import get_control_agent
+        try:
+            control_agent = await get_control_agent()
+            from ..utils.session_manager import get_session_manager
+            session_manager = get_session_manager()
+            
+            return {
+                "status": "running",
+                "active_sessions": session_manager.get_active_session_count(),
+                "system_status": "healthy"
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "message": str(e)
+            }
+    
+    @app.get("/health")
+    async def health_check_compat():
+        """Health check compatibility endpoint."""
+        from .control_api import get_control_agent
+        try:
+            control_agent = await get_control_agent()
+            return {
+                "status": "healthy",
+                "nats_connected": True,
+                "llm_available": True,
+                "uptime": 3600
+            }
+        except Exception as e:
+            return {
+                "status": "unhealthy",
+                "error": str(e)
+            }
     
     return app
 

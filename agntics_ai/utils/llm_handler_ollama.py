@@ -46,8 +46,9 @@ async def get_llm_completion(messages: List[Dict[str, str]], llm_config: Dict[st
             # Make request to Ollama
             local_url = llm_config.get('local_url', 'http://localhost:11434/api/generate')
             
-            # Set timeout based on attempt (progressive timeout)
-            timeout = aiohttp.ClientTimeout(total=30 + (attempt * 10))
+            # Set timeout based on attempt (progressive timeout) - configurable base timeout
+            base_timeout = llm_config.get('timeout', 60)
+            timeout = aiohttp.ClientTimeout(total=base_timeout + (attempt * 20))
             
             async with aiohttp.ClientSession(timeout=timeout) as session:
                 async with session.post(local_url, json=ollama_data) as response:
@@ -135,6 +136,7 @@ def create_analysis_prompt(log_data: Dict[str, Any], external_context: Dict[str,
   "technique_id": "T1059.001",
   "technique_name": "PowerShell",
   "tactic": "Execution",
+  "tactic_id": "TA0002",
   "confidence_score": 0.95,
   "reasoning": "The log shows the execution of 'powershell.exe' with a base64 encoded command ('-enc'). This is a classic indicator of the PowerShell technique (T1059.001) being used for execution, as adversaries often use encoding to obfuscate their commands."
 }"""

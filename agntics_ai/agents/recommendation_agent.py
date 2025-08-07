@@ -296,36 +296,69 @@ This alert requires manual analysis by a security analyst.
         try:
             analysis_data = payload.get('mitre_analysis', {})
             
-            # Extract key information
-            technique_name = analysis_data.get('technique_name', 'Unknown')
-            tactic = analysis_data.get('tactic', 'Unknown')
-            confidence = analysis_data.get('confidence_score', 0.0)
+            # Parse markdown report into structured sections
+            parsed_sections = self._parse_markdown_report(report)
             
-            # Update recommendation section
-            recommendation_desc = f"Generated incident response recommendations for {technique_name} technique"
-            self.output_handler.update_recommendation(
+            # Update overview section
+            self.output_handler.update_overview(
                 session_id, 
-                recommendation_desc, 
-                report
+                parsed_sections['overview']
             )
+            
+            # Update recommendation section - use parsed or generate default
+            if parsed_sections['recommendations']:
+                # Use first recommendation as primary
+                primary_rec = parsed_sections['recommendations'][0]
+                self.output_handler.update_recommendation(
+                    session_id,
+                    primary_rec.get('description', 'Investigation Recommendations'),
+                    primary_rec.get('content', report)
+                )
+            else:
+                technique_name = analysis_data.get('technique_name', 'Unknown')
+                self.output_handler.update_recommendation(
+                    session_id, 
+                    f"Generated incident response recommendations for {technique_name} technique",
+                    report
+                )
             
             # Update executive summary
-            executive_title = f"Security Incident Analysis - {tactic}"
-            executive_content = f"Detected {technique_name} technique with {confidence:.2f} confidence score. Immediate containment and investigation recommended."
-            self.output_handler.update_executive_summary(
-                session_id,
-                executive_title,
-                executive_content
-            )
+            if parsed_sections['executive']:
+                exec_item = parsed_sections['executive'][0]
+                self.output_handler.update_executive_summary(
+                    session_id,
+                    exec_item.get('title', 'Security Incident Analysis'),
+                    exec_item.get('content', 'Security incident detected requiring analysis.')
+                )
+            else:
+                technique_name = analysis_data.get('technique_name', 'Unknown')
+                tactic = analysis_data.get('tactic', 'Unknown')
+                confidence = analysis_data.get('confidence_score', 0.0)
+                self.output_handler.update_executive_summary(
+                    session_id,
+                    f"Security Incident Analysis - {tactic}",
+                    f"Detected {technique_name} technique with {confidence:.2f} confidence score. Immediate containment and investigation recommended."
+                )
             
             # Update checklist
-            checklist_title = "Incident Response Checklist"
-            checklist_content = self._generate_checklist(analysis_data)
-            self.output_handler.update_checklist(
-                session_id,
-                checklist_title,
-                checklist_content
-            )
+            if parsed_sections['checklist']:
+                checklist_item = parsed_sections['checklist'][0]
+                self.output_handler.update_checklist(
+                    session_id,
+                    checklist_item.get('title', 'Incident Response Checklist'),
+                    checklist_item.get('content', '- Investigation required')
+                )
+            else:
+                # Generate default checklist
+                technique_name = analysis_data.get('technique_name', 'Unknown')
+                tactic = analysis_data.get('tactic', 'Unknown')
+                checklist_content = f"- [ ] Isolate affected host from network\n- [ ] Collect forensic evidence\n- [ ] Check for lateral movement\n- [ ] Review security logs for similar activity\n- [ ] Implement {tactic} detection rules\n- [ ] Update security controls for {technique_name}"
+                
+                self.output_handler.update_checklist(
+                    session_id,
+                    "Incident Response Checklist",
+                    checklist_content
+                )
             
             # Save all updates
             self.output_handler.save_to_file()
@@ -334,32 +367,93 @@ This alert requires manual analysis by a security analyst.
         except Exception as e:
             logger.error(f"Failed to update output sections: {e}")
     
-    def _generate_checklist(self, analysis_data: Dict[str, Any]) -> str:
+    def _parse_markdown_report(self, markdown_report: str) -> Dict[str, Any]:
         """
-        Generate a checklist based on analysis data.
+        Parse markdown report into structured sections.
         
         Args:
-            analysis_data: Analysis results
+            markdown_report: Generated markdown report
             
         Returns:
-            Formatted checklist string
+            Dictionary with parsed sections
         """
-        technique_name = analysis_data.get('technique_name', 'Unknown')
-        tactic = analysis_data.get('tactic', 'Unknown')
+        sections = {
+            "overview": "",
+            "recommendations": [],
+            "checklist": [],
+            "executive": []
+        }
         
-        checklist_items = [
-            "[ ] Isolate affected host from network",
-            "[ ] Collect forensic evidence",
-            "[ ] Check for lateral movement",
-            "[ ] Review security logs for similar activity",
-            f"[ ] Implement {tactic} detection rules",
-            f"[ ] Update security controls for {technique_name}",
-            "[ ] Document incident timeline",
-            "[ ] Notify stakeholders",
-            "[ ] Begin remediation activities"
-        ]
+        # Split by sections
+        lines = markdown_report.split('\n')
+        current_section = None
+        current_content = []
         
-        return "\n".join(checklist_items)
+        for line in lines:
+            line = line.strip()
+            if line.startswith('# Executive Summary'):
+                current_section = 'executive_summary'
+                current_content = []
+            elif line.startswith('# Alert Details') or line.startswith('# In-Depth'):
+                current_section = 'overview'
+                current_content = []
+            elif line.startswith('# Recommended') or line.startswith('## 1. Immediate') or line.startswith('## 2. Strategic'):
+                current_section = 'recommendations'
+                current_content = []
+            elif line.startswith('#') and 'checklist' in line.lower():
+                current_section = 'checklist'
+                current_content = []
+            elif current_section and line:
+                current_content.append(line)
+        
+        # Process content
+        if current_content:
+            content_text = '\n'.join(current_content)
+            if current_section == 'overview':
+                sections['overview'] = content_text
+            elif current_section == 'executive_summary':
+                sections['executive'].append({
+                    "title": "Security Incident Analysis",
+                    "content": content_text
+                })
+        
+        # Generate default structure if parsing fails
+        if not sections['overview']:
+            sections['overview'] = "### Security Log Summary\n\nSecurity incident analysis completed with LLM-driven approach."
+            
+        if not sections['recommendations']:
+            sections['recommendations'] = [
+                {
+                    "description": "Enterprise Tool Investigation Path",
+                    "content": "Use available security tools to investigate this incident systematically."
+                },
+                {
+                    "description": "Manual Investigation Approach", 
+                    "content": "Perform manual analysis if automated tools are unavailable."
+                }
+            ]
+            
+        if not sections['checklist']:
+            sections['checklist'] = [
+                {
+                    "title": "Immediate Response",
+                    "content": "- Isolate affected host from network\n- Collect forensic evidence\n- Check for lateral movement"
+                },
+                {
+                    "title": "Investigation Tasks",
+                    "content": "- Review security logs for similar activity\n- Document incident timeline\n- Notify stakeholders"
+                }
+            ]
+            
+        if not sections['executive']:
+            sections['executive'] = [
+                {
+                    "title": "High-Priority Security Event",
+                    "content": "Security incident detected requiring immediate analysis and response."
+                }
+            ]
+        
+        return sections
 
     def stop(self) -> None:
         """Stop the agent gracefully."""

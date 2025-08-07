@@ -1,1254 +1,172 @@
 {
-  "agent.overview.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": {
-        "description": "test."
+  "agentAI.timeline.updated": {
+    "id": "7654d9e1-8c40-482c-b17c-98150ae4d6a3",
+    "data": [
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Input Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Input Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Analysis Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Output Generated",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "All processing stages completed successfully"
+      },
+      {
+        "stage": "Recommendation Agent",
+        "status": "in_progress",
+        "errorMessage": ""
       }
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Unknown"
+    ]
+  },
+  "agentAI.tools.updated": {
+    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "data": [
+      {
+        "name": "Suricata IDS",
+        "status": "active"
+      },
+      {
+        "name": "OSQuery",
+        "status": "inactive"
+      },
+      {
+        "name": "YARA Scanner",
+        "status": "missing"
+      },
+      {
+        "name": "CrowdStrike Falcon",
+        "status": "active"
+      },
+      {
+        "name": "Splunk SIEM",
+        "status": "active"
+      },
+      {
+        "name": "Zscaler Web Gateway",
+        "status": "active"
+      },
+      {
+        "name": "Windows Defender",
+        "status": "active"
+      },
+      {
+        "name": "Sysmon",
+        "status": "inactive"
       }
-    },
-    {
-      "id": "unknown",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Unknown"
+    ]
+  },
+  "agentAI.attack.updated": {
+    "id": "7654d9e1-8c40-482c-b17c-98150ae4d6a3",
+    "data": [
+      {
+        "tacticID": "TA0006",
+        "tacticName": "Credential Access",
+        "confidence": 0.8
       }
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Unknown"
-      }
-    },
-    {
-      "id": "a83b7646-a416-46f8-8690-cb670a5370e4",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Unknown"
-      }
-    },
-    {
-      "id": "test_session_YOMA-2503-000769",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Bypass User Account Control"
-      }
-    },
-    {
-      "id": "5ef10133-d343-4e9f-8de7-b3241e5aa20a",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Bypass User Account Control"
-      }
-    },
-    {
-      "id": "8a7c7004-a3a4-4764-8f54-c4116584e632",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Bypass User Account Control"
-      }
-    },
-    {
-      "id": "f531e1c6-12a3-4ff9-b43d-35d0907709f4",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Bypass User Account Control"
-      }
-    },
-    {
-      "id": "b2e67598-0d16-4ab3-bc8e-c2b837eecfb4",
-      "data": {
-        "description": "MITRE ATT&CK analysis completed. Identified technique: Bypass User Account Control"
-      }
-    },
-    {
-      "id": "9089d9d1-1744-4177-867e-b914aba6b698",
-      "data": {
-        "description": "Alert received and processing started"
-      }
-    },
-    {
-      "id": "040d957e-0266-4c34-923b-72a2f71ad152",
-      "data": {
-        "description": "Alert received and processing started"
-      }
-    },
-    {
-      "id": "23f0adcb-5aab-48f9-8217-2d00375515f2",
-      "data": {
-        "description": "Alert received and processing started"
-      }
+    ]
+  },
+  "agentAI.overview.updated": {
+    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "data": {
+      "description": "### Security Log Summary\n\nSecurity incident analysis completed with LLM-driven approach."
     }
-  ],
-  "agent.tools.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        }
-      ]
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "unknown",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "a83b7646-a416-46f8-8690-cb670a5370e4",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "9089d9d1-1744-4177-867e-b914aba6b698",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "040d957e-0266-4c34-923b-72a2f71ad152",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    },
-    {
-      "id": "23f0adcb-5aab-48f9-8217-2d00375515f2",
-      "data": [
-        {
-          "name": "Suricata IDS",
-          "status": "active"
-        },
-        {
-          "name": "OSQuery",
-          "status": "inactive"
-        },
-        {
-          "name": "YARA Scanner",
-          "status": "missing"
-        },
-        {
-          "name": "CrowdStrike Falcon",
-          "status": "active"
-        },
-        {
-          "name": "Splunk SIEM",
-          "status": "active"
-        },
-        {
-          "name": "Zscaler Web Gateway",
-          "status": "active"
-        },
-        {
-          "name": "Windows Defender",
-          "status": "active"
-        },
-        {
-          "name": "Sysmon",
-          "status": "inactive"
-        }
-      ]
-    }
-  ],
-  "agent.recommendation.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": {
-        "description": "Analyze the log data...",
-        "content": "The task is to analyze the log data..."
+  },
+  "agentAI.recommendation.updated": {
+    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "data": [
+      {
+        "description": "Enterprise Tool Investigation Path",
+        "content": "Use available security tools to investigate this incident systematically."
       }
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": {
-        "description": "Generated incident response recommendations for Unknown technique",
-        "content": "# Error Report - Alert input_0_ea9632d7-8202-4b1d-92f1-d2ea18b542cf\n\n## Summary\nAn error occurred while generating the incident report for this alert.\n\n## Error Details\n**Error**: name 'asyncio' is not defined\n\n## Raw Data\n```json\n{\n  \"alert_id\": \"input_0_ea9632d7-8202-4b1d-92f1-d2ea18b542cf\",\n  \"session_id\": \"bb253f44-fea3-4f73-920f-d03eb6e88c93\",\n  \"original_payload\": {\n    \"alert_id\": \"input_0_ea9632d7-8202-4b1d-92f1-d2ea18b542cf\",\n    \"session_id\": \"bb253f44-fea3-4f73-920f-d03eb6e88c93\",\n    \"raw_log_data\": {\n      \"alert_id\": \"YOMA-2503-000769\",\n      \"alert_name\": \"WINDOWS METHODOLOGY [UAC Bypass via Sdclt.exe] on host yb-lt2338.yomabank.org\",\n      \"alert_status\": \"Closed\",\n      \"case_result\": \"FalsePositives\",\n      \"contexts\": {\n        \"os\": \"windows 11 22631\",\n        \"src_ip\": [\n          \"192.168.100.28\"\n        ],\n        \"user\": \"yb-lt2338$\"\n      },\n      \"detected_time\": \"2025-03-20T01:11:38.959Z\",\n      \"events\": [\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        },\n        {\n          \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n          \"event_type\": \"audit_success\",\n          \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n          \"hash\": {},\n          \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n        }\n      ],\n      \"id\": \"ea9632d7-8202-4b1d-92f1-d2ea18b542cf\",\n      \"log_source\": \"Trellix Helix\",\n      \"mitre\": [\n        {\n          \"id\": \"T1112\",\n          \"link\": \"https://attack.mitre.org/techniques/T1112\",\n          \"name_tactics\": \"Defense Evasion\",\n          \"name_technique\": \"Modify Registry\"\n        },\n        {\n          \"id\": \"T1548.002\",\n          \"link\": \"https://attack.mitre.org/techniques/T1548/002\",\n          \"name_subtechnique\": \"Bypass User Account Control\",\n          \"name_tactics\": \"Defense Evasion\",\n          \"name_technique\": \"Abuse Elevation Control Mechanism\"\n        },\n        {\n          \"id\": \"T1548.002\",\n          \"link\": \"https://attack.mitre.org/techniques/T1548/002\",\n          \"name_subtechnique\": \"Bypass User Account Control\",\n          \"name_tactics\": \"Privilege Escalation\",\n          \"name_technique\": \"Abuse Elevation Control Mechanism\"\n        },\n        {\n          \"id\": \"T1548\",\n          \"link\": \"https://attack.mitre.org/techniques/T1548\",\n          \"name_tactics\": \"Defense Evasion\",\n          \"name_technique\": \"Abuse Elevation Control Mechanism\"\n        },\n        {\n          \"id\": \"T1548\",\n          \"link\": \"https://attack.mitre.org/techniques/T1548\",\n          \"name_tactics\": \"Privilege Escalation\",\n          \"name_technique\": \"Abuse Elevation Control Mechanism\"\n        }\n      ],\n      \"objectMarking\": [\n        {\n          \"definition\": \"YOMA BANK\",\n          \"id\": \"3732dad0-3d47-4a09-9378-674e7385767a\"\n        }\n      ],\n      \"severity\": \"High\",\n      \"sla\": {\n        \"mtta\": 11,\n        \"mttd\": 73,\n        \"mttt\": 5,\n        \"mttv\": 39155.283\n      },\n      \"tags\": \"Alert\"\n    },\n    \"source\": \"input_agent\",\n    \"processing_timestamp\": 519017.984\n  },\n  \"raw_log_data\": {\n    \"alert_id\": \"YOMA-2503-000769\",\n    \"alert_name\": \"WINDOWS METHODOLOGY [UAC Bypass via Sdclt.exe] on host yb-lt2338.yomabank.org\",\n    \"alert_status\": \"Closed\",\n    \"case_result\": \"FalsePositives\",\n    \"contexts\": {\n      \"os\": \"windows 11 22631\",\n      \"src_ip\": [\n        \"192.168.100.28\"\n      ],\n      \"user\": \"yb-lt2338$\"\n    },\n    \"detected_time\": \"2025-03-20T01:11:38.959Z\",\n    \"events\": [\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      },\n      {\n        \"cmd_line\": \"\\\"C:\\\\Users\\\\moetheingioo\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\25.031.0217.0003\\\\FileCoAuth.exe\\\" -Embedding\",\n        \"event_type\": \"audit_success\",\n        \"file_name\": \"c:\\\\users\\\\moetheingioo\\\\appdata\\\\local\\\\microsoft\\\\onedrive\\\\25.031.0217.0003\\\\filecoauth.exe\",\n        \"hash\": {},\n        \"parent_process\": \"c:\\\\windows\\\\system32\\\\svchost.exe\"\n      }\n    ],\n    \"id\": \"ea9632d7-8202-4b1d-92f1-d2ea18b542cf\",\n    \"log_source\": \"Trellix Helix\",\n    \"mitre\": [\n      {\n        \"id\": \"T1112\",\n        \"link\": \"https://attack.mitre.org/techniques/T1112\",\n        \"name_tactics\": \"Defense Evasion\",\n        \"name_technique\": \"Modify Registry\"\n      },\n      {\n        \"id\": \"T1548.002\",\n        \"link\": \"https://attack.mitre.org/techniques/T1548/002\",\n        \"name_subtechnique\": \"Bypass User Account Control\",\n        \"name_tactics\": \"Defense Evasion\",\n        \"name_technique\": \"Abuse Elevation Control Mechanism\"\n      },\n      {\n        \"id\": \"T1548.002\",\n        \"link\": \"https://attack.mitre.org/techniques/T1548/002\",\n        \"name_subtechnique\": \"Bypass User Account Control\",\n        \"name_tactics\": \"Privilege Escalation\",\n        \"name_technique\": \"Abuse Elevation Control Mechanism\"\n      },\n      {\n        \"id\": \"T1548\",\n        \"link\": \"https://attack.mitre.org/techniques/T1548\",\n        \"name_tactics\": \"Defense Evasion\",\n        \"name_technique\": \"Abuse Elevation Control Mechanism\"\n      },\n      {\n        \"id\": \"T1548\",\n        \"link\": \"https://attack.mitre.org/techniques/T1548\",\n        \"name_tactics\": \"Privilege Escalation\",\n        \"name_technique\": \"Abuse Elevation Control Mechanism\"\n      }\n    ],\n    \"objectMarking\": [\n      {\n        \"definition\": \"YOMA BANK\",\n        \"id\": \"3732dad0-3d47-4a09-9378-674e7385767a\"\n      }\n    ],\n    \"severity\": \"High\",\n    \"sla\": {\n      \"mtta\": 11,\n      \"mttd\": 73,\n      \"mttt\": 5,\n      \"mttv\": 39155.283\n    },\n    \"tags\": \"Alert\"\n  },\n  \"mitre_analysis\": {\n    \"technique_id\": \"T1000\",\n    \"technique_name\": \"Unknown\",\n    \"tactic\": \"Unknown\",\n    \"confidence_score\": 0.0,\n    \"reasoning\": \"Analysis failed due to error: name 'asyncio' is not defined\",\n    \"error\": \"name 'asyncio' is not defined\"\n  },\n  \"source\": \"analysis_agent\",\n  \"processing_timestamp\": 521400.015\n}\n```\n\n## Manual Review Required\nThis alert requires manual analysis by a security analyst.\n"
+    ]
+  },
+  "agentAI.executive.updated": {
+    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "data": [
+      {
+        "title": "High-Priority Security Event",
+        "content": "Security incident detected requiring immediate analysis and response."
       }
-    },
-    {
-      "id": "unknown",
-      "data": {
-        "description": "Generated incident response recommendations for Unknown technique",
-        "content": "# Error Report - Alert unknown\n\n## Summary\nAn error occurred while generating the incident report for this alert.\n\n## Error Details\n**Error**: name 'asyncio' is not defined\n\n## Raw Data\n```json\n{\n  \"alert_id\": \"unknown\",\n  \"session_id\": \"unknown\",\n  \"original_payload\": {\n    \"test\": \"message\",\n    \"timestamp\": \"2025-01-01T00:00:00Z\"\n  },\n  \"raw_log_data\": {},\n  \"mitre_analysis\": {\n    \"technique_id\": \"T1000\",\n    \"technique_name\": \"Unknown\",\n    \"tactic\": \"Unknown\",\n    \"confidence_score\": 0.0,\n    \"reasoning\": \"Analysis failed due to error: name 'asyncio' is not defined\",\n    \"error\": \"name 'asyncio' is not defined\"\n  },\n  \"source\": \"analysis_agent\",\n  \"processing_timestamp\": 521429.906\n}\n```\n\n## Manual Review Required\nThis alert requires manual analysis by a security analyst.\n"
+    ]
+  },
+  "agentAI.checklist.updated": {
+    "id": "f130e33e-392a-49ae-94b5-3e5ce500ecbc",
+    "data": [
+      {
+        "title": "Immediate Response",
+        "content": "- Isolate affected host from network\n- Collect forensic evidence\n- Check for lateral movement"
       }
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": {
-        "description": "Generated incident response recommendations for Unknown technique",
-        "content": "# Executive Summary\nThe alert indicates a potential UAC bypass via Sdclt.exe on host yb-lt2338.yomabank.org, but the analysis was marked as a false positive. The severity is high, and the primary finding is related to the execution of FileCoAuth.exe from OneDrive. The event was detected on March 20, 2025.\n\n# Alert Details\n- **Timestamp**: 2025-03-20T01:11:38.959Z\n- **Hostname**: yb-lt2338.yomabank.org\n- **Key Indicators**: \n  - Multiple executions of \"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" with the command line argument \"-Embedding\"\n  - Parent process: c:\\windows\\system32\\svchost.exe\n  - Source IP: 192.168.100.28\n  - User: yb-lt2338$\n\n# In-Depth Technical Analysis\nThe alert was triggered by multiple instances of FileCoAuth.exe being executed with the \"-Embedding\" argument. All instances were spawned by svchost.exe, which is a legitimate Windows service. The events were classified as \"audit_success,\" indicating that the executions were successful. The alert was ultimately marked as a false positive, suggesting that the activity was likely benign. The repeated execution of FileCoAuth.exe could be related to legitimate OneDrive functionality.\n\n# MITRE ATT&CK Framework Mapping\n- **Tactic**: Defense Evasion, Privilege Escalation\n- **Technique**: T1548.002 - Bypass User Account Control (Abuse Elevation Control Mechanism)\n\n# Recommended Mitigation & Response Steps\n\n## 1. Immediate Containment (Short-Term)\n**Step 1.1 - Isolate Host:**\n- **Action**: Immediately isolate the host from the network to prevent potential lateral movement.\n- **Tool**: Use CrowdStrike Falcon (EDR) to isolate the host.\n\n**Step 1.2 - Investigate with Available Tools:**\n- **Action**: Search for similar activity using available monitoring tools to determine if this is an isolated incident.\n- **Tool**: Use Splunk (SIEM) to analyze logs for similar events.\n\n## 2. Strategic Hardening (Long-Term)\n- Monitor OneDrive and related processes for unusual activity.\n- Ensure that the CrowdStrike Falcon (EDR) and Splunk are properly configured to detect and alert on similar events in the future.\n- Regularly review and update the configuration of security tools to minimize false positives.\n\n## 3. Additional Recommendations\n- Consider implementing additional monitoring on the host yb-lt2338.yomabank.org to detect any potential malicious activity.\n- Review the configuration and usage of OneDrive on the host to ensure it aligns with organizational policies.\n\nBy following these steps, the organization can further enhance its security posture and minimize the risk of similar events in the future."
-      }
-    }
-  ],
-  "agent.checklist.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": {
-        "title": "Review Log Data",
-        "content": "Review the log data..."
-      }
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": {
-        "title": "Incident Response Checklist",
-        "content": "[ ] Isolate affected host from network\n[ ] Collect forensic evidence\n[ ] Check for lateral movement\n[ ] Review security logs for similar activity\n[ ] Implement Unknown detection rules\n[ ] Update security controls for Unknown\n[ ] Document incident timeline\n[ ] Notify stakeholders\n[ ] Begin remediation activities"
-      }
-    },
-    {
-      "id": "unknown",
-      "data": {
-        "title": "Incident Response Checklist",
-        "content": "[ ] Isolate affected host from network\n[ ] Collect forensic evidence\n[ ] Check for lateral movement\n[ ] Review security logs for similar activity\n[ ] Implement Unknown detection rules\n[ ] Update security controls for Unknown\n[ ] Document incident timeline\n[ ] Notify stakeholders\n[ ] Begin remediation activities"
-      }
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": {
-        "title": "Incident Response Checklist",
-        "content": "[ ] Isolate affected host from network\n[ ] Collect forensic evidence\n[ ] Check for lateral movement\n[ ] Review security logs for similar activity\n[ ] Implement Unknown detection rules\n[ ] Update security controls for Unknown\n[ ] Document incident timeline\n[ ] Notify stakeholders\n[ ] Begin remediation activities"
-      }
-    }
-  ],
-  "agent.executive.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": {
-        "title": "Security Event Detected",
-        "content": "A potential security event was detected..."
-      }
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": {
-        "title": "Security Incident Analysis - Unknown",
-        "content": "Detected Unknown technique with 0.00 confidence score. Immediate containment and investigation recommended."
-      }
-    },
-    {
-      "id": "unknown",
-      "data": {
-        "title": "Security Incident Analysis - Unknown",
-        "content": "Detected Unknown technique with 0.00 confidence score. Immediate containment and investigation recommended."
-      }
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": {
-        "title": "Security Incident Analysis - Unknown",
-        "content": "Detected Unknown technique with 0.00 confidence score. Immediate containment and investigation recommended."
-      }
-    }
-  ],
-  "agent.attack.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": [
-        {
-          "tacticID": "TA0001",
-          "tacticName": "Initial Access",
-          "confidence": 0.9
-        },
-        {
-          "tacticID": "TA0002",
-          "tacticName": "Execution",
-          "confidence": 0.75
-        }
-      ]
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": [
-        {
-          "tacticID": "TA0000",
-          "tacticName": "Unknown",
-          "confidence": 0.0
-        }
-      ]
-    },
-    {
-      "id": "unknown",
-      "data": [
-        {
-          "tacticID": "TA0000",
-          "tacticName": "Unknown",
-          "confidence": 0.0
-        }
-      ]
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": [
-        {
-          "tacticID": "TA0000",
-          "tacticName": "Unknown",
-          "confidence": 0.0
-        }
-      ]
-    },
-    {
-      "id": "a83b7646-a416-46f8-8690-cb670a5370e4",
-      "data": [
-        {
-          "tacticID": "TA0000",
-          "tacticName": "Unknown",
-          "confidence": 0.0
-        }
-      ]
-    },
-    {
-      "id": "test_session_YOMA-2503-000769",
-      "data": [
-        {
-          "tacticID": "TA0004",
-          "tacticName": "Privilege Escalation",
-          "confidence": 0.8
-        }
-      ]
-    },
-    {
-      "id": "5ef10133-d343-4e9f-8de7-b3241e5aa20a",
-      "data": [
-        {
-          "tacticID": "TA0004",
-          "tacticName": "Privilege Escalation",
-          "confidence": 0.8
-        }
-      ]
-    },
-    {
-      "id": "8a7c7004-a3a4-4764-8f54-c4116584e632",
-      "data": [
-        {
-          "tacticID": "TA0004",
-          "tacticName": "Privilege Escalation",
-          "confidence": 0.8
-        }
-      ]
-    },
-    {
-      "id": "f531e1c6-12a3-4ff9-b43d-35d0907709f4",
-      "data": [
-        {
-          "tacticID": "TA0004",
-          "tacticName": "Privilege Escalation",
-          "confidence": 0.8
-        }
-      ]
-    },
-    {
-      "id": "b2e67598-0d16-4ab3-bc8e-c2b837eecfb4",
-      "data": [
-        {
-          "tacticID": "TA0004",
-          "tacticName": "Privilege Escalation",
-          "confidence": 0.8
-        }
-      ]
-    }
-  ],
-  "agent.timeline.updated": [
-    {
-      "id": "ed5823f1-d514-4cb6-8686-d5d8a00a5878",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Type Agent",
-          "status": "error",
-          "errorMessage": "test123"
-        }
-      ]
-    },
-    {
-      "id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        }
-      ]
-    },
-    {
-      "id": "unknown",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        }
-      ]
-    },
-    {
-      "id": "f9c31423-0404-4307-b611-22719aaaea25",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "error",
-          "errorMessage": "nats: timeout"
-        },
-        {
-          "stage": "Process Complete",
-          "status": "error",
-          "errorMessage": "Processing failed: nats: timeout"
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Output Generated",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Process Complete",
-          "status": "success",
-          "errorMessage": "All processing stages completed successfully"
-        }
-      ]
-    },
-    {
-      "id": "a83b7646-a416-46f8-8690-cb670a5370e4",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Recommendation Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "5ef10133-d343-4e9f-8de7-b3241e5aa20a",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "test_session_YOMA-2503-000769",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "8a7c7004-a3a4-4764-8f54-c4116584e632",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "f531e1c6-12a3-4ff9-b43d-35d0907709f4",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "b2e67598-0d16-4ab3-bc8e-c2b837eecfb4",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Input Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "in_progress",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Analysis Agent",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "9089d9d1-1744-4177-867e-b914aba6b698",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "040d957e-0266-4c34-923b-72a2f71ad152",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    },
-    {
-      "id": "23f0adcb-5aab-48f9-8217-2d00375515f2",
-      "data": [
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        },
-        {
-          "stage": "Received Alert",
-          "status": "success",
-          "errorMessage": ""
-        }
-      ]
-    }
-  ]
+    ]
+  }
 }

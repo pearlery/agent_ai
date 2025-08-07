@@ -216,22 +216,9 @@ class AnalysisAgent:
             analysis_result: Analysis results from LLM
         """
         try:
-            # Convert analysis result to attack mapping format
-            tactic_mapping = {
-                "Defense Evasion": "TA0005",
-                "Privilege Escalation": "TA0004", 
-                "Execution": "TA0002",
-                "Initial Access": "TA0001",
-                "Persistence": "TA0003",
-                "Discovery": "TA0007",
-                "Collection": "TA0009",
-                "Command and Control": "TA0011",
-                "Exfiltration": "TA0010",
-                "Impact": "TA0040"
-            }
-            
+            # Use LLM-provided tactic information directly
             tactic_name = analysis_result.get('tactic', 'Unknown')
-            tactic_id = tactic_mapping.get(tactic_name, "TA0000")
+            tactic_id = analysis_result.get('tactic_id', 'TA0000')  # Let LLM provide tactic ID
             confidence = analysis_result.get('confidence_score', 0.0)
             
             attack_data = [{
