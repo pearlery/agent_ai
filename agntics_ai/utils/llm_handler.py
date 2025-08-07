@@ -80,7 +80,7 @@ async def _get_ollama_completion(messages: List[Dict[str, str]], llm_config: Dic
         
         # Prepare Ollama request
         ollama_data = {
-            "model": llm_config.get('local_model', 'qwen3:235b'),
+            "model": llm_config.get('local_model', 'llama4:128x17b'),
             "prompt": prompt,
             "stream": False,
             "options": {

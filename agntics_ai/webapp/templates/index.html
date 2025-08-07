@@ -215,7 +215,7 @@
                 <small>
                     Powered by <strong>Agntics AI</strong> | 
                     Multi-Agent Cybersecurity Analysis System | 
-                    Last Updated: <span id="last-updated">{{ moment().format('YYYY-MM-DD HH:mm:ss') }}</span>
+                    Last Updated: <span id="last-updated">{{ current_time.strftime('%Y-%m-%d %H:%M:%S') if current_time else 'N/A' }}</span>
                 </small>
             </div>
         </footer>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Demo script to test the updated Agent AI system with new output format.
+Demo script to test the Agent AI system with clean output format.
 """
 import asyncio
 import json
@@ -21,7 +21,7 @@ from agntics_ai.utils.output_handler import get_output_handler
 
 async def run_demo():
     """Run a demonstration of the Agent AI system."""
-    print("Starting Agent AI Demo with New Output Format...")
+    print("Starting Agent AI Demo with Clean Output Format...")
     
     # Setup logging
     logging.basicConfig(
@@ -68,7 +68,7 @@ async def run_demo():
         recommendation_agent = RecommendationAgent(nats_handler, llm_config, str(output_file))
         
         # Run agents with timeout
-        print("Processing alerts (max 180 seconds)...")
+        print("Processing alerts (max 60 seconds)...")
         
         try:
             await asyncio.wait_for(
@@ -77,10 +77,10 @@ async def run_demo():
                     recommendation_agent.run(),
                     return_exceptions=True
                 ),
-                timeout=180.0
+                timeout=60.0
             )
         except asyncio.TimeoutError:
-            print("Demo timeout reached (180 seconds)")
+            print("Demo timeout reached (60 seconds)")
             analysis_agent.stop()
             recommendation_agent.stop()
         
@@ -97,7 +97,7 @@ async def run_demo():
             print("\nSummary:")
             for section_name, entries in output_data.items():
                 if entries:
-                    print(f"  • {section_name}: {len(entries)} entries")
+                    print(f"  * {section_name}: {len(entries)} entries")
                     
                     # Show first entry details for key sections
                     if section_name in ["agent.attack.updated", "agent.executive.updated", "agent.timeline.updated"]:
@@ -130,6 +130,6 @@ async def run_demo():
 
 
 if __name__ == "__main__":
-    print("Agent AI Demo - Updated Output Format")
+    print("Agent AI Demo - Clean Output Format")
     print("=" * 40)
     asyncio.run(run_demo())

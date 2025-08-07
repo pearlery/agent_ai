@@ -12,9 +12,9 @@ from agntics_ai.control.control_app import start_api
 
 
 if __name__ == "__main__":
-    print("🎯 Agent AI Control Agent")
+    print("Agent AI Control Agent")
     print("=" * 30)
-    print("🚀 Starting Control Agent API server...")
+    print("Starting Control Agent API server...")
     
-    # Default to port 9002 like original ControlAgent
-    start_api(host="0.0.0.0", port=9002)
+    # Use port 9004 to avoid conflicts 
+    start_api(host="127.0.0.1", port=9004)

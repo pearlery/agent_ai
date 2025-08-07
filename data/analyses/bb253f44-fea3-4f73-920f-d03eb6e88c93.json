@@ -1,0 +1,12 @@
+{
+  "session_id": "bb253f44-fea3-4f73-920f-d03eb6e88c93",
+  "timestamp": "2025-08-07T10:16:29.752380",
+  "analysis": {
+    "technique_id": "T1000",
+    "technique_name": "Unknown",
+    "tactic": "Unknown",
+    "confidence_score": 0.0,
+    "reasoning": "Analysis failed due to error: name 'asyncio' is not defined",
+    "error": "name 'asyncio' is not defined"
+  }
+}

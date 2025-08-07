@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(curl:*)",
+      "Bash(timeout:*)",
+      "Bash(find:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker run:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker rm:*)",
+      "Bash(taskkill:*)",
+      "Bash(del test_analysis_fix.py test_control_api.py quick_api_test.py)",
+      "Bash(rm:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}

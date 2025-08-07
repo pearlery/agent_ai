@@ -26,14 +26,13 @@ class Config:
         self._init_nats_config()
         self._init_webapp_config()
         self._init_logging_config()
-        self._init_langsmith_config()
     
     def _init_llm_config(self):
         """Initialize LLM configuration for Ollama only."""
         yaml_llm = self.yaml_config.get('llm', {})
         
         # Ollama configuration
-        self.LLM_MODEL = os.getenv('LLM_MODEL', yaml_llm.get('local_model', 'qwen3:235b'))
+        self.LLM_MODEL = os.getenv('LLM_MODEL', yaml_llm.get('local_model', 'llama4:128x17b'))
         self.LLM_TEMPERATURE = float(os.getenv('LLM_TEMPERATURE', yaml_llm.get('temperature', 0.05)))
         self.LOCAL_LLM_URL = os.getenv('LOCAL_LLM_URL', yaml_llm.get('local_url', 'http://localhost:11434/api/generate'))
         self.LLM_MAX_TOKENS = int(os.getenv('LLM_MAX_TOKENS', yaml_llm.get('max_tokens', 2048)))
@@ -76,15 +75,6 @@ class Config:
         self.LOG_LEVEL = os.getenv('LOG_LEVEL', yaml_logging.get('level', 'INFO'))
         self.LOG_FORMAT = os.getenv('LOG_FORMAT', yaml_logging.get('format', '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     
-    def _init_langsmith_config(self):
-        """Initialize LangSmith configuration."""
-        # LangSmith configuration (optional)
-        langchain_tracing = os.getenv('LANGCHAIN_TRACING_V2', 'false').lower() == 'true'
-        if langchain_tracing:
-            os.environ["LANGCHAIN_TRACING_V2"] = "true"
-            os.environ["LANGCHAIN_ENDPOINT"] = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchain.com")
-            os.environ["LANGCHAIN_API_KEY"] = os.getenv('LANGSMITH_API_KEY', '')
-            os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGCHAIN_PROJECT", "agent-ai")
     
     def get_llm_config(self) -> Dict[str, Any]:
         """Get LLM configuration as dictionary for Ollama."""

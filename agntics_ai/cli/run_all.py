@@ -185,7 +185,7 @@ async def run_demo_mode():
     """
     Run a quick demonstration with limited alerts processing.
     """
-    print("🚀 Starting Agntics AI Demo Mode...")
+    print("� Starting Agntics AI Demo Mode...")
     
     config_path = Path(__file__).parent.parent / "config" / "config.yaml"
     orchestrator = AgentOrchestrator(str(config_path))
@@ -196,11 +196,11 @@ async def run_demo_mode():
         await orchestrator.initialize_nats()
         
         # Run input phase
-        print("📥 Publishing test alerts...")
+        print("� Publishing test alerts...")
         await orchestrator.run_input_phase()
         
         # Run processing for a limited time
-        print("🔄 Processing alerts...")
+        print("� Processing alerts...")
         
         output_file = str(Path(__file__).parent.parent.parent / "output.json")
         analysis_agent = AnalysisAgent(orchestrator.nats_handler, orchestrator.config['llm'], output_file)
@@ -216,12 +216,12 @@ async def run_demo_mode():
         try:
             await asyncio.wait_for(processing_task, timeout=30.0)
         except asyncio.TimeoutError:
-            print("⏰ Demo timeout reached")
+            print(" Demo timeout reached")
         
-        print("✅ Demo completed successfully!")
+        print(" Demo completed successfully!")
         
     except Exception as e:
-        print(f"❌ Demo failed: {e}")
+        print(f" Demo failed: {e}")
     finally:
         await orchestrator.cleanup()
 

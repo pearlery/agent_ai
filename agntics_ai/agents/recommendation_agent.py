@@ -11,6 +11,7 @@ from ..utils.output_handler import get_output_handler
 from ..utils.timeline_tracker import get_timeline_tracker, TimelineStage, TimelineStatus
 from ..utils.tools_monitor import get_tools_monitor
 from ..utils.persistence import get_default_persistence
+from ..utils.tool_loader import get_tool_loader
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ class RecommendationAgent:
         self.output_handler = get_output_handler(output_file)
         self.tools_monitor = get_tools_monitor()
         self.persistence = get_default_persistence()
+        self.tool_loader = get_tool_loader()
     
     async def run(self) -> None:
         """
@@ -180,8 +182,21 @@ class RecommendationAgent:
                 "mitre_analysis": mitre_analysis
             }
             
-            # TODO: Construct the prompt for the Recommendation Agent
-            messages = create_recommendation_prompt(report_data)
+            # Load relevant security tools based on attack technique
+            available_tools = []
+            technique_id = mitre_analysis.get('technique_id')
+            if technique_id:
+                # Try to find tools for available customers
+                customers = self.tool_loader.get_available_customers()
+                for customer in customers:
+                    relevant_tools = self.tool_loader.find_relevant_tools(technique_id, customer)
+                    if relevant_tools:
+                        logger.info(f"Found {len(relevant_tools)} relevant tools for customer {customer}")
+                        available_tools.extend(relevant_tools)
+                        break  # Use first matching customer's tools
+            
+            # Construct the prompt for the Recommendation Agent with tool information
+            messages = create_recommendation_prompt(report_data, available_tools)
             
             # Generate report using LLM
             markdown_report = await get_llm_completion(messages, self.llm_config)

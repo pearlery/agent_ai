@@ -1,6 +1,7 @@
 """
 Simplified LLM handler for Ollama only.
 """
+import asyncio
 import logging
 from typing import List, Dict, Any
 import aiohttp
@@ -33,7 +34,7 @@ async def get_llm_completion(messages: List[Dict[str, str]], llm_config: Dict[st
             
             # Prepare Ollama request
             ollama_data = {
-                "model": llm_config.get('local_model', 'qwen3:235b'),
+                "model": llm_config.get('local_model', 'llama4:128x17b'),
                 "prompt": prompt,
                 "stream": False,
                 "options": {
@@ -154,22 +155,43 @@ def create_analysis_prompt(log_data: Dict[str, Any], external_context: Dict[str,
     ]
 
 
-def create_recommendation_prompt(analysis_data: Dict[str, Any]) -> List[Dict[str, str]]:
+def create_recommendation_prompt(analysis_data: Dict[str, Any], available_tools: List[Dict[str, Any]] = None) -> List[Dict[str, str]]:
     """
     Create a prompt for the Recommendation Agent to generate incident response report.
     
     Args:
         analysis_data: Analysis results from the Analysis Agent
+        available_tools: List of available security tools and assets
         
     Returns:
         List of message dictionaries for LLM API
     """
-    system_prompt = """### ROLE ###
-You are a world-class Tier-3 Security Operations Center (SOC) Analyst and Threat Intelligence Expert. You are calm, precise, and an expert communicator. You are writing a report for a technical security team at a mid-sized financial institution. Your analysis must be grounded strictly in the data provided.
+    # Build security stack information from available tools
+    security_stack_info = ""
+    if available_tools:
+        tech_tools = [tool for tool in available_tools if tool.get('type') == 'security_technology']
+        if tech_tools:
+            security_stack_info = "- **Available Security Tools**: " + ", ".join([
+                f"{tool.get('product', 'Unknown')} ({tool.get('technology', 'Unknown')})" 
+                for tool in tech_tools[:5]  # Limit to first 5 tools
+            ])
+        
+        monitoring_assets = [tool for tool in available_tools if tool.get('type') == 'monitoring_asset']
+        if monitoring_assets:
+            security_stack_info += "\n- **Key Monitoring Assets**: " + ", ".join([
+                f"{tool.get('product', 'Unknown')} ({tool.get('purpose', 'Unknown')})"
+                for tool in monitoring_assets[:3]  # Limit to first 3 assets
+            ])
+    
+    if not security_stack_info:
+        security_stack_info = "- **Client Security Stack**: CrowdStrike Falcon (EDR), Splunk (SIEM), and Zscaler (Web Gateway)"
+
+    system_prompt = f"""### ROLE ###
+You are a world-class Tier-3 Security Operations Center (SOC) Analyst and Threat Intelligence Expert. You are calm, precise, and an expert communicator. You are writing a report for a technical security team. Your analysis must be grounded strictly in the data provided.
 
 ### CONTEXT ###
-- **Client Security Stack**: The client uses CrowdStrike Falcon (EDR), Splunk (SIEM), and Zscaler (Web Gateway).
-- **Sector Threat Landscape**: The financial sector is currently being targeted by ransomware groups like LockBit and financially motivated actors like FIN7.
+{security_stack_info}
+- **Sector Threat Landscape**: Organizations are currently being targeted by ransomware groups and advanced persistent threats.
 
 ### TASK ###
 Your task is to generate a comprehensive, actionable incident report in Markdown format. The report must be clear, concise, and targeted at a technical security audience. It must help them understand the incident and take immediate, effective action.
@@ -197,23 +219,38 @@ The report MUST strictly follow this Markdown structure:
 ## 1. Immediate Containment (Short-Term)
 **Step 1.1 - Isolate Host:**
 - **Action**: Immediately isolate the host from the network
-- **Tool**: Use CrowdStrike Falcon console "Network Contain" feature
+- **Tool**: Use available EDR/endpoint protection solution
 
-**Step 1.2 - Investigate with SIEM:**
-- **Action**: Run Splunk query to search for similar activity
-- **Tool**: Splunk query example provided
+**Step 1.2 - Investigate with Available Tools:**
+- **Action**: Search for similar activity using available monitoring tools
+- **Tool**: Use SIEM, log analysis, or network monitoring solutions
 
 ## 2. Strategic Hardening (Long-Term)
-(Provide strategic recommendations based on the identified technique)"""
+(Provide strategic recommendations based on the identified technique and available security tools)
+
+## 3. Tool-Specific Recommendations
+(If available tools are identified, provide specific recommendations for using those tools against this type of attack)"""
     
+    tools_context = ""
+    if available_tools:
+        tools_context = f"""
+
+### AVAILABLE SECURITY TOOLS ###
+The organization has the following security tools available:
+```json
+{json.dumps(available_tools, indent=2)}
+```
+
+Use this information to provide specific, actionable recommendations that leverage the organization's existing security infrastructure."""
+
     user_prompt = f"""### INPUT DATA ###
 Here is the complete analysis data in JSON format. Base your entire report ONLY on this information:
 
 ```json
 {analysis_data}
-```
+```{tools_context}
 
-Generate the incident report following the exact Markdown structure specified above."""
+Generate the incident report following the exact Markdown structure specified above. If security tools are available, provide specific recommendations for using those tools."""
     
     return [
         {"role": "system", "content": system_prompt},

@@ -198,6 +198,8 @@ def index():
             'processing_timestamp': 0
         }
     
+    from datetime import datetime
+    report_data['current_time'] = datetime.now()
     return render_template('index.html', **report_data)
 
 
@@ -262,11 +264,18 @@ def stop_background_listener():
         background_listener = None
 
 
-# Flask lifecycle hooks
-@app.before_first_request
+# Flask lifecycle hooks - Updated for Flask 3.x
 def before_first_request():
     """Initialize background services before first request."""
     start_background_listener()
+
+# Register the before_first_request function for Flask 3.x
+@app.before_request
+def init_background():
+    """Initialize background services on first request."""
+    if not hasattr(app, '_background_started'):
+        app._background_started = True
+        before_first_request()
 
 
 def run_webapp(host: str = None, port: int = None, debug: bool = None):

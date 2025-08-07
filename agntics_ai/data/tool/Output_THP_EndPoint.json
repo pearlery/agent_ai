@@ -1,0 +1,706 @@
+[
+  {
+    "data": {
+      "onBoarding": {
+        "id": "f95c70c7-26f4-4500-aae5-3be250f52420",
+        "currentTechnologies": [
+          {
+            "technology": "ANTIVIRUS",
+            "product": "TrendMicro"
+          },
+          {
+            "technology": "EDR",
+            "product": "TrendMicro"
+          },
+          {
+            "technology": "NDR",
+            "product": "NetScout"
+          },
+          {
+            "technology": "NIDS_NIPS",
+            "product": "Palo Alto"
+          },
+          {
+            "technology": "NETWORKBASEDDLP",
+            "product": "Forcepoint"
+          },
+          {
+            "technology": "NAC",
+            "product": "Forescout"
+          },
+          {
+            "technology": "IAM",
+            "product": "OpenText"
+          },
+          {
+            "technology": "TWOFACTORAUTHENTICATION",
+            "product": "Google"
+          },
+          {
+            "technology": "EMAILGATEWAY",
+            "product": "Proofpoint"
+          },
+          {
+            "technology": "WAF",
+            "product": "Cloudflare"
+          },
+          {
+            "technology": "SANDBOX",
+            "product": "TrendMicro"
+          },
+          {
+            "technology": "DAM",
+            "product": "Imperva"
+          },
+          {
+            "technology": "OSPATCHING",
+            "product": "Microsoft WSUS"
+          },
+          {
+            "technology": "VULNERABILITYASSESSMENT",
+            "product": "Nessus"
+          },
+          {
+            "technology": "ASSETMANAGEMENT",
+            "product": "Ivanti"
+          },
+          {
+            "technology": "PAM",
+            "product": "Beyondtrust"
+          },
+          {
+            "technology": "OTHERS",
+            "product": "Check Point , Fortinet FortiGate"
+          }
+        ],
+        "monitorAssets": [
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft *",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.252.71.1",
+            "hostname": "thqcon0dtmad001",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.252.71.2",
+            "hostname": "THQCON0DTMAD002",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.252.71.3",
+            "hostname": "thqcon0dtmad003",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.253.101.26",
+            "hostname": "THQCON0DTMAD004",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.252.71.4",
+            "hostname": "THQCON0DTMAD005",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Active Directory",
+            "productName": "Microsoft",
+            "os": "Window",
+            "version": "Windows Server 2016",
+            "ipAddress": "10.252.71.44",
+            "hostname": "THQCON0DTMAD006",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "NAC",
+            "productName": "ForeScout",
+            "os": null,
+            "version": "8.4.0",
+            "ipAddress": "10.252.1.62",
+            "hostname": "thp-nac",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Deception/HoneyPot",
+            "productName": "Attivo Networks *",
+            "os": null,
+            "version": "5.5.1.138",
+            "ipAddress": "10.253.7.106",
+            "hostname": "3500",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "IDM",
+            "productName": "NetIQ Access Manager",
+            "os": "SUSE Linux",
+            "version": "4.5",
+            "ipAddress": "10.253.105.92",
+            "hostname": "idp1",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "IDM",
+            "productName": "NetIQ Access Manager",
+            "os": "SUSE Linux",
+            "version": "4.5",
+            "ipAddress": "10.253.105.93",
+            "hostname": "idp2",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "IDM",
+            "productName": "NetIQ Access Gateway",
+            "os": "SUSE Linux",
+            "version": "4.5",
+            "ipAddress": "10.253.105.94",
+            "hostname": "ssogateway1",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "IDM",
+            "productName": "NetIQ Access Gateway",
+            "os": "SUSE Linux",
+            "version": "4.5",
+            "ipAddress": "10.253.105.95",
+            "hostname": "ssogateway2",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "Internet Zone FW",
+            "productName": "Palo Alto Network *",
+            "os": null,
+            "version": "11.1.6-h3",
+            "ipAddress": "10.253.7.71",
+            "hostname": "PA-5410-Primary-InternetZone",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Internet Zone FW",
+            "productName": "Palo Alto Network",
+            "os": null,
+            "version": "11.1.6-h3",
+            "ipAddress": "10.253.7.72",
+            "hostname": "PA-5410-Secondary-InternetZone",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Application Zone FW",
+            "productName": "Palo Alto Network",
+            "os": null,
+            "version": "11.1.4-h1",
+            "ipAddress": "10.253.7.221",
+            "hostname": "PA-5410-Primary-Appzone",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Application Zone FW",
+            "productName": "Palo Alto Network",
+            "os": null,
+            "version": "11.1.4-h1",
+            "ipAddress": "10.253.7.222",
+            "hostname": "PA-5410-Secondary-Appzone",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Database Zone FW",
+            "productName": "Check Point Smart Center",
+            "os": null,
+            "version": "R81.20",
+            "ipAddress": "10.253.7.51",
+            "hostname": "CP-MGMT",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Database Zone FW",
+            "productName": "Check Point",
+            "os": null,
+            "version": "R81.20",
+            "ipAddress": "10.251.1.34",
+            "hostname": "FW1",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Database Zone FW",
+            "productName": "Check Point *",
+            "os": null,
+            "version": "R81.20",
+            "ipAddress": "10.251.1.35",
+            "hostname": "FW2",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "B2B Zone FW",
+            "productName": "Fortinet FortiAnalyzer",
+            "os": null,
+            "version": "7.2.5",
+            "ipAddress": "10.253.7.98",
+            "hostname": "FAZVM64-KVM",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "B2B Zone FW",
+            "productName": "Fortinet FortiGate",
+            "os": null,
+            "version": "7.2.8",
+            "ipAddress": "10.249.254.253",
+            "hostname": "FG601E_1_lower",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "AD Zone FW",
+            "productName": "Fortinet FortiGate*",
+            "os": null,
+            "version": "7.2.8",
+            "ipAddress": "10.251.1.84",
+            "hostname": "FortiGate-AD-Lower",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "IPS",
+            "productName": "Forcepoint",
+            "os": null,
+            "version": "6.10.7",
+            "ipAddress": "10.253.7.77",
+            "hostname": "v7.2.8",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Antivirus",
+            "productName": "Trend Micro *",
+            "os": null,
+            "version": "14.0.0.14320",
+            "ipAddress": "https://portal.sg.xdr.trendmicro.com",
+            "hostname": null,
+            "assetLocation": "ON_CLOUD",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Email Server",
+            "productName": "Microsoft*",
+            "os": null,
+            "version": null,
+            "ipAddress": "10.253.101.25",
+            "hostname": null,
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Email Gateway",
+            "productName": "ProofPoint",
+            "os": null,
+            "version": null,
+            "ipAddress": null,
+            "hostname": null,
+            "assetLocation": "ON_CLOUD",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "DAM (Database Activity Monitoring) MX",
+            "productName": "Imperva*",
+            "os": "Red Hat Enterprise Linux 7",
+            "version": "14.7.150",
+            "ipAddress": "10.253.7.108",
+            "hostname": "MX_THP",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "DAM (Database Activity Monitoring) Gateway",
+            "productName": "Imperva",
+            "os": "Red Hat Enterprise Linux 7",
+            "version": "14.7.150",
+            "ipAddress": "10.253.7.109",
+            "hostname": "GW_THP",
+            "assetLocation": "ON_PREMISES",
+            "isVm": true,
+            "inProduction": true
+          },
+          {
+            "purpose": "WAF",
+            "productName": "CloudFlare",
+            "os": null,
+            "version": null,
+            "ipAddress": null,
+            "hostname": null,
+            "assetLocation": "ON_CLOUD",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "ARUBA Controller",
+            "productName": "Aruba*",
+            "os": null,
+            "version": "8.7.1.7",
+            "ipAddress": "10.252.210.41",
+            "hostname": "controller-01",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "ARUBA Controller",
+            "productName": "Aruba",
+            "os": null,
+            "version": "8.7.1.7",
+            "ipAddress": "10.252.210.42",
+            "hostname": "controller-02",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "ARUBA Clearpass (Wireless User)",
+            "productName": "Aruba",
+            "os": null,
+            "version": "6.11.11.261865",
+            "ipAddress": "10.252.210.51",
+            "hostname": "clearpass-01",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "ARUBA Clearpass (Wireless User)",
+            "productName": "Aruba",
+            "os": null,
+            "version": "6.11.11.261865",
+            "ipAddress": "10.252.210.52",
+            "hostname": "clearpass-02",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "ARUBA Clearpass (Admin)",
+            "productName": "Aruba",
+            "os": null,
+            "version": "6.10.8.188650",
+            "ipAddress": "10.252.19.1",
+            "hostname": "CPPM01",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "DHCP Server",
+            "productName": "efficient iP",
+            "os": null,
+            "version": "7.3.6 amd64",
+            "ipAddress": "10.252.195.2",
+            "hostname": "dhcp.primary",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "DHCP Server",
+            "productName": "efficient iP",
+            "os": null,
+            "version": "7.3.6 amd64",
+            "ipAddress": "10.252.195.3",
+            "hostname": "dhcp.secondary",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Load Balancer (A10 TH1040-F)",
+            "productName": "A10",
+            "os": null,
+            "version": "6.0.5, build 51",
+            "ipAddress": "10.251.1.77",
+            "hostname": "A10-1-affinity-1-vMaster",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "Load Balancer (A10 TH1040-F)",
+            "productName": "A10",
+            "os": null,
+            "version": "6.0.5, build 51",
+            "ipAddress": "10.251.1.78",
+            "hostname": "A10-2-affinity-1-vBlade",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          },
+          {
+            "purpose": "VMware Aria Operations for Logs",
+            "productName": "VMware",
+            "os": "VMware Photon OS",
+            "version": "8.18.1",
+            "ipAddress": "10.252.71.167",
+            "hostname": "THQCON0ESXVM007",
+            "assetLocation": "ON_PREMISES",
+            "isVm": false,
+            "inProduction": true
+          }
+        ],
+        "devices": [
+          {
+            "deviceType": "Client PC / Laptop",
+            "os": "Window"
+          },
+          {
+            "deviceType": "Server",
+            "os": "Window"
+          },
+          {
+            "deviceType": "Server",
+            "os": "Linux"
+          },
+          {
+            "deviceType": "Macbook",
+            "os": "IOS"
+          }
+        ],
+        "networkInfos": [
+          {
+            "ip": "10.0.0.0/8",
+            "description": "All IP THP"
+          },
+          {
+            "ip": "10.120.0.0/16",
+            "description": "THP Core"
+          },
+          {
+            "ip": "10.238.0.0/16",
+            "description": "DMZ2"
+          },
+          {
+            "ip": "10.239.0.0/16",
+            "description": "DMZ2"
+          },
+          {
+            "ip": "10.249.0.0/24",
+            "description": "B2B Zone"
+          },
+          {
+            "ip": "10.250.168 - 177.0/24",
+            "description": "Wireless client"
+          },
+          {
+            "ip": "10.252.71.0/24",
+            "description": "AD Zone"
+          },
+          {
+            "ip": "10.252.171.0/24",
+            "description": "vmware zone"
+          },
+          {
+            "ip": "10.252.172.0/24",
+            "description": "vmware zone"
+          },
+          {
+            "ip": "10.253.1 - 99.0/24 , 10.253.130.0/24",
+            "description": "APP ZONE"
+          },
+          {
+            "ip": "10.253.95 - 96.0/24",
+            "description": "NEW CA Zone"
+          },
+          {
+            "ip": "10.253.92.0/24",
+            "description": "TND V2"
+          },
+          {
+            "ip": "10.253.93.0/24",
+            "description": "NEW ERP"
+          },
+          {
+            "ip": "10.253.100.0/24",
+            "description": "DMZ Zone"
+          },
+          {
+            "ip": "10.253.101.0/24",
+            "description": "External DNS Zone"
+          },
+          {
+            "ip": "10.253.102.30/29",
+            "description": "DMZ-B2B  (THP Digital centre)"
+          },
+          {
+            "ip": "10.253.103.0/24",
+            "description": "DMZ  DEV Zone"
+          },
+          {
+            "ip": "10.253.104.0/25",
+            "description": "VPN Gateway"
+          },
+          {
+            "ip": "10.253.105.0/24",
+            "description": "DMZ Zone"
+          },
+          {
+            "ip": "10.253.252.0/26",
+            "description": "EMO Zone"
+          },
+          {
+            "ip": "10.254.0.0/16",
+            "description": "DB Zone"
+          },
+          {
+            "ip": "103.43.229.0/24",
+            "description": "public IP"
+          },
+          {
+            "ip": "192.168.80.0/28",
+            "description": "VPN ZONE (HRIS)"
+          },
+          {
+            "ip": "192.168.81.0/24",
+            "description": "DMZ-Cloud (THP Digital Post ID)"
+          },
+          {
+            "ip": "10.247.0.0/16",
+            "description": "Client ที่ส่วนกลาง"
+          },
+          {
+            "ip": "10.248.0.0/16",
+            "description": "Client ที่ส่วนกลาง"
+          },
+          {
+            "ip": "10.250.0.0/16",
+            "description": "Client ที่ส่วนกลาง"
+          },
+          {
+            "ip": "10.252.0.0/16",
+            "description": "Admin + Server บางส่วน"
+          },
+          {
+            "ip": "10.253.7.0/24",
+            "description": "Management Zone"
+          },
+          {
+            "ip": "10.253.251.0/24",
+            "description": "DMZ DB Zone"
+          },
+          {
+            "ip": "10.253.189.0/24",
+            "description": "VPN Client"
+          },
+          {
+            "ip": "10.253.180.0/22",
+            "description": "VPN Client (Spare)"
+          },
+          {
+            "ip": "10.252.5.241",
+            "description": "HR เครื่องเก่า"
+          },
+          {
+            "ip": "10.252.47.111",
+            "description": "ระบบประมวลผลสินค้า"
+          },
+          {
+            "ip": "10.252.55.110",
+            "description": "ระบบสอบสวนอิเล็กทรอนิกส์"
+          },
+          {
+            "ip": "10.252.1.0/24",
+            "description": "Office Scan2"
+          },
+          {
+            "ip": "192.168.20.75/32",
+            "description": "คู่ค้าที่วิ่งผ่าน VPN Zone"
+          },
+          {
+            "ip": "172.16.39.39/32",
+            "description": "คู่ค้าที่วิ่งผ่าน VPN Zone"
+          },
+          {
+            "ip": "202.58.244.96/32",
+            "description": "คู่ค้าที่วิ่งผ่าน VPN Zone"
+          },
+          {
+            "ip": "66.218.162.7/32",
+            "description": "คู่ค้าที่วิ่งผ่าน VPN Zone"
+          },
+          {
+            "ip": "203.151.203.143/32",
+            "description": "คู่ค้าที่วิ่งผ่าน VPN Zone"
+          }
+        ],
+        "objectMarking": [
+          {
+            "customer_info": {
+              "name": "THAILAND POST COMPANY LIMITED",
+              "type": "Customer"
+            }
+          }
+        ]
+      }
+    },
+    "meta": {
+      "eventType": "onboarding_created",
+      "timestamp": "2025-07-21T08:39:23.416Z"
+    }
+  }
+]

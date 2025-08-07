@@ -24,27 +24,27 @@ async def lifespan(app: FastAPI):
         config = get_config()
         
         if hasattr(config, 'AUTO_OPEN_CONNECTION') and config.AUTO_OPEN_CONNECTION:
-            print("🚀 AUTO_OPEN_CONNECTION enabled. Initializing Control Agent...")
+            print("AUTO_OPEN_CONNECTION enabled. Initializing Control Agent...")
             # Initialize control agent on startup
             control_agent = await get_control_agent()
-            print("✅ Control Agent initialized successfully")
+            print("Control Agent initialized successfully")
         else:
-            print("⏸️  AUTO_OPEN_CONNECTION disabled. Control Agent will initialize on first request.")
+            print("AUTO_OPEN_CONNECTION disabled. Control Agent will initialize on first request.")
         
     except Exception as e:
         logger.error(f"Startup error: {e}")
-        print(f"❌ Startup error: {e}")
+        print(f"Startup error: {e}")
     
     yield
     
     # Shutdown
     try:
-        print("🔻 Shutting down Control Agent...")
+        print("Shutting down Control Agent...")
         # Clean shutdown logic here if needed
-        print("✅ Control Agent shutdown complete")
+        print("Control Agent shutdown complete")
     except Exception as e:
         logger.error(f"Shutdown error: {e}")
-        print(f"❌ Shutdown error: {e}")
+        print(f"Shutdown error: {e}")
 
 
 def create_app() -> FastAPI:
@@ -101,9 +101,9 @@ def start_api(host: str = "0.0.0.0", port: int = 9002):
         host: Host address to bind to
         port: Port number to use
     """
-    print("🎯 Starting Agent AI Control API server...")
-    print(f"📡 Server will be available at http://{host}:{port}")
-    print("📚 API documentation at http://{host}:{port}/docs")
+    print("Starting Agent AI Control API server...")
+    print(f"Server will be available at http://{host}:{port}")
+    print("API documentation at http://{host}:{port}/docs")
     
     uvicorn.run(app, host=host, port=port)
 

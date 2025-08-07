@@ -1,16 +1,16 @@
 # NATS Configuration
 nats:
-  server_url: "nats://localhost:4222"
-  stream_name: "AGENT_AI_PIPELINE"
+  server_url: "nats://192.168.55.158:31653"
+  stream_name: "agentAI_stream"
   subjects:
-    input: "agentAI.input"
-    analysis: "agentAI.analysis"
-    output: "agentAI.output"
+    input: "agentAI.Input"
+    analysis: "agentAI.Analysis"
+    output: "agentAI.Output"
 
 # LLM Configuration (Ollama only)
 llm:
-  local_url: "http://localhost:11434/api/generate"
-  local_model: "qwen3:235b"
+  local_url: "http://192.168.123.110:11434/api/generate"
+  local_model: "llama4:128x17b"
   temperature: 0.05
   max_tokens: 2048
 
