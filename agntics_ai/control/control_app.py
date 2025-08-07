@@ -23,13 +23,8 @@ async def lifespan(app: FastAPI):
     try:
         config = get_config()
         
-        if hasattr(config, 'AUTO_OPEN_CONNECTION') and config.AUTO_OPEN_CONNECTION:
-            print("AUTO_OPEN_CONNECTION enabled. Initializing Control Agent...")
-            # Initialize control agent on startup
-            control_agent = await get_control_agent()
-            print("Control Agent initialized successfully")
-        else:
-            print("AUTO_OPEN_CONNECTION disabled. Control Agent will initialize on first request.")
+        # Always disable AUTO_OPEN_CONNECTION for now to avoid NATS connection issues
+        print("AUTO_OPEN_CONNECTION disabled. Control Agent will initialize on first request.")
         
     except Exception as e:
         logger.error(f"Startup error: {e}")

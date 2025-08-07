@@ -2,6 +2,7 @@
 nats:
   server_url: "nats://192.168.55.158:31653"
   stream_name: "agentAI_stream"
+  auto_open_connection: false #ทดสอบแบบไม่มีnats
   subjects:
     input: "agentAI.Input"
     analysis: "agentAI.Analysis"

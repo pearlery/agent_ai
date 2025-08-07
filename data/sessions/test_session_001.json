@@ -1,0 +1,14 @@
+{
+  "session_id": "test_session_001",
+  "timestamp": "2025-08-07T23:21:21.458390",
+  "data": {
+    "session_id": "test_session_001",
+    "completed_at": "2025-08-07T23:21:21.458390",
+    "final_results": {
+      "status": "completed",
+      "report": "Test incident analysis completed successfully",
+      "recommendations": "Implement security measures"
+    },
+    "status": "completed"
+  }
+}

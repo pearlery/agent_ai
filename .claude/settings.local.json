@@ -17,7 +17,10 @@
       "Bash(rm:*)",
       "Bash(mv:*)",
       "Bash(del C:Userstanakorn.yDesktopagent_aiagent_aioutput.json)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(grep:*)",
+      "Bash(pip check)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

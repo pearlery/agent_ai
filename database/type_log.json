@@ -1,0 +1,20 @@
+[
+  {
+    "session_id": "test_session_001",
+    "timestamp": "2025-08-07T23:21:21.454020",
+    "type_data": {
+      "technique_name": "T1055 Process Injection",
+      "confidence": 0.85,
+      "analysis": "Test analysis data"
+    }
+  },
+  {
+    "session_id": "test_timeline_session",
+    "timestamp": "2025-08-07T23:30:33.979903",
+    "type_data": {
+      "technique_name": "T1055 Process Injection",
+      "confidence": 0.85,
+      "analysis": "Timeline test - type analysis"
+    }
+  }
+]

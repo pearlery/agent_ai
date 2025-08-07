@@ -61,13 +61,15 @@ Agent AI System เป็นแพลตฟอร์มวิเคราะห�
           │                      │                       │
           ▼                      ▼                       ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Control Agent (FastAPI)                      │
-│                    - REST API Endpoints                         │
+│                    Control Agent (FastAPI:9004)                 │
+│                    - Timeline API (7 Stages)                    │
 │                    - Session Management                         │
 │                    - Process Orchestration                      │
+│                    - Manual Workflow Control                    │
 └─────────────────────────┬───────────────────────────────────────┘
                           │
-                          ▼
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  NATS JetStream Message Broker                  │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
@@ -78,11 +80,11 @@ Agent AI System เป็นแพลตฟอร์มวิเคราะห�
       │                   │                   │
       ▼                   ▼                   ▼
 ┌─────────────┐  ┌─────────────────┐  ┌─────────────────────────┐
-│ Analysis    │  │ Recommendation  │  │     Web App             │
+│ Analysis    │  │ Recommendation  │  │     Web App (5000)      │
 │ Agent       │  │ Agent           │  │  - Real-time Dashboard  │
-│ - LLM       │  │ - LLM           │  │  - Progress Tracking    │
+│ - LLM       │  │ - LLM           │  │  - Timeline Tracking    │
 │ - MITRE     │  │ - Tool          │  │  - Output Visualization │
-│   Mapping   │  │   Integration   │  │                         │
+│   ATT&CK    │  │   Integration   │  │  - SSE Updates          │
 └─────────────┘  └─────────────────┘  └─────────────────────────┘
 ```
 
@@ -113,6 +115,18 @@ NATS (agentAI.Analysis) → Recommendation Agent → Tool Loader → LLM → NAT
 - ใช้ LLM สร้างรายงานและคำแนะนำ
 - เผยแพร่ผลลัพธ์สุดท้าย
 
+### 📊 Timeline Stages (7 Stages Tracking)
+
+ระบบติดตามขั้นตอนการประมวลผลแบบ real-time ผ่าน **Control Agent Timeline API**:
+
+1. **"Received Alert"** - รับ security alert เข้าระบบ
+2. **"Type Agent"** - วิเคราะห์ประเภทของ threat ด้วย Analysis Agent
+3. **"Analyze Root Cause"** - วิเคราะห์สาเหตุรากของเหตุการณ์
+4. **"Triage Status"** - จัดลำดับความรุนแรงและความสำคัญ
+5. **"Action Taken"** - ดำเนินการตอบสนองและแก้ไข
+6. **"Tool Status"** - ตรวจสอบสถานะเครื่องมือความปลอดภัย
+7. **"Recommendation"** - สร้างคำแนะนำและรายงานด้วย Recommendation Agent
+
 ## ⚡ คุณสมบัติหลัก (Key Features)
 
 ### 🤖 AI-Powered Analysis
@@ -135,10 +149,18 @@ NATS (agentAI.Analysis) → Recommendation Agent → Tool Loader → LLM → NAT
 - **Dynamic Tool Loading**: อ่านข้อมูล tool แบบ dynamic
 - **Intelligent Recommendations**: แนะนำการใช้เครื่องมือตามสถานการณ์
 
+### 🎛️ Control Agent API (NEW!)
+- **Timeline API**: RESTful API สำหรับติดตาม 7 stages แบบ real-time
+- **Session Management**: จัดการ session และ workflow ด้วย API
+- **Manual Control**: สามารถควบคุมขั้นตอนการประมวลผลแบบ manual
+- **FastAPI Integration**: Auto-generated API docs ที่ `/docs`
+- **Health Monitoring**: API endpoints สำหรับตรวจสอบสุขภาพระบบ
+
 ### 🌐 RESTful API
-- **Control Agent API**: FastAPI-based API สำหรับรับ alerts
+- **Control Agent API**: FastAPI-based API สำหรับรับ alerts (Port 9004)
 - **Process Control**: API สำหรับควบคุมและติดตามกระบวนการ
 - **Status Monitoring**: API สำหรับตรวจสอบสถานะระบบ
+- **Web Dashboard API**: Flask-based API สำหรับ UI (Port 5000)
 
 ## 🚀 การเริ่มต้นใช้งาน (Getting Started)
 
@@ -172,7 +194,7 @@ cp .env.example .env
 NATS_URL=nats://192.168.55.158:31653
 
 # API Configuration  
-CONTROL_AGENT_URL=http://localhost:8000
+CONTROL_AGENT_URL=http://localhost:9004
 
 # LLM Configuration (Optional)
 OLLAMA_MODEL=llama4:128x17b
@@ -189,9 +211,10 @@ docker-compose up --build -d
 ```
 
 #### 4. ตรวจสอบการทำงาน
-- **Control Agent API**: http://localhost:8000
-- **Web Dashboard**: http://localhost:8080
-- **API Documentation**: http://localhost:8000/docs
+- **Control Agent API**: http://localhost:9004  
+- **Web Dashboard**: http://localhost:5000
+- **API Documentation**: http://localhost:9004/docs
+- **NATS Monitoring**: http://localhost:8222
 
 ### 💻 วิธีที่ 2: Local Development
 
@@ -244,7 +267,18 @@ llm:
   timeout: 60
 ```
 
-#### 4. เริ่ม Services (แยก Terminal)
+#### 4. เริ่ม Services
+
+**วิธีที่ 1 - All-in-One (แนะนำ):**
+```bash
+# รันทุก services รวมกัน (Control Agent + Web App + Processing Agents)
+python -m agntics_ai.cli.run_all
+
+# หรือโหมด demo
+python -m agntics_ai.cli.run_all --demo
+```
+
+**วิธีที่ 2 - แยก Terminal:**
 
 **Terminal 1 - Control Agent:**
 ```bash
@@ -274,13 +308,13 @@ python -m agntics_ai.webapp.app
 NATS_URL=nats://192.168.55.158:31653
 
 # Control Agent 
-CONTROL_AGENT_URL=http://localhost:8000
+CONTROL_AGENT_URL=http://localhost:9004
 CONTROL_AGENT_HOST=0.0.0.0
-CONTROL_AGENT_PORT=8000
+CONTROL_AGENT_PORT=9004
 
 # Web Application
 WEBAPP_HOST=0.0.0.0
-WEBAPP_PORT=8080
+WEBAPP_PORT=5000
 
 # LLM Configuration
 OLLAMA_BASE_URL=http://localhost:11434
@@ -310,7 +344,7 @@ llm:
 
 webapp:
   host: "0.0.0.0"
-  port: 8080
+  port: 5000
   debug: false
 
 logging:
@@ -365,7 +399,7 @@ python run_demo.py
 #### 3. การส่ง Alert ผ่าน API
 ```bash
 # ส่ง Alert โดยตรง
-curl -X POST "http://localhost:8000/alert" \
+curl -X POST "http://localhost:9004/start" \
   -H "Content-Type: application/json" \
   -d '{
     "alert_id": "TEST-2024-001",
@@ -378,7 +412,7 @@ curl -X POST "http://localhost:8000/alert" \
 ### 📊 การติดตามและตรวจสอบ
 
 #### 1. Web Dashboard
-เปิด http://localhost:8080 เพื่อดู:
+เปิด http://localhost:5000 เพื่อดู:
 - **Timeline**: ความคืบหน้าของการประมวลผล
 - **Output**: ผลลัพธ์แบบ real-time
 - **System Status**: สถานะของ agents และ services
@@ -400,26 +434,62 @@ docker-compose logs -f webapp
 # ดูใน console ของแต่ละ Terminal
 ```
 
-### 🔧 การใช้งาน Control Agent API
+### 🎛️ การใช้งาน Control Agent Timeline API
 
-#### Start Processing Flow
+#### Start Processing Flow (Received Alert)
 ```bash
-# เริ่มกระบวนการประมวลผล
-curl -X POST "http://localhost:8000/start" \
+# เริ่มกระบวนการประมวลผล - stage 1
+curl -X POST "http://localhost:9004/start" \
   -H "Content-Type: application/json" \
   -d '{"input_file": "test.json"}'
 ```
 
-#### Get Processing Status  
+#### Type Agent Complete (Stage 2)
 ```bash
-# ตรวจสอบสถานะ
-curl "http://localhost:8000/status"
+# แจ้งว่า Type Agent เสร็จแล้ว
+curl -X POST "http://localhost:9004/control/type/finished" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "your-session-id",
+    "data": {
+      "technique_name": "T1055 Process Injection",
+      "confidence": 0.85,
+      "analysis": "Analysis results..."
+    }
+  }'
 ```
 
-#### Health Check
+#### Workflow Complete (Final Stage)
+```bash
+# แจ้งว่า workflow เสร็จสิ้น - stage 7
+curl -X POST "http://localhost:9004/control/flow/finished" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "your-session-id",
+    "data": {
+      "status": "completed",
+      "report": "Final incident report...",
+      "recommendations": "Security recommendations..."
+    }
+  }'
+```
+
+#### Get Session Status
+```bash
+# ตรวจสอบ timeline และสถานะ session
+curl "http://localhost:9004/control/status/your-session-id"
+```
+
+#### List All Sessions  
+```bash
+# ดู sessions ทั้งหมด
+curl "http://localhost:9004/control/sessions"
+```
+
+#### System Health Check
 ```bash  
 # ตรวจสอบสุขภาพระบบ
-curl "http://localhost:8000/health"
+curl "http://localhost:9004/health"
 ```
 
 ## 🌐 Web Interface และ Real-time Monitoring
@@ -449,34 +519,13 @@ curl "http://localhost:8000/health"
 
 ## 📖 API Documentation
 
-### Control Agent Endpoints
+### 🎛️ Control Agent Timeline API (Port 9004)
 
-#### POST /alert
-รับ security alert และเริ่มกระบวนการวิเคราะห์
-
-**Request Body:**
-```json
-{
-  "alert_id": "string",
-  "alert_name": "string", 
-  "alert_status": "string",
-  "rawAlert": "string",
-  "events": [...],
-  "contexts": {...}
-}
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "session_id": "uuid",
-  "message": "Alert processing started"
-}
-```
+**Base URL**: `http://localhost:9004`
+**API Docs**: `http://localhost:9004/docs` (Auto-generated Swagger UI)
 
 #### POST /start
-เริ่มกระบวนการประมวลผลจาก input file
+เริ่มกระบวนการประมวลผล (Stage 1: Received Alert)
 
 **Request Body:**
 ```json
@@ -485,15 +534,85 @@ curl "http://localhost:8000/health"
 }
 ```
 
-#### GET /status
-ตรวจสอบสถานะการประมวลผล
+**Response:**
+```json
+{
+  "status": "success",
+  "session_id": "uuid-session-id",
+  "message": "Flow started successfully"
+}
+```
+
+#### POST /control/type/finished  
+แจ้งว่า Type Agent เสร็จแล้ว (Stage 2: Type Agent)
+
+**Request Body:**
+```json
+{
+  "session_id": "uuid-session-id",
+  "data": {
+    "technique_name": "T1055 Process Injection",
+    "confidence": 0.85,
+    "analysis": "Detailed analysis results..."
+  }
+}
+```
+
+#### POST /control/flow/finished
+แจ้งว่า workflow เสร็จสิ้น (Stage 7: Recommendation)
+
+**Request Body:**
+```json
+{
+  "session_id": "uuid-session-id", 
+  "data": {
+    "status": "completed",
+    "report": "Final incident report...",
+    "recommendations": "Security recommendations..."
+  }
+}
+```
+
+#### GET /control/status/{session_id}
+ดู timeline และสถานะของ session
 
 **Response:**
 ```json
 {
-  "active_sessions": 2,
-  "completed_today": 15,
-  "system_status": "healthy"
+  "session_id": "uuid-session-id",
+  "status": "completed",
+  "timeline": [
+    {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+    {"stage": "Type Agent", "status": "success", "errorMessage": ""},
+    {"stage": "Analyze Root Cause", "status": "success", "errorMessage": ""},
+    {"stage": "Triage Status", "status": "success", "errorMessage": ""},
+    {"stage": "Action Taken", "status": "success", "errorMessage": ""},
+    {"stage": "Tool Status", "status": "success", "errorMessage": ""},
+    {"stage": "Recommendation", "status": "success", "errorMessage": ""}
+  ],
+  "last_updated": "2025-08-07T16:30:00Z"
+}
+```
+
+#### GET /control/sessions
+ดูรายการ sessions ทั้งหมด
+
+**Response:**
+```json
+{
+  "sessions": [
+    {
+      "session_id": "uuid-1",
+      "created_at": "2025-08-07T16:25:00Z", 
+      "status": "completed"
+    },
+    {
+      "session_id": "uuid-2",
+      "created_at": "2025-08-07T16:28:00Z",
+      "status": "in_progress"
+    }
+  ],
+  "total": 2
 }
 ```
 
@@ -504,11 +623,23 @@ Health check endpoint
 ```json
 {
   "status": "healthy",
-  "nats_connected": true,
-  "llm_available": true,
-  "uptime": 3600
+  "service": "Control Agent API",
+  "active_sessions": 3,
+  "active_connections": 1,
+  "nats_connected": true
 }
 ```
+
+### 🌐 Web Dashboard API (Port 5000)
+
+#### GET /api/reports
+ดูรายงานทั้งหมด
+
+#### GET /api/latest  
+ดูรายงานล่าสุด
+
+#### GET /api/output
+ดู output.json ปัจจุบัน
 
 ### Output Format Specification
 
@@ -538,12 +669,16 @@ Health check endpoint
     }]
   },
   "agentAI.timeline.updated": {
-    "id": "session-uuid",
-    "data": [{
-      "stage": "Analysis Agent",
-      "status": "success", 
-      "errorMessage": ""
-    }]
+    "alert_id": "session-uuid",
+    "data": [
+      {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+      {"stage": "Type Agent", "status": "success", "errorMessage": ""},
+      {"stage": "Analyze Root Cause", "status": "success", "errorMessage": ""},
+      {"stage": "Triage Status", "status": "success", "errorMessage": ""},
+      {"stage": "Action Taken", "status": "success", "errorMessage": ""},
+      {"stage": "Tool Status", "status": "success", "errorMessage": ""},
+      {"stage": "Recommendation", "status": "success", "errorMessage": ""}
+    ]
   }
 }
 ```
@@ -726,13 +861,13 @@ llm:
 docker-compose logs -f analysis_agent
 
 # ตรวจสอบ message queue
-curl "http://localhost:8000/status"
+curl "http://localhost:9004/health"
 ```
 
 #### 4. Web App Not Loading
 ```bash
 # ตรวจสอบ port conflicts
-netstat -tulpn | grep :8080
+netstat -tulpn | grep :5000
 
 # Restart web app
 docker-compose restart webapp
@@ -801,4 +936,25 @@ nats sub "agentAI.>"
 
 ---
 
+## 🎉 Latest Updates
+
+### v2.0 - Control Agent Integration (Current)
+- ✅ **Control Agent API** - FastAPI server พร้อม Timeline API
+- ✅ **7 Stages Timeline** - ติดตามขั้นตอนการประมวลผลแบบ real-time
+- ✅ **Docker Integration** - รวม Control Agent ใน Docker Compose
+- ✅ **Session Management** - จัดการ workflow sessions ด้วย API
+- ✅ **Manual Control Mode** - สามารถควบคุมขั้นตอนแบบ manual
+- ✅ **Auto-generated API Docs** - Swagger UI ที่ `/docs`
+- ✅ **Health Monitoring** - ตรวจสอบสุขภาพระบบแบบ real-time
+
+### v1.0 - Core Agent System
+- ✅ **LLM-Powered Analysis** - MITRE ATT&CK mapping
+- ✅ **Event-Driven Architecture** - NATS JetStream
+- ✅ **Real-time Web Dashboard** - Flask + SSE
+- ✅ **Tool Integration** - Customer-specific tools support
+
+---
+
 **สร้างด้วย ❤️ โดย Agent AI Team**
+
+**🚀 Ready for Production with Control Agent Timeline API!**
