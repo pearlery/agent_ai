@@ -1,0 +1,456 @@
+{
+          "node": {
+            "id": "ea9632d7-8202-4b1d-92f1-d2ea18b542cf",
+            "alert_id": "YOMA-2503-000769",
+            "alert_name": "WINDOWS METHODOLOGY [UAC Bypass via Sdclt.exe] on host yb-lt2338.yomabank.org",
+            "tags": "Alert",
+            "incident_type": null,
+            "severity": "High",
+            "alert_status": "Closed",
+            "log_source": "Trellix Helix",
+            "case_result": "FalsePositives",
+            "detected_time": "2025-03-20T01:11:38.959Z",
+            "mitre": [
+              {
+                "id": "T1112",
+                "link": "https://attack.mitre.org/techniques/T1112",
+                "name_tactics": "Defense Evasion",
+                "name_technique": "Modify Registry",
+                "name_subtechnique": null
+              },
+              {
+                "id": "T1548.002",
+                "link": "https://attack.mitre.org/techniques/T1548/002",
+                "name_tactics": "Defense Evasion",
+                "name_technique": "Abuse Elevation Control Mechanism",
+                "name_subtechnique": "Bypass User Account Control"
+              },
+              {
+                "id": "T1548.002",
+                "link": "https://attack.mitre.org/techniques/T1548/002",
+                "name_tactics": "Privilege Escalation",
+                "name_technique": "Abuse Elevation Control Mechanism",
+                "name_subtechnique": "Bypass User Account Control"
+              },
+              {
+                "id": "T1548",
+                "link": "https://attack.mitre.org/techniques/T1548",
+                "name_tactics": "Defense Evasion",
+                "name_technique": "Abuse Elevation Control Mechanism",
+                "name_subtechnique": null
+              },
+              {
+                "id": "T1548",
+                "link": "https://attack.mitre.org/techniques/T1548",
+                "name_tactics": "Privilege Escalation",
+                "name_technique": "Abuse Elevation Control Mechanism",
+                "name_subtechnique": null
+              }
+            ],
+            "objectMarking": [
+              {
+                "id": "3732dad0-3d47-4a09-9378-674e7385767a",
+                "definition": "YOMA BANK"
+              }
+            ],
+            "contexts": {
+              "domain": null,
+              "endpoint_type": null,
+              "os": "windows 11 22631",
+              "user": "yb-lt2338$",
+              "user_priv": null,
+              "src_ip": [
+                "192.168.100.28"
+              ]
+            },
+            "events": [
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              },
+              {
+                "domain": null,
+                "dst_ip": null,
+                "dst_port": null,
+                "src_ip": null,
+                "src_port": null,
+                "user": null,
+                "ip_malicious": null,
+                "hash_malicious": null,
+                "hash": {
+                  "sha1": null,
+                  "sha256": null,
+                  "md5": null
+                },
+                "file_name": "c:\\users\\moetheingioo\\appdata\\local\\microsoft\\onedrive\\25.031.0217.0003\\filecoauth.exe",
+                "file_size": null,
+                "file_path": null,
+                "cmd_line": "\"C:\\Users\\moetheingioo\\AppData\\Local\\Microsoft\\OneDrive\\25.031.0217.0003\\FileCoAuth.exe\" -Embedding",
+                "parent_process": "c:\\windows\\system32\\svchost.exe",
+                "event_type": "audit_success"
+              }
+            ],
+            "sla": {
+              "mttd": 73,
+              "mtta": 11,
+              "mttt": 5,
+              "mtti": null,
+              "mttn": null,
+              "mttv": 39155.283,
+              "mttr": null
+            }
+          }
+        }

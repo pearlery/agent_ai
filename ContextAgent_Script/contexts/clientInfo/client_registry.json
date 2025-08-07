@@ -1,0 +1,8 @@
+{
+    "client" : [
+        {
+        "name": "N-Health",
+        "onBoarding": true
+        }
+    ]
+}

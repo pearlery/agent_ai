@@ -1,0 +1,89 @@
+services:
+  natsflow:
+    build:
+      context: ./NatsFlow
+      dockerfile: dockerfile
+    container_name: NatsFlow
+    ports:
+      - "9003:9003"
+    env_file:
+      - ./NatsFlow/.env  
+    working_dir: /NatsFlow
+    volumes:
+      - ./NatsFlow:/NatsFlow
+
+  runmodel:
+    build:
+      context: ./RunModel
+      dockerfile: dockerfile
+    container_name: runmodel
+    ports:
+      - "9004:9004"
+    env_file:
+      - ./RunModel/.env
+    working_dir: /RunModel
+    volumes:
+      - ./RunModel:/RunModel
+
+  contextagentscript:
+    build:
+      context: ./ContextAgent_Script
+      dockerfile: dockerfile
+    container_name: ContextAgent_Script
+    ports:
+      - "9002:9002"
+    env_file:
+      - ./ContextAgent_Script/.env  
+    working_dir: /ContextAgent_Script
+    volumes:
+      - ./ContextAgent_Script:/ContextAgent_Script
+      
+  controlagent:
+    build:
+      context: ./controlagent
+      dockerfile: dockerfile
+    container_name: ControlAgent
+    ports:
+      - "9008:9008"
+    env_file:
+      - ./ControlAgent/.env
+    working_dir: /ControlAgent
+    volumes:
+      - ./ControlAgent:/ControlAgent
+
+  # context_agent:
+  #   build:
+  #     context: ./ContextAgent
+  #     dockerfile: dockerfile
+  #   container_name: ContextAgent
+  #   ports:
+  #     - "9005:9005"
+  #   env_file:
+  #     - ./ContextAgent/.env  
+  #   working_dir: /ContextAgent
+  #   volumes:
+  #     - ./ContextAgent:/ContextAgent
+
+  # ip_domain_intelligence:
+  #   build:
+  #     context: ./IP_Domain_Intelligence
+  #     dockerfile: dockerfile
+  #   container_name: IP_Domain_Intelligence
+  #   ports:
+  #     - "9001:9001" 
+  #   env_file:
+  #     - ./IP_Domain_Intelligence/.env
+  #   working_dir: /IP_Domain_Intelligence
+  #   volumes:
+  #     - ./IP_Domain_Intelligence:/IP_Domain_Intelligence
+
+  # nats_server:
+  #   image: nats:latest
+  #   container_name: self_host_nats_server
+  #   ports:
+  #     - "4222:4222"
+  #     - "6222:6222"
+  #     - "8222:8222"
+  #   volumes:
+  #     - ./NatsServer:/data
+  #   command: ["-js", "--max_payload=10485760"]

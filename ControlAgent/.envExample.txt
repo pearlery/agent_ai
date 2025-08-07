@@ -1,0 +1,11 @@
+LLM_MODEL=qwen3:235b
+LLM_TEMPERATURE=0.05
+LOCAL_LLM_URL= url
+#Url for runing ollama hosteda model
+
+#You can comment on the Langsmith api key if you dont want to use it.
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+LANGSMITH_API_KEY= key
+LANGCHAIN_PROJECT= langsmith interface name
+#Careful about prizing only 5000 free per month

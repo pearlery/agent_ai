@@ -1,0 +1,17 @@
+# Use an official Python runtime as a parent image (Python 3.13.5 in this case)
+FROM python:3.13.5-slim
+
+# Set working directory to the IP_Domain_Intelligence folder
+WORKDIR /NatsFlow
+
+# Copy the entire content of IP_Domain_Intelligence into the container
+COPY . .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose port for FastAPI or Streamlit
+EXPOSE 9003
+
+# Run app on port 9002
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "9003"]

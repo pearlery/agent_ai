@@ -1,0 +1,19 @@
+ """
+  'agent.attack.updated': {{
+    data: [ 
+      {{
+        tacticID: '<Tactic ID>',
+        tacticName: '<Tactic Name>',
+        confidence: <0.0 - 1.0>,
+      }}, 
+      ...
+    ],
+  }},
+
+  'agent.tools.updated': {{
+    data: [ 
+      {{ name: '<Tool Name>', status: 'active' | 'inactive' | 'missing' }}, 
+      ...
+    ],
+  }},
+  """

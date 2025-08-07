@@ -1,0 +1,22 @@
+{
+  "subject": "data.run_model.input",
+  "message": {
+    "data": {
+      "Ticket_ID": "35a6857c-8985-4059-8e99-9217a3e83ade",
+      "Log_Source": "Windows Security",
+      "Log_Type": "Security",
+      "Event_ID": 4688,
+      "Timestamp": "2024-05-21T10:30:00Z",
+      "Host_Name": "WORKSTATION-01",
+      "User": "SYSTEM",
+      "Process_Name": "C:\\Windows\\System32\\svchost.exe",
+      "Parent_Process_Name": "C:\\Windows\\System32\\services.exe",
+      "Command_Line": "svchost.exe -k netsvcs -p",
+      "Threat_Name": "Suspicious Svchost Execution",
+      "Threat_Level": "Medium",
+      "Description": "A new process was created under an unusual parent process, which could indicate malicious activity.",
+      "Source_IP": "192.168.1.100",
+      "Destination_IP": "10.0.0.5"
+    }
+  }
+}

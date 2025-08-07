@@ -1,0 +1,680 @@
+tactic,technique,subtechnique,Detection
+Collection,Adversary-in-the-Middle,,"DS0024,DS0019,DS0029,DS0015"
+Collection,Adversary-in-the-Middle,ARP Cache Poisoning,DS0029
+Collection,Adversary-in-the-Middle,DHCP Spoofing,"DS0029,DS0015"
+Collection,Adversary-in-the-Middle,Evil Twin,DS0029
+Collection,Adversary-in-the-Middle,LLMNR/NBT-NS Poisoning and SMB Relay,"DS0024,DS0019,DS0029"
+Collection,Archive Collected Data,,"DS0012,DS0009,DS0022,DS0017"
+Collection,Archive Collected Data,Archive via Custom Method,"DS0012,DS0022"
+Collection,Archive Collected Data,Archive via Library,"DS0012,DS0022"
+Collection,Archive Collected Data,Archive via Utility,"DS0009,DS0022,DS0017"
+Collection,Audio Capture,,"DS0009,DS0017"
+Collection,Automated Collection,,"DS0002,DS0012,DS0022,DS0017"
+Collection,Browser Session Hijacking,,"DS0009,DS0028"
+Collection,Clipboard Data,,"DS0009,DS0017"
+Collection,Data Staged,,"DS0024,DS0022,DS0017"
+Collection,Data Staged,Local Data Staging,"DS0024,DS0022,DS0017"
+Collection,Data Staged,Remote Data Staging,"DS0022,DS0017"
+Collection,Data from Cloud Storage,,"DS0010,DS0025"
+Collection,Data from Configuration Repository,,DS0029
+Collection,Data from Configuration Repository,Network Device Configuration Dump,DS0029
+Collection,Data from Configuration Repository,SNMP (MIB Dump),DS0029
+Collection,Data from Information Repositories,,"DS0028,DS0015"
+Collection,Data from Information Repositories,Code Repositories,"DS0028,DS0015"
+Collection,Data from Information Repositories,Confluence,"DS0028,DS0015"
+Collection,Data from Information Repositories,Customer Relationship Management Software,"DS0028,DS0015"
+Collection,Data from Information Repositories,Messaging Applications,DS0015
+Collection,Data from Information Repositories,Sharepoint,"DS0028,DS0025,DS0015"
+Collection,Data from Local System,,"DS0012,DS0009,DS0022,DS0017"
+Collection,Data from Network Shared Drive,,"DS0029,DS0033,DS0022,DS0017"
+Collection,Data from Removable Media,,"DS0022,DS0017"
+Collection,Email Collection,,"DS0029,DS0028,DS0022,DS0017,DS0015"
+Collection,Email Collection,Email Forwarding Rule,"DS0017,DS0025,DS0015"
+Collection,Email Collection,Local Email Collection,"DS0022,DS0017"
+Collection,Email Collection,Remote Email Collection,"DS0029,DS0028,DS0017,DS0015"
+Collection,Input Capture,,"DS0024,DS0009,DS0011,DS0022,DS0027,DS0017"
+Collection,Input Capture,Credential API Hooking,"DS0009,DS0011,DS0022,DS0017"
+Collection,Input Capture,GUI Input Capture,"DS0012,DS0009,DS0017"
+Collection,Input Capture,Keylogging,"DS0024,DS0009,DS0027"
+Collection,Input Capture,Web Portal Capture,DS0022
+Collection,Screen Capture,,"DS0009,DS0017"
+Collection,Video Capture,,"DS0009,DS0017"
+Command and Control,Application Layer Protocol,,DS0029
+Command and Control,Application Layer Protocol,DNS,DS0029
+Command and Control,Application Layer Protocol,File Transfer Protocols,DS0029
+Command and Control,Application Layer Protocol,Mail Protocols,DS0029
+Command and Control,Application Layer Protocol,Publish/Subscribe Protocols,DS0029
+Command and Control,Application Layer Protocol,Web Protocols,DS0029
+Command and Control,Communication Through Removable Media,,DS0016
+Command and Control,Content Injection,,"DS0009,DS0029,DS0022"
+Command and Control,Data Encoding,,DS0029
+Command and Control,Data Encoding,Non-Standard Encoding,DS0029
+Command and Control,Data Encoding,Standard Encoding,DS0029
+Command and Control,Data Obfuscation,,DS0029
+Command and Control,Data Obfuscation,Junk Data,DS0029
+Command and Control,Data Obfuscation,Protocol or Service Impersonation,DS0029
+Command and Control,Data Obfuscation,Steganography,DS0029
+Command and Control,Dynamic Resolution,,DS0029
+Command and Control,Dynamic Resolution,DNS Calculation,DS0029
+Command and Control,Dynamic Resolution,Domain Generation Algorithms,DS0029
+Command and Control,Dynamic Resolution,Fast Flux DNS,DS0029
+Command and Control,Encrypted Channel,,DS0029
+Command and Control,Encrypted Channel,Asymmetric Cryptography,DS0029
+Command and Control,Encrypted Channel,Symmetric Cryptography,DS0029
+Command and Control,Fallback Channels,,DS0029
+Command and Control,Hide Infrastructure,,"DS0029,DS0035,DS0038"
+Command and Control,Ingress Tool Transfer,,"DS0029,DS0022,DS0017"
+Command and Control,Multi-Stage Channels,,DS0029
+Command and Control,Non-Application Layer Protocol,,DS0029
+Command and Control,Non-Standard Port,,DS0029
+Command and Control,Protocol Tunneling,,DS0029
+Command and Control,Proxy,,DS0029
+Command and Control,Proxy,Domain Fronting,DS0029
+Command and Control,Proxy,External Proxy,DS0029
+Command and Control,Proxy,Internal Proxy,DS0029
+Command and Control,Proxy,Multi-hop Proxy,DS0029
+Command and Control,Remote Access Tools,,"DS0009,DS0029,DS0016"
+Command and Control,Remote Access Tools,IDE Tunneling,"DS0009,DS0029,DS0022"
+Command and Control,Remote Access Tools,Remote Access Hardware,DS0016
+Command and Control,Remote Access Tools,Remote Desktop Software,"DS0009,DS0029"
+Command and Control,Traffic Signaling,,"DS0009,DS0029"
+Command and Control,Traffic Signaling,Port Knocking,DS0029
+Command and Control,Traffic Signaling,Socket Filters,"DS0009,DS0029"
+Command and Control,Web Service,,DS0029
+Command and Control,Web Service,Bidirectional Communication,DS0029
+Command and Control,Web Service,Dead Drop Resolver,DS0029
+Command and Control,Web Service,One-Way Communication,DS0029
+Credential Access,Brute Force,,"DS0002,DS0017,DS0015"
+Credential Access,Brute Force,Credential Stuffing,"DS0002,DS0015"
+Credential Access,Brute Force,Password Cracking,"DS0002,DS0015"
+Credential Access,Brute Force,Password Guessing,"DS0002,DS0015"
+Credential Access,Brute Force,Password Spraying,"DS0002,DS0015"
+Credential Access,Credentials from Password Stores,,"DS0009,DS0022,DS0017,DS0025"
+Credential Access,Credentials from Password Stores,Cloud Secrets Management Stores,DS0025
+Credential Access,Credentials from Password Stores,Credentials from Web Browsers,"DS0009,DS0022,DS0017"
+Credential Access,Credentials from Password Stores,Keychain,"DS0009,DS0022,DS0017"
+Credential Access,Credentials from Password Stores,Password Managers,"DS0009,DS0022,DS0017"
+Credential Access,Credentials from Password Stores,Securityd Memory,"DS0009,DS0017"
+Credential Access,Credentials from Password Stores,Windows Credential Manager,"DS0009,DS0022,DS0017"
+Credential Access,Exploitation for Credential Access,,"DS0002,DS0009,DS0015"
+Credential Access,Forced Authentication,,"DS0029,DS0022"
+Credential Access,Forge Web Credentials,,"DS0006,DS0028"
+Credential Access,Forge Web Credentials,SAML Tokens,"DS0006,DS0002,DS0009,DS0028"
+Credential Access,Forge Web Credentials,Web Cookies,"DS0006,DS0028"
+Credential Access,Modify Authentication Process,,"DS0024,DS0002,DS0009,DS0011,DS0028,DS0022,DS0025,DS0015,DS0026"
+Credential Access,Modify Authentication Process,Conditional Access Policies,"DS0025,DS0026"
+Credential Access,Modify Authentication Process,Domain Controller Authentication,"DS0009,DS0028,DS0022"
+Credential Access,Modify Authentication Process,Hybrid Identity,"DS0011,DS0028,DS0022,DS0015"
+Credential Access,Modify Authentication Process,Multi-Factor Authentication,"DS0002,DS0028,DS0015,DS0026"
+Credential Access,Modify Authentication Process,Network Device Authentication,DS0022
+Credential Access,Modify Authentication Process,Network Provider DLL,"DS0024,DS0009,DS0022"
+Credential Access,Modify Authentication Process,Password Filter DLL,"DS0024,DS0011,DS0022"
+Credential Access,Modify Authentication Process,Pluggable Authentication Modules,"DS0028,DS0022"
+Credential Access,Modify Authentication Process,Reversible Encryption,"DS0002,DS0012,DS0017,DS0026"
+Credential Access,Multi-Factor Authentication Interception,,"DS0024,DS0009,DS0027"
+Credential Access,Multi-Factor Authentication Request Generation,,"DS0002,DS0028,DS0015"
+Credential Access,OS Credential Dumping,,"DS0024,DS0009,DS0029,DS0022,DS0017,DS0026"
+Credential Access,OS Credential Dumping,/etc/passwd and /etc/shadow,"DS0022,DS0017"
+Credential Access,OS Credential Dumping,Cached Domain Credentials,DS0017
+Credential Access,OS Credential Dumping,DCSync,"DS0029,DS0026"
+Credential Access,OS Credential Dumping,LSA Secrets,"DS0024,DS0017"
+Credential Access,OS Credential Dumping,LSASS Memory,"DS0024,DS0009,DS0028,DS0022,DS0017"
+Credential Access,OS Credential Dumping,NTDS,"DS0022,DS0017"
+Credential Access,OS Credential Dumping,Proc Filesystem,"DS0022,DS0017"
+Credential Access,OS Credential Dumping,Security Account Manager,"DS0024,DS0022,DS0017"
+Credential Access,Steal Application Access Token,,"DS0002,DS0026"
+Credential Access,Steal Web Session Cookie,,"DS0009,DS0022"
+Credential Access,Steal or Forge Authentication Certificates,,"DS0024,DS0028,DS0022,DS0017,DS0015,DS0026"
+Credential Access,Steal or Forge Kerberos Tickets,,"DS0028,DS0022,DS0017,DS0026"
+Credential Access,Steal or Forge Kerberos Tickets,AS-REP Roasting,DS0026
+Credential Access,Steal or Forge Kerberos Tickets,Ccache Files,DS0022
+Credential Access,Steal or Forge Kerberos Tickets,Golden Ticket,"DS0028,DS0026"
+Credential Access,Steal or Forge Kerberos Tickets,Kerberoasting,DS0026
+Credential Access,Steal or Forge Kerberos Tickets,Silver Ticket,DS0028
+Credential Access,Unsecured Credentials,,"DS0024,DS0002,DS0009,DS0022,DS0017,DS0015"
+Credential Access,Unsecured Credentials,Bash History,"DS0022,DS0017"
+Credential Access,Unsecured Credentials,Chat Messages,DS0015
+Credential Access,Unsecured Credentials,Cloud Instance Metadata API,DS0002
+Credential Access,Unsecured Credentials,Container API,"DS0002,DS0017"
+Credential Access,Unsecured Credentials,Credentials In Files,"DS0009,DS0022,DS0017"
+Credential Access,Unsecured Credentials,Credentials in Registry,"DS0024,DS0009,DS0017"
+Credential Access,Unsecured Credentials,Group Policy Preferences,"DS0022,DS0017"
+Credential Access,Unsecured Credentials,Private Keys,"DS0022,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,,"DS0024,DS0002,DS0009,DS0022,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,Bypass User Account Control,"DS0024,DS0009,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,Elevated Execution with Prompt,DS0009
+Defense Evasion,Abuse Elevation Control Mechanism,Setuid and Setgid,"DS0022,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,Sudo and Sudo Caching,"DS0009,DS0022,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,TCC Manipulation,"DS0009,DS0022,DS0017"
+Defense Evasion,Abuse Elevation Control Mechanism,Temporary Elevated Cloud Access,DS0002
+Defense Evasion,Access Token Manipulation,,"DS0002,DS0009,DS0017,DS0026"
+Defense Evasion,Access Token Manipulation,Create Process with Token,"DS0009,DS0017"
+Defense Evasion,Access Token Manipulation,Make and Impersonate Token,"DS0009,DS0017"
+Defense Evasion,Access Token Manipulation,Parent PID Spoofing,DS0009
+Defense Evasion,Access Token Manipulation,SID-History Injection,"DS0002,DS0009,DS0026"
+Defense Evasion,Access Token Manipulation,Token Impersonation/Theft,"DS0009,DS0017"
+Defense Evasion,BITS Jobs,,"DS0019,DS0009,DS0029,DS0017"
+Defense Evasion,Build Image on Host,,"DS0029,DS0007"
+Defense Evasion,Deobfuscate/Decode Files or Information,,"DS0012,DS0009,DS0022"
+Defense Evasion,Deploy Container,,"DS0014,DS0032,DS0015"
+Defense Evasion,Direct Volume Access,,"DS0022,DS0016,DS0017"
+Defense Evasion,Domain or Tenant Policy Modification,,"DS0017,DS0015,DS0026"
+Defense Evasion,Domain or Tenant Policy Modification,Group Policy Modification,"DS0017,DS0026"
+Defense Evasion,Domain or Tenant Policy Modification,Trust Modification,"DS0017,DS0015,DS0026"
+Defense Evasion,Email Spoofing,,DS0015
+Defense Evasion,Execution Guardrails,,"DS0009,DS0017"
+Defense Evasion,Execution Guardrails,Environmental Keying,"DS0009,DS0017"
+Defense Evasion,Execution Guardrails,Mutual Exclusion,"DS0009,DS0022"
+Defense Evasion,Exploitation for Defense Evasion,,"DS0009,DS0015"
+Defense Evasion,File and Directory Permissions Modification,,"DS0009,DS0022,DS0017,DS0026"
+Defense Evasion,File and Directory Permissions Modification,Linux and Mac File and Directory Permissions Modification,"DS0009,DS0022,DS0017"
+Defense Evasion,File and Directory Permissions Modification,Windows File and Directory Permissions Modification,"DS0009,DS0022,DS0017,DS0026"
+Defense Evasion,Hide Artifacts,,"DS0024,DS0002,DS0019,DS0012,DS0009,DS0001,DS0022,DS0017,DS0015"
+Defense Evasion,Hide Artifacts,Bind Mounts,"DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Email Hiding Rules,"DS0022,DS0017,DS0015"
+Defense Evasion,Hide Artifacts,Extended Attributes,"DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,File/Path Exclusions,DS0022
+Defense Evasion,Hide Artifacts,Hidden File System,"DS0024,DS0001,DS0022"
+Defense Evasion,Hide Artifacts,Hidden Files and Directories,"DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Hidden Users,"DS0024,DS0002,DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Hidden Window,"DS0024,DS0012,DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Ignore Process Interrupts,"DS0009,DS0017"
+Defense Evasion,Hide Artifacts,NTFS File Attributes,"DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Process Argument Spoofing,DS0009
+Defense Evasion,Hide Artifacts,Resource Forking,"DS0009,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,Run Virtual Instance,"DS0024,DS0019,DS0009,DS0007,DS0022,DS0017"
+Defense Evasion,Hide Artifacts,VBA Stomping,"DS0012,DS0022"
+Defense Evasion,Hijack Execution Flow,,"DS0024,DS0019,DS0009,DS0011,DS0022,DS0017"
+Defense Evasion,Hijack Execution Flow,AppDomainManager,"DS0009,DS0011,DS0022"
+Defense Evasion,Hijack Execution Flow,COR_PROFILER,"DS0024,DS0009,DS0011,DS0017"
+Defense Evasion,Hijack Execution Flow,DLL,"DS0009,DS0011,DS0022"
+Defense Evasion,Hijack Execution Flow,Dylib Hijacking,"DS0011,DS0022"
+Defense Evasion,Hijack Execution Flow,Dynamic Linker Hijacking,"DS0009,DS0011,DS0022,DS0017"
+Defense Evasion,Hijack Execution Flow,Executable Installer File Permissions Weakness,"DS0019,DS0009,DS0011,DS0022"
+Defense Evasion,Hijack Execution Flow,KernelCallbackTable,DS0009
+Defense Evasion,Hijack Execution Flow,Path Interception by PATH Environment Variable,"DS0024,DS0009,DS0022"
+Defense Evasion,Hijack Execution Flow,Path Interception by Search Order Hijacking,"DS0009,DS0022"
+Defense Evasion,Hijack Execution Flow,Path Interception by Unquoted Path,"DS0009,DS0022"
+Defense Evasion,Hijack Execution Flow,Services File Permissions Weakness,"DS0019,DS0009,DS0022"
+Defense Evasion,Hijack Execution Flow,Services Registry Permissions Weakness,"DS0024,DS0019,DS0009,DS0017"
+Defense Evasion,Impair Defenses,,"DS0024,DS0002,DS0019,DS0013,DS0012,DS0009,DS0018,DS0022,DS0027,DS0017,DS0025"
+Defense Evasion,Impair Defenses,Disable Windows Event Logging,"DS0024,DS0013,DS0012,DS0009,DS0017,DS0015"
+Defense Evasion,Impair Defenses,Disable or Modify Cloud Firewall,DS0018
+Defense Evasion,Impair Defenses,Disable or Modify Cloud Logs,"DS0002,DS0025"
+Defense Evasion,Impair Defenses,Disable or Modify Linux Audit System,"DS0009,DS0022,DS0017"
+Defense Evasion,Impair Defenses,Disable or Modify System Firewall,"DS0024,DS0018,DS0017"
+Defense Evasion,Impair Defenses,Disable or Modify Tools,"DS0024,DS0019,DS0013,DS0009,DS0027,DS0017"
+Defense Evasion,Impair Defenses,Downgrade Attack,"DS0009,DS0017"
+Defense Evasion,Impair Defenses,Impair Command History Logging,"DS0013,DS0017"
+Defense Evasion,Impair Defenses,Indicator Blocking,"DS0024,DS0013,DS0009,DS0017"
+Defense Evasion,Impair Defenses,Safe Mode Boot,"DS0024,DS0009,DS0017"
+Defense Evasion,Impair Defenses,Spoof Security Alerting,"DS0013,DS0009"
+Defense Evasion,Impersonation,,DS0015
+Defense Evasion,Indicator Removal,,"DS0024,DS0002,DS0003,DS0009,DS0029,DS0018,DS0022,DS0017,DS0015"
+Defense Evasion,Indicator Removal,Clear Command History,"DS0002,DS0009,DS0022,DS0017"
+Defense Evasion,Indicator Removal,Clear Linux or Mac System Logs,"DS0022,DS0017"
+Defense Evasion,Indicator Removal,Clear Mailbox Data,"DS0009,DS0022,DS0017,DS0015"
+Defense Evasion,Indicator Removal,Clear Network Connection History and Configurations,"DS0024,DS0009,DS0018,DS0022,DS0017"
+Defense Evasion,Indicator Removal,Clear Persistence,"DS0024,DS0002,DS0003,DS0009,DS0022,DS0017"
+Defense Evasion,Indicator Removal,Clear Windows Event Logs,"DS0009,DS0022,DS0017"
+Defense Evasion,Indicator Removal,File Deletion,"DS0022,DS0017"
+Defense Evasion,Indicator Removal,Network Share Connection Removal,"DS0002,DS0009,DS0029,DS0017"
+Defense Evasion,Indicator Removal,Relocate Malware,DS0022
+Defense Evasion,Indicator Removal,Timestomp,"DS0009,DS0022,DS0017"
+Defense Evasion,Indirect Command Execution,,"DS0009,DS0017"
+Defense Evasion,Masquerading,,"DS0002,DS0019,DS0003,DS0009,DS0007,DS0022,DS0017"
+Defense Evasion,Masquerading,Break Process Trees,DS0009
+Defense Evasion,Masquerading,Double File Extension,DS0022
+Defense Evasion,Masquerading,Invalid Code Signature,DS0022
+Defense Evasion,Masquerading,Masquerade Account Name,DS0002
+Defense Evasion,Masquerading,Masquerade File Type,"DS0022,DS0017"
+Defense Evasion,Masquerading,Masquerade Task or Service,"DS0019,DS0003,DS0017"
+Defense Evasion,Masquerading,Match Legitimate Resource Name or Location,"DS0009,DS0007,DS0022"
+Defense Evasion,Masquerading,Overwrite Process Arguments,DS0009
+Defense Evasion,Masquerading,Rename Legitimate Utilities,"DS0009,DS0022,DS0017"
+Defense Evasion,Masquerading,Right-to-Left Override,DS0022
+Defense Evasion,Masquerading,Space after Filename,DS0022
+Defense Evasion,Modify Cloud Compute Infrastructure,,"DS0034,DS0020,DS0030,DS0025"
+Defense Evasion,Modify Cloud Compute Infrastructure,Create Cloud Instance,DS0030
+Defense Evasion,Modify Cloud Compute Infrastructure,Create Snapshot,DS0020
+Defense Evasion,Modify Cloud Compute Infrastructure,Delete Cloud Instance,DS0030
+Defense Evasion,Modify Cloud Compute Infrastructure,Modify Cloud Compute Configurations,DS0025
+Defense Evasion,Modify Cloud Compute Infrastructure,Revert Cloud Instance,DS0030
+Defense Evasion,Modify Cloud Resource Hierarchy,,DS0025
+Defense Evasion,Modify Registry,,"DS0024,DS0009,DS0029,DS0017"
+Defense Evasion,Modify System Image,,DS0022
+Defense Evasion,Modify System Image,Downgrade System Image,DS0022
+Defense Evasion,Modify System Image,Patch System Image,DS0022
+Defense Evasion,Network Boundary Bridging,,DS0029
+Defense Evasion,Network Boundary Bridging,Network Address Translation Traversal,DS0029
+Defense Evasion,Obfuscated Files or Information,,"DS0005,DS0024,DS0012,DS0009,DS0011,DS0022,DS0017,DS0015"
+Defense Evasion,Obfuscated Files or Information,Binary Padding,DS0022
+Defense Evasion,Obfuscated Files or Information,Command Obfuscation,"DS0012,DS0022,DS0017"
+Defense Evasion,Obfuscated Files or Information,Compile After Delivery,"DS0009,DS0022,DS0017"
+Defense Evasion,Obfuscated Files or Information,Compression,DS0022
+Defense Evasion,Obfuscated Files or Information,Dynamic API Resolution,"DS0009,DS0011,DS0022"
+Defense Evasion,Obfuscated Files or Information,Embedded Payloads,DS0022
+Defense Evasion,Obfuscated Files or Information,Encrypted/Encoded File,DS0022
+Defense Evasion,Obfuscated Files or Information,Fileless Storage,"DS0005,DS0024,DS0009"
+Defense Evasion,Obfuscated Files or Information,HTML Smuggling,DS0022
+Defense Evasion,Obfuscated Files or Information,Indicator Removal from Tools,DS0015
+Defense Evasion,Obfuscated Files or Information,Junk Code Insertion,DS0022
+Defense Evasion,Obfuscated Files or Information,LNK Icon Smuggling,DS0022
+Defense Evasion,Obfuscated Files or Information,Polymorphic Code,"DS0022,DS0015"
+Defense Evasion,Obfuscated Files or Information,SVG Smuggling,DS0022
+Defense Evasion,Obfuscated Files or Information,Software Packing,DS0022
+Defense Evasion,Obfuscated Files or Information,Steganography,DS0022
+Defense Evasion,Obfuscated Files or Information,Stripped Payloads,DS0022
+Defense Evasion,Plist File Modification,,"DS0009,DS0022,DS0017"
+Defense Evasion,Pre-OS Boot,,"DS0009,DS0029,DS0001,DS0022,DS0027,DS0016,DS0017"
+Defense Evasion,Pre-OS Boot,Bootkit,"DS0022,DS0016"
+Defense Evasion,Pre-OS Boot,Component Firmware,"DS0009,DS0001,DS0027"
+Defense Evasion,Pre-OS Boot,ROMMONkit,DS0001
+Defense Evasion,Pre-OS Boot,System Firmware,DS0001
+Defense Evasion,Pre-OS Boot,TFTP Boot,"DS0029,DS0001,DS0017"
+Defense Evasion,Process Injection,,"DS0009,DS0011,DS0022"
+Defense Evasion,Process Injection,Asynchronous Procedure Call,DS0009
+Defense Evasion,Process Injection,Dynamic-link Library Injection,"DS0009,DS0011"
+Defense Evasion,Process Injection,Extra Window Memory Injection,DS0009
+Defense Evasion,Process Injection,ListPlanting,DS0009
+Defense Evasion,Process Injection,Portable Executable Injection,DS0009
+Defense Evasion,Process Injection,Proc Memory,DS0022
+Defense Evasion,Process Injection,Process Doppelgänging,"DS0009,DS0022"
+Defense Evasion,Process Injection,Process Hollowing,DS0009
+Defense Evasion,Process Injection,Ptrace System Calls,DS0009
+Defense Evasion,Process Injection,Thread Execution Hijacking,DS0009
+Defense Evasion,Process Injection,Thread Local Storage,DS0009
+Defense Evasion,Process Injection,VDSO Hijacking,"DS0009,DS0011"
+Defense Evasion,Reflective Code Loading,,"DS0012,DS0009,DS0011"
+Defense Evasion,Rogue Domain Controller,,"DS0002,DS0029,DS0026"
+Defense Evasion,Rootkit,,"DS0001,DS0022,DS0016"
+Defense Evasion,Subvert Trust Controls,,"DS0024,DS0009,DS0011,DS0022,DS0017"
+Defense Evasion,Subvert Trust Controls,Code Signing,DS0022
+Defense Evasion,Subvert Trust Controls,Code Signing Policy Modification,"DS0024,DS0009,DS0017"
+Defense Evasion,Subvert Trust Controls,Gatekeeper Bypass,"DS0009,DS0022,DS0017"
+Defense Evasion,Subvert Trust Controls,Install Root Certificate,"DS0024,DS0009,DS0017"
+Defense Evasion,Subvert Trust Controls,Mark-of-the-Web Bypass,DS0022
+Defense Evasion,Subvert Trust Controls,SIP and Trust Provider Hijacking,"DS0024,DS0011,DS0022"
+Defense Evasion,System Binary Proxy Execution,,"DS0024,DS0009,DS0029,DS0011,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,CMSTP,"DS0009,DS0029,DS0017"
+Defense Evasion,System Binary Proxy Execution,Compiled HTML File,"DS0009,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,Control Panel,"DS0024,DS0009,DS0011,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,Electron Applications,"DS0009,DS0017"
+Defense Evasion,System Binary Proxy Execution,InstallUtil,"DS0009,DS0017"
+Defense Evasion,System Binary Proxy Execution,MMC,"DS0009,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,Mavinject,"DS0009,DS0017"
+Defense Evasion,System Binary Proxy Execution,Mshta,"DS0009,DS0029,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,Msiexec,"DS0009,DS0029,DS0011,DS0017"
+Defense Evasion,System Binary Proxy Execution,Odbcconf,"DS0009,DS0011,DS0017"
+Defense Evasion,System Binary Proxy Execution,Regsvcs/Regasm,"DS0009,DS0017"
+Defense Evasion,System Binary Proxy Execution,Regsvr32,"DS0009,DS0029,DS0011,DS0017"
+Defense Evasion,System Binary Proxy Execution,Rundll32,"DS0009,DS0011,DS0022,DS0017"
+Defense Evasion,System Binary Proxy Execution,Verclsid,"DS0009,DS0017"
+Defense Evasion,System Script Proxy Execution,,"DS0012,DS0009,DS0017"
+Defense Evasion,System Script Proxy Execution,PubPrn,"DS0012,DS0009,DS0017"
+Defense Evasion,System Script Proxy Execution,SyncAppvPublishingServer,"DS0012,DS0009,DS0017"
+Defense Evasion,Template Injection,,"DS0009,DS0029"
+Defense Evasion,Trusted Developer Utilities Proxy Execution,,"DS0009,DS0011,DS0017"
+Defense Evasion,Trusted Developer Utilities Proxy Execution,ClickOnce,"DS0009,DS0011,DS0017"
+Defense Evasion,Trusted Developer Utilities Proxy Execution,JamPlus,DS0009
+Defense Evasion,Trusted Developer Utilities Proxy Execution,MSBuild,"DS0009,DS0017"
+Defense Evasion,Unused/Unsupported Cloud Regions,,DS0030
+Defense Evasion,Valid Accounts,,"DS0002,DS0028"
+Defense Evasion,Valid Accounts,Cloud Accounts,"DS0002,DS0028"
+Defense Evasion,Valid Accounts,Default Accounts,"DS0002,DS0028"
+Defense Evasion,Valid Accounts,Domain Accounts,"DS0002,DS0028"
+Defense Evasion,Valid Accounts,Local Accounts,"DS0002,DS0028"
+Defense Evasion,Weaken Encryption,,DS0022
+Defense Evasion,Weaken Encryption,Disable Crypto Hardware,DS0022
+Defense Evasion,Weaken Encryption,Reduce Key Space,DS0022
+Defense Evasion,XSL Script Processing,,"DS0009,DS0011"
+Discovery,Account Discovery,,"DS0009,DS0022,DS0017"
+Discovery,Account Discovery,Cloud Account,DS0017
+Discovery,Account Discovery,Domain Account,"DS0009,DS0029,DS0036,DS0017"
+Discovery,Account Discovery,Email Account,"DS0009,DS0017"
+Discovery,Account Discovery,Local Account,"DS0009,DS0036,DS0022,DS0017"
+Discovery,Application Window Discovery,,"DS0009,DS0017"
+Discovery,Browser Information Discovery,,"DS0009,DS0022,DS0017"
+Discovery,Cloud Infrastructure Discovery,,"DS0034,DS0020,DS0030,DS0010"
+Discovery,Cloud Service Dashboard,,"DS0002,DS0028"
+Discovery,Cloud Service Discovery,,"DS0028,DS0025"
+Discovery,Cloud Storage Object Discovery,,DS0010
+Discovery,Container and Resource Discovery,,"DS0014,DS0032"
+Discovery,Debugger Evasion,,"DS0009,DS0017,DS0015"
+Discovery,Device Driver Discovery,,"DS0024,DS0009,DS0017"
+Discovery,Domain Trust Discovery,,"DS0012,DS0009,DS0029,DS0017"
+Discovery,File and Directory Discovery,,"DS0009,DS0017"
+Discovery,Group Policy Discovery,,"DS0012,DS0009,DS0029,DS0017,DS0026"
+Discovery,Log Enumeration,,"DS0009,DS0022,DS0017"
+Discovery,Network Service Discovery,,"DS0029,DS0017,DS0025"
+Discovery,Network Share Discovery,,"DS0009,DS0017"
+Discovery,Network Sniffing,,"DS0009,DS0017"
+Discovery,Password Policy Discovery,,"DS0002,DS0009,DS0017"
+Discovery,Peripheral Device Discovery,,"DS0009,DS0017"
+Discovery,Permission Groups Discovery,,"DS0009,DS0036,DS0017,DS0015"
+Discovery,Permission Groups Discovery,Cloud Groups,"DS0009,DS0036,DS0017,DS0015"
+Discovery,Permission Groups Discovery,Domain Groups,"DS0009,DS0036,DS0017"
+Discovery,Permission Groups Discovery,Local Groups,"DS0009,DS0036,DS0017"
+Discovery,Process Discovery,,"DS0009,DS0017"
+Discovery,Query Registry,,"DS0024,DS0009,DS0017"
+Discovery,Remote System Discovery,,"DS0009,DS0029,DS0022,DS0017"
+Discovery,Software Discovery,,"DS0009,DS0018,DS0017"
+Discovery,Software Discovery,Security Software Discovery,"DS0009,DS0018,DS0017"
+Discovery,System Information Discovery,,"DS0009,DS0017"
+Discovery,System Location Discovery,,"DS0009,DS0017"
+Discovery,System Location Discovery,System Language Discovery,"DS0024,DS0009,DS0017"
+Discovery,System Network Configuration Discovery,,"DS0012,DS0009,DS0017"
+Discovery,System Network Configuration Discovery,Internet Connection Discovery,"DS0009,DS0017"
+Discovery,System Network Configuration Discovery,Wi-Fi Discovery,"DS0009,DS0017"
+Discovery,System Network Connections Discovery,,"DS0009,DS0017"
+Discovery,System Owner/User Discovery,,"DS0024,DS0009,DS0029,DS0022,DS0017,DS0026"
+Discovery,System Service Discovery,,"DS0009,DS0017"
+Discovery,System Time Discovery,,"DS0009,DS0017"
+Discovery,Virtual Machine Discovery,,DS0017
+Discovery,Virtualization/Sandbox Evasion,,"DS0009,DS0017"
+Discovery,Virtualization/Sandbox Evasion,System Checks,"DS0009,DS0017"
+Discovery,Virtualization/Sandbox Evasion,Time Based Evasion,"DS0009,DS0017"
+Discovery,Virtualization/Sandbox Evasion,User Activity Based Checks,"DS0009,DS0017"
+Execution,Cloud Administration Command,,"DS0012,DS0009,DS0017"
+Execution,Command and Scripting Interpreter,,"DS0012,DS0009,DS0011,DS0017"
+Execution,Command and Scripting Interpreter,AppleScript,"DS0009,DS0017"
+Execution,Command and Scripting Interpreter,AutoHotKey & AutoIT,"DS0009,DS0017"
+Execution,Command and Scripting Interpreter,Cloud API,DS0017
+Execution,Command and Scripting Interpreter,Hypervisor CLI,DS0017
+Execution,Command and Scripting Interpreter,JavaScript,"DS0012,DS0009,DS0011,DS0017"
+Execution,Command and Scripting Interpreter,Lua,"DS0012,DS0017"
+Execution,Command and Scripting Interpreter,Network Device CLI,DS0017
+Execution,Command and Scripting Interpreter,PowerShell,"DS0012,DS0009,DS0011,DS0017"
+Execution,Command and Scripting Interpreter,Python,"DS0009,DS0017"
+Execution,Command and Scripting Interpreter,Unix Shell,"DS0009,DS0017"
+Execution,Command and Scripting Interpreter,Visual Basic,"DS0012,DS0009,DS0011,DS0017"
+Execution,Command and Scripting Interpreter,Windows Command Shell,"DS0009,DS0017"
+Execution,Container Administration Command,,"DS0009,DS0017"
+Execution,ESXi Administration Command,,DS0015
+Execution,Exploitation for Client Execution,,"DS0009,DS0029,DS0022,DS0015"
+Execution,Input Injection,,"DS0012,DS0009,DS0016"
+Execution,Inter-Process Communication,,"DS0012,DS0009,DS0011"
+Execution,Inter-Process Communication,Component Object Model,"DS0012,DS0009,DS0011"
+Execution,Inter-Process Communication,Dynamic Data Exchange,"DS0012,DS0009,DS0011"
+Execution,Inter-Process Communication,XPC Services,DS0009
+Execution,Native API,,"DS0009,DS0011"
+Execution,Serverless Execution,,"DS0025,DS0015"
+Execution,Shared Modules,,"DS0009,DS0011"
+Execution,System Services,,"DS0024,DS0019,DS0009,DS0022,DS0017"
+Execution,System Services,Launchctl,"DS0019,DS0009,DS0022,DS0017"
+Execution,System Services,Service Execution,"DS0024,DS0019,DS0009,DS0029,DS0017"
+Execution,System Services,Systemctl,"DS0019,DS0009,DS0022,DS0017"
+Execution,User Execution,,"DS0009,DS0029,DS0030,DS0007,DS0022,DS0032,DS0017,DS0015"
+Execution,User Execution,Malicious Copy and Paste,"DS0009,DS0029,DS0022,DS0017"
+Execution,User Execution,Malicious File,"DS0009,DS0022"
+Execution,User Execution,Malicious Image,"DS0030,DS0007,DS0032,DS0017,DS0015"
+Execution,User Execution,Malicious Link,"DS0029,DS0022"
+Execution,Windows Management Instrumentation,,"DS0005,DS0009,DS0029,DS0017"
+Exfiltration,Automated Exfiltration,,"DS0012,DS0029,DS0022,DS0017"
+Exfiltration,Automated Exfiltration,Traffic Duplication,DS0029
+Exfiltration,Data Transfer Size Limits,,DS0029
+Exfiltration,Exfiltration Over Alternative Protocol,,"DS0029,DS0022,DS0017,DS0010,DS0015"
+Exfiltration,Exfiltration Over Alternative Protocol,Exfiltration Over Asymmetric Encrypted Non-C2 Protocol,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Alternative Protocol,Exfiltration Over Symmetric Encrypted Non-C2 Protocol,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Alternative Protocol,Exfiltration Over Unencrypted Non-C2 Protocol,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over C2 Channel,,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Other Network Medium,,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Other Network Medium,Exfiltration Over Bluetooth,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Physical Medium,,"DS0009,DS0022,DS0016,DS0017"
+Exfiltration,Exfiltration Over Physical Medium,Exfiltration over USB,"DS0009,DS0022,DS0016,DS0017"
+Exfiltration,Exfiltration Over Web Service,,"DS0029,DS0022,DS0017,DS0015"
+Exfiltration,Exfiltration Over Web Service,Exfiltration Over Webhook,"DS0029,DS0022,DS0017,DS0015"
+Exfiltration,Exfiltration Over Web Service,Exfiltration to Cloud Storage,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Web Service,Exfiltration to Code Repository,"DS0029,DS0022,DS0017"
+Exfiltration,Exfiltration Over Web Service,Exfiltration to Text Storage Sites,DS0029
+Exfiltration,Scheduled Transfer,,DS0029
+Exfiltration,Transfer Data to Cloud Account,,"DS0020,DS0029,DS0010,DS0015"
+Impact,Account Access Removal,,"DS0002,DS0026"
+Impact,Data Destruction,,"DS0034,DS0020,DS0009,DS0030,DS0007,DS0022,DS0017,DS0010"
+Impact,Data Destruction,Lifecycle-Triggered Deletion,DS0010
+Impact,Data Encrypted for Impact,,"DS0009,DS0033,DS0022,DS0017,DS0010"
+Impact,Data Manipulation,,"DS0009,DS0029,DS0022"
+Impact,Data Manipulation,Runtime Data Manipulation,"DS0009,DS0022"
+Impact,Data Manipulation,Stored Data Manipulation,DS0022
+Impact,Data Manipulation,Transmitted Data Manipulation,"DS0009,DS0029"
+Impact,Defacement,,"DS0029,DS0022,DS0015"
+Impact,Defacement,External Defacement,"DS0029,DS0022,DS0015"
+Impact,Defacement,Internal Defacement,"DS0029,DS0022,DS0015"
+Impact,Disk Wipe,,"DS0009,DS0027,DS0016,DS0017"
+Impact,Disk Wipe,Disk Content Wipe,"DS0009,DS0027,DS0016,DS0017"
+Impact,Disk Wipe,Disk Structure Wipe,"DS0009,DS0027,DS0016,DS0017"
+Impact,Email Bombing,,"DS0029,DS0022,DS0015"
+Impact,Endpoint Denial of Service,,"DS0013,DS0029,DS0015"
+Impact,Endpoint Denial of Service,Application Exhaustion Flood,"DS0013,DS0029,DS0015"
+Impact,Endpoint Denial of Service,Application or System Exploitation,"DS0013,DS0029,DS0015"
+Impact,Endpoint Denial of Service,OS Exhaustion Flood,"DS0013,DS0029"
+Impact,Endpoint Denial of Service,Service Exhaustion Flood,"DS0013,DS0029,DS0015"
+Impact,Financial Theft,,DS0015
+Impact,Firmware Corruption,,DS0001
+Impact,Inhibit System Recovery,,"DS0024,DS0020,DS0019,DS0009,DS0022,DS0017,DS0010"
+Impact,Network Denial of Service,,"DS0013,DS0029"
+Impact,Network Denial of Service,Direct Network Flood,"DS0013,DS0029"
+Impact,Network Denial of Service,Reflection Amplification,"DS0013,DS0029"
+Impact,Resource Hijacking,,"DS0013,DS0009,DS0029,DS0022,DS0017,DS0025,DS0015"
+Impact,Resource Hijacking,Bandwidth Hijacking,"DS0009,DS0029,DS0022,DS0017"
+Impact,Resource Hijacking,Cloud Service Hijacking,"DS0025,DS0015"
+Impact,Resource Hijacking,Compute Hijacking,"DS0013,DS0009,DS0029,DS0022,DS0017"
+Impact,Resource Hijacking,SMS Pumping,DS0015
+Impact,Service Stop,,"DS0024,DS0019,DS0009,DS0022,DS0017"
+Impact,System Shutdown/Reboot,,"DS0013,DS0009,DS0017"
+Initial Access,Drive-by Compromise,,"DS0009,DS0029,DS0022,DS0015"
+Initial Access,Exploit Public-Facing Application,,"DS0029,DS0015"
+Initial Access,Hardware Additions,,"DS0029,DS0016,DS0015"
+Initial Access,Phishing,,"DS0029,DS0022,DS0015"
+Initial Access,Phishing,Spearphishing Attachment,"DS0029,DS0022,DS0015"
+Initial Access,Phishing,Spearphishing Link,"DS0029,DS0015"
+Initial Access,Phishing,Spearphishing Voice,DS0015
+Initial Access,Phishing,Spearphishing via Service,"DS0029,DS0015"
+Initial Access,Supply Chain Compromise,,"DS0013,DS0022"
+Initial Access,Supply Chain Compromise,Compromise Hardware Supply Chain,DS0013
+Initial Access,Supply Chain Compromise,Compromise Software Dependencies and Development Tools,DS0022
+Initial Access,Supply Chain Compromise,Compromise Software Supply Chain,DS0022
+Initial Access,Trusted Relationship,,"DS0029,DS0028,DS0015"
+Initial Access,Wi-Fi Networks,,"DS0029,DS0018"
+Lateral Movement,Exploitation of Remote Services,,"DS0029,DS0015"
+Lateral Movement,Internal Spearphishing,,"DS0029,DS0015"
+Lateral Movement,Lateral Tool Transfer,,"DS0009,DS0029,DS0033,DS0023,DS0022,DS0017"
+Lateral Movement,Remote Service Session Hijacking,,"DS0009,DS0029,DS0028,DS0017"
+Lateral Movement,Remote Service Session Hijacking,RDP Hijacking,"DS0009,DS0029,DS0028,DS0017"
+Lateral Movement,Remote Service Session Hijacking,SSH Hijacking,"DS0009,DS0029,DS0028,DS0017"
+Lateral Movement,Remote Services,,"DS0005,DS0009,DS0029,DS0033,DS0011,DS0028,DS0017"
+Lateral Movement,Remote Services,Cloud Services,DS0028
+Lateral Movement,Remote Services,Direct Cloud VM Connections,DS0028
+Lateral Movement,Remote Services,Distributed Component Object Model,"DS0009,DS0029,DS0011"
+Lateral Movement,Remote Services,Remote Desktop Protocol,"DS0009,DS0029,DS0028"
+Lateral Movement,Remote Services,SMB/Windows Admin Shares,"DS0009,DS0029,DS0033,DS0028,DS0017"
+Lateral Movement,Remote Services,SSH,"DS0009,DS0029,DS0028"
+Lateral Movement,Remote Services,VNC,"DS0009,DS0029,DS0028"
+Lateral Movement,Remote Services,Windows Remote Management,"DS0019,DS0009,DS0029,DS0028,DS0017"
+Lateral Movement,Replication Through Removable Media,,"DS0009,DS0022,DS0016"
+Lateral Movement,Software Deployment Tools,,"DS0009,DS0015"
+Lateral Movement,Taint Shared Content,,"DS0009,DS0033,DS0022"
+Lateral Movement,Use Alternate Authentication Material,,"DS0006,DS0002,DS0028,DS0015,DS0026"
+Lateral Movement,Use Alternate Authentication Material,Application Access Token,DS0006
+Lateral Movement,Use Alternate Authentication Material,Pass the Hash,"DS0002,DS0028,DS0026"
+Lateral Movement,Use Alternate Authentication Material,Pass the Ticket,"DS0002,DS0028,DS0026"
+Lateral Movement,Use Alternate Authentication Material,Web Session Cookie,"DS0006,DS0015"
+Persistence,Cloud Application Integration,,"DS0025,DS0026"
+Persistence,Compromise Host Software Binary,,DS0022
+Persistence,Create Account,,"DS0002,DS0009,DS0017"
+Persistence,Create Account,Cloud Account,DS0002
+Persistence,Create Account,Domain Account,"DS0002,DS0009,DS0017"
+Persistence,Create Account,Local Account,"DS0002,DS0009,DS0017"
+Persistence,Exclusive Control,,"DS0009,DS0017"
+Persistence,External Remote Services,,"DS0029,DS0028,DS0015"
+Persistence,Implant Internal Image,,DS0007
+Persistence,Office Application Startup,,"DS0024,DS0009,DS0011,DS0022,DS0017,DS0015"
+Persistence,Office Application Startup,Add-ins,"DS0024,DS0009,DS0022,DS0017"
+Persistence,Office Application Startup,Office Template Macros,"DS0024,DS0009,DS0022,DS0017"
+Persistence,Office Application Startup,Office Test,"DS0024,DS0009,DS0011,DS0022,DS0017"
+Persistence,Office Application Startup,Outlook Forms,"DS0009,DS0017,DS0015"
+Persistence,Office Application Startup,Outlook Home Page,"DS0009,DS0017,DS0015"
+Persistence,Office Application Startup,Outlook Rules,"DS0009,DS0017,DS0015"
+Persistence,Power Settings,,"DS0022,DS0017"
+Persistence,Server Software Component,,"DS0009,DS0029,DS0022,DS0017,DS0015"
+Persistence,Server Software Component,IIS Components,"DS0022,DS0017"
+Persistence,Server Software Component,SQL Stored Procedures,DS0015
+Persistence,Server Software Component,Terminal Services DLL,"DS0024,DS0009,DS0011,DS0022,DS0017"
+Persistence,Server Software Component,Transport Agent,"DS0022,DS0015"
+Persistence,Server Software Component,Web Shell,"DS0009,DS0029,DS0022,DS0015"
+Persistence,Server Software Component,vSphere Installation Bundles,"DS0017,DS0015"
+Persistence,Software Extensions,,"DS0024,DS0009,DS0029,DS0022,DS0017"
+Persistence,Software Extensions,Browser Extensions,"DS0024,DS0009,DS0029,DS0022,DS0017"
+Persistence,Software Extensions,IDE Extensions,"DS0009,DS0029"
+Privilege Escalation,Account Manipulation,,"DS0002,DS0009,DS0036,DS0022,DS0017,DS0026"
+Privilege Escalation,Account Manipulation,Additional Cloud Credentials,"DS0002,DS0026"
+Privilege Escalation,Account Manipulation,Additional Cloud Roles,DS0002
+Privilege Escalation,Account Manipulation,Additional Container Cluster Roles,DS0002
+Privilege Escalation,Account Manipulation,Additional Email Delegate Permissions,"DS0002,DS0036,DS0015"
+Privilege Escalation,Account Manipulation,Additional Local or Domain Groups,DS0002
+Privilege Escalation,Account Manipulation,Device Registration,"DS0002,DS0015,DS0026"
+Privilege Escalation,Account Manipulation,SSH Authorized Keys,"DS0009,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,,"DS0024,DS0009,DS0011,DS0008,DS0022,DS0027,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Active Setup,"DS0024,DS0009,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Authentication Package,"DS0024,DS0011,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Kernel Modules and Extensions,"DS0009,DS0008,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,LSASS Driver,"DS0011,DS0022,DS0027"
+Privilege Escalation,Boot or Logon Autostart Execution,Login Items,"DS0009,DS0022"
+Privilege Escalation,Boot or Logon Autostart Execution,Port Monitors,"DS0024,DS0009,DS0011,DS0022"
+Privilege Escalation,Boot or Logon Autostart Execution,Print Processors,"DS0024,DS0009,DS0011,DS0022,DS0027"
+Privilege Escalation,Boot or Logon Autostart Execution,Re-opened Applications,"DS0022,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Registry Run Keys / Startup Folder,"DS0024,DS0009,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Security Support Provider,"DS0024,DS0011,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Shortcut Modification,"DS0009,DS0022"
+Privilege Escalation,Boot or Logon Autostart Execution,Time Providers,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,Winlogon Helper DLL,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Boot or Logon Autostart Execution,XDG Autostart Entries,"DS0009,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Initialization Scripts,,"DS0024,DS0009,DS0022,DS0017,DS0026"
+Privilege Escalation,Boot or Logon Initialization Scripts,Login Hook,"DS0009,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Initialization Scripts,Logon Script (Windows),"DS0024,DS0009,DS0017"
+Privilege Escalation,Boot or Logon Initialization Scripts,Network Logon Script,"DS0009,DS0022,DS0017,DS0026"
+Privilege Escalation,Boot or Logon Initialization Scripts,RC Scripts,"DS0009,DS0022,DS0017"
+Privilege Escalation,Boot or Logon Initialization Scripts,Startup Items,"DS0009,DS0022,DS0017"
+Privilege Escalation,Create or Modify System Process,,"DS0024,DS0019,DS0009,DS0022,DS0027,DS0032,DS0017"
+Privilege Escalation,Create or Modify System Process,Container Service,"DS0032,DS0017"
+Privilege Escalation,Create or Modify System Process,Launch Agent,"DS0019,DS0022,DS0017"
+Privilege Escalation,Create or Modify System Process,Launch Daemon,"DS0019,DS0009,DS0022,DS0017"
+Privilege Escalation,Create or Modify System Process,Systemd Service,"DS0019,DS0009,DS0022,DS0017"
+Privilege Escalation,Create or Modify System Process,Windows Service,"DS0024,DS0019,DS0009,DS0029,DS0022,DS0027,DS0017"
+Privilege Escalation,Escape to Host,,"DS0034,DS0009,DS0008,DS0032"
+Privilege Escalation,Event Triggered Execution,,"DS0005,DS0024,DS0009,DS0011,DS0022,DS0017,DS0025"
+Privilege Escalation,Event Triggered Execution,Accessibility Features,"DS0024,DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,AppCert DLLs,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Event Triggered Execution,AppInit DLLs,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Event Triggered Execution,Application Shimming,"DS0024,DS0009,DS0011,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Change Default File Association,"DS0024,DS0009,DS0017"
+Privilege Escalation,Event Triggered Execution,Component Object Model Hijacking,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Event Triggered Execution,Emond,"DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Image File Execution Options Injection,"DS0024,DS0009,DS0017"
+Privilege Escalation,Event Triggered Execution,Installer Packages,"DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,LC_LOAD_DYLIB Addition,"DS0009,DS0011,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Netsh Helper DLL,"DS0024,DS0009,DS0011,DS0017"
+Privilege Escalation,Event Triggered Execution,PowerShell Profile,"DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Screensaver,"DS0024,DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Trap,"DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Udev Rules,"DS0009,DS0022"
+Privilege Escalation,Event Triggered Execution,Unix Shell Configuration Modification,"DS0009,DS0022,DS0017"
+Privilege Escalation,Event Triggered Execution,Windows Management Instrumentation Event Subscription,"DS0005,DS0009,DS0022,DS0017"
+Privilege Escalation,Exploitation for Privilege Escalation,,"DS0009,DS0027"
+Privilege Escalation,Scheduled Task/Job,,"DS0003,DS0009,DS0022,DS0032,DS0017"
+Privilege Escalation,Scheduled Task/Job,At,"DS0003,DS0009,DS0029,DS0022,DS0017"
+Privilege Escalation,Scheduled Task/Job,Container Orchestration Job,"DS0003,DS0022,DS0032"
+Privilege Escalation,Scheduled Task/Job,Cron,"DS0003,DS0009,DS0022,DS0017"
+Privilege Escalation,Scheduled Task/Job,Scheduled Task,"DS0024,DS0003,DS0009,DS0029,DS0022,DS0017"
+Privilege Escalation,Scheduled Task/Job,Systemd Timers,"DS0003,DS0009,DS0022,DS0017"
+Reconnaissance,Active Scanning,,DS0029
+Reconnaissance,Active Scanning,Scanning IP Blocks,DS0029
+Reconnaissance,Active Scanning,Vulnerability Scanning,DS0029
+Reconnaissance,Active Scanning,Wordlist Scanning,DS0029
+Reconnaissance,Gather Victim Host Information,,DS0035
+Reconnaissance,Gather Victim Host Information,Client Configurations,DS0035
+Reconnaissance,Gather Victim Host Information,Firmware,nan
+Reconnaissance,Gather Victim Host Information,Hardware,DS0035
+Reconnaissance,Gather Victim Host Information,Software,DS0035
+Reconnaissance,Gather Victim Identity Information,,DS0029
+Reconnaissance,Gather Victim Identity Information,Credentials,nan
+Reconnaissance,Gather Victim Identity Information,Email Addresses,DS0029
+Reconnaissance,Gather Victim Identity Information,Employee Names,nan
+Reconnaissance,Gather Victim Network Information,,nan
+Reconnaissance,Gather Victim Network Information,DNS,nan
+Reconnaissance,Gather Victim Network Information,Domain Properties,nan
+Reconnaissance,Gather Victim Network Information,IP Addresses,nan
+Reconnaissance,Gather Victim Network Information,Network Security Appliances,nan
+Reconnaissance,Gather Victim Network Information,Network Topology,nan
+Reconnaissance,Gather Victim Network Information,Network Trust Dependencies,nan
+Reconnaissance,Gather Victim Org Information,,nan
+Reconnaissance,Gather Victim Org Information,Business Relationships,nan
+Reconnaissance,Gather Victim Org Information,Determine Physical Locations,nan
+Reconnaissance,Gather Victim Org Information,Identify Business Tempo,nan
+Reconnaissance,Gather Victim Org Information,Identify Roles,nan
+Reconnaissance,Phishing for Information,,"DS0029,DS0015"
+Reconnaissance,Phishing for Information,Spearphishing Attachment,"DS0029,DS0015"
+Reconnaissance,Phishing for Information,Spearphishing Link,"DS0029,DS0015"
+Reconnaissance,Phishing for Information,Spearphishing Service,"DS0029,DS0015"
+Reconnaissance,Phishing for Information,Spearphishing Voice,DS0015
+Reconnaissance,Search Closed Sources,,nan
+Reconnaissance,Search Closed Sources,Purchase Technical Data,nan
+Reconnaissance,Search Closed Sources,Threat Intel Vendors,nan
+Reconnaissance,Search Open Technical Databases,,nan
+Reconnaissance,Search Open Technical Databases,CDNs,nan
+Reconnaissance,Search Open Technical Databases,DNS/Passive DNS,nan
+Reconnaissance,Search Open Technical Databases,Digital Certificates,nan
+Reconnaissance,Search Open Technical Databases,Scan Databases,nan
+Reconnaissance,Search Open Technical Databases,WHOIS,nan
+Reconnaissance,Search Open Websites/Domains,,nan
+Reconnaissance,Search Open Websites/Domains,Code Repositories,nan
+Reconnaissance,Search Open Websites/Domains,Search Engines,nan
+Reconnaissance,Search Open Websites/Domains,Social Media,nan
+Reconnaissance,Search Victim-Owned Websites,,DS0015
+Resource Development,Acquire Access,,nan
+Resource Development,Acquire Infrastructure,,"DS0035,DS0038"
+Resource Development,Acquire Infrastructure,Botnet,nan
+Resource Development,Acquire Infrastructure,DNS Server,nan
+Resource Development,Acquire Infrastructure,Domains,DS0038
+Resource Development,Acquire Infrastructure,Malvertising,DS0035
+Resource Development,Acquire Infrastructure,Server,DS0035
+Resource Development,Acquire Infrastructure,Serverless,DS0035
+Resource Development,Acquire Infrastructure,Virtual Private Server,DS0035
+Resource Development,Acquire Infrastructure,Web Services,DS0035
+Resource Development,Compromise Accounts,,"DS0021,DS0029"
+Resource Development,Compromise Accounts,Cloud Accounts,nan
+Resource Development,Compromise Accounts,Email Accounts,nan
+Resource Development,Compromise Accounts,Social Media Accounts,"DS0021,DS0029"
+Resource Development,Compromise Infrastructure,,"DS0035,DS0038"
+Resource Development,Compromise Infrastructure,Botnet,nan
+Resource Development,Compromise Infrastructure,DNS Server,DS0038
+Resource Development,Compromise Infrastructure,Domains,DS0038
+Resource Development,Compromise Infrastructure,Network Devices,DS0035
+Resource Development,Compromise Infrastructure,Server,DS0035
+Resource Development,Compromise Infrastructure,Serverless,DS0035
+Resource Development,Compromise Infrastructure,Virtual Private Server,DS0035
+Resource Development,Compromise Infrastructure,Web Services,DS0035
+Resource Development,Develop Capabilities,,"DS0004,DS0035"
+Resource Development,Develop Capabilities,Code Signing Certificates,DS0004
+Resource Development,Develop Capabilities,Digital Certificates,DS0035
+Resource Development,Develop Capabilities,Exploits,nan
+Resource Development,Develop Capabilities,Malware,DS0004
+Resource Development,Establish Accounts,,"DS0021,DS0029"
+Resource Development,Establish Accounts,Cloud Accounts,nan
+Resource Development,Establish Accounts,Email Accounts,nan
+Resource Development,Establish Accounts,Social Media Accounts,"DS0021,DS0029"
+Resource Development,Obtain Capabilities,,"DS0004,DS0035,DS0037"
+Resource Development,Obtain Capabilities,Artificial Intelligence,nan
+Resource Development,Obtain Capabilities,Code Signing Certificates,DS0004
+Resource Development,Obtain Capabilities,Digital Certificates,"DS0035,DS0037"
+Resource Development,Obtain Capabilities,Exploits,nan
+Resource Development,Obtain Capabilities,Malware,DS0004
+Resource Development,Obtain Capabilities,Tool,DS0004
+Resource Development,Obtain Capabilities,Vulnerabilities,nan
+Resource Development,Stage Capabilities,,DS0035
+Resource Development,Stage Capabilities,Drive-by Target,DS0035
+Resource Development,Stage Capabilities,Install Digital Certificate,DS0035
+Resource Development,Stage Capabilities,Link Target,DS0035
+Resource Development,Stage Capabilities,SEO Poisoning,DS0035
+Resource Development,Stage Capabilities,Upload Malware,DS0035
+Resource Development,Stage Capabilities,Upload Tool,DS0035

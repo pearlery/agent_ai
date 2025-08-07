@@ -1,0 +1,29 @@
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+#Ignore All in project
+.env
+log.txt
+Multi_Tools_copy/
+Multi_Tools/
+IP_Domain_Intelligence/
+ContextAgent/
+
+#Ignore In IP_Domain_Intelligence
+IP_Domain_Intelligence/LocalLLM/**/*.json
+
+#Ignore In RunModel
+RunModel/model/**/*.pkl
+*.zip
+
+
+#Ignore In ContextAgent
+
+ContextAgent/temp/
+ContextAgent/rag/vector_db/index.pkl
+ContextAgent/rag/vector_db/index.faiss
+
+
+#Ignore In Control
+/ControlAgent/database
