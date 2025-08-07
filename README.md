@@ -1,425 +1,200 @@
-# Agent AI - Multi-Agent Cybersecurity Analysis System
-
-## 🎯 Overview
-
-Agent AI is an enhanced multi-agent cybersecurity analysis system that processes security alerts through a sophisticated pipeline of AI-powered agents. The system analyzes logs, maps them to the MITRE ATT&CK framework, and generates comprehensive incident response recommendations.
-
-### Key Features
-
-- **🔍 MITRE ATT&CK Analysis**: Automatic mapping of security events to MITRE ATT&CK techniques
-- **📊 JSON Output Format**: Structured output compatible with security dashboards
-- **⏱️ Timeline Tracking**: Real-time processing stage monitoring
-- **🔧 Tools Monitoring**: Security tool status tracking
-- **🗄️ Data Persistence**: Comprehensive logging and data retention
-- **🚀 Ollama Integration**: Local LLM support for enhanced privacy
-- **🎛️ Control API**: REST API for workflow orchestration
-- **💾 Memory Management**: Automatic cleanup and session management
-
-## 🏗️ Architecture
-
-```mermaid
-graph TB
-    A[Input Agent] --> B[NATS Message Broker]
-    B --> C[Analysis Agent]
-    C --> D[Recommendation Agent]
-    D --> E[Output Handler]
-    F[Control Agent] --> B
-    G[Timeline Tracker] --> E
-    H[Tools Monitor] --> E
-    I[Session Manager] --> E
-```
-
-### Components
-
-1. **Input Agent**: Processes raw security alerts and publishes to NATS
-2. **Analysis Agent**: Maps alerts to MITRE ATT&CK framework using LLM
-3. **Recommendation Agent**: Generates incident response recommendations
-4. **Control Agent**: Orchestrates the entire workflow via REST API
-5. **Output Handler**: Manages structured JSON output format
-6. **Timeline Tracker**: Tracks processing stages and errors
-7. **Tools Monitor**: Monitors security tool status
-8. **Session Manager**: Manages memory and session lifecycle
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.11+
-- NATS Server
-- Ollama (for local LLM)
-
-### Installation
-
-1. **Clone and setup:**
-```bash
-cd agent_ai
-pip install -r agntics_ai/requirements.txt
-```
-
-2. **Configure environment:**
-```bash
-cp .env.example .env
-# Edit .env with your settings
-```
-
-3. **Start NATS server:**
-```bash
-docker run -p 4222:4222 -p 8222:8222 nats:latest -js
-```
-
-4. **Start Ollama and pull model:**
-```bash
-ollama pull qwen3:235b
-```
-
-### Running the System
-
-#### Option 1: Full Pipeline (Recommended)
-```bash
-python run_demo.py
-```
-
-#### Option 2: Control Agent API
-```bash
-python start_control_agent.py
-```
-Then use the REST API at `http://localhost:9002`
-
-#### Option 3: Individual Components
-```bash
-# Analysis Agent
-python -m agntics_ai.agents.analysis_agent
-
-# Recommendation Agent  
-python -m agntics_ai.agents.recommendation_agent
-
-# Input Agent
-python -m agntics_ai.agents.input_agent
-```
-
-## 📋 Configuration
-
-### Environment Variables (.env)
-```bash
-# Ollama LLM Configuration
-LLM_MODEL=qwen3:235b
-LLM_TEMPERATURE=0.05
-LOCAL_LLM_URL=http://localhost:11434/api/generate
-LLM_MAX_TOKENS=2048
-
-# NATS Configuration
-NATS_SERVER_URL=nats://localhost:4222
-NATS_STREAM_NAME=AGENT_AI_PIPELINE
-
-# Web App Configuration
-WEBAPP_HOST=0.0.0.0
-WEBAPP_PORT=5000
-
-# Session Management
-MAX_SESSIONS=1000
-SESSION_TTL=86400
-CLEANUP_INTERVAL=3600
-```
-
-### YAML Configuration (agntics_ai/config/config.yaml)
-```yaml
-# LLM Configuration (Ollama only)
-llm:
-  local_url: "http://localhost:11434/api/generate"
-  local_model: "qwen3:235b"
-  temperature: 0.05
-  max_tokens: 2048
-
-# NATS Configuration
-nats:
-  server_url: "nats://localhost:4222"
-  stream_name: "AGENT_AI_PIPELINE"
-  subjects:
-    input: "agentAI.input"
-    analysis: "agentAI.analysis"
-    output: "agentAI.output"
-
-webapp:
-  host: "0.0.0.0"
-  port: 5000
-  debug: false
-
-logging:
-  level: "INFO"
-  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-```
-
-## 📊 Output Format
-
-The system generates structured JSON output in `output.json`:
-
-```json
-{
-  "agent.overview.updated": [{
-    "id": "session-uuid",
-    "data": {
-      "description": "MITRE ATT&CK analysis completed"
-    }
-  }],
-  "agent.tools.updated": [{
-    "id": "session-uuid", 
-    "data": [
-      {"name": "Suricata IDS", "status": "active"},
-      {"name": "OSQuery", "status": "inactive"},
-      {"name": "YARA Scanner", "status": "missing"}
-    ]
-  }],
-  "agent.recommendation.updated": [{
-    "id": "session-uuid",
-    "data": {
-      "description": "Generated incident response recommendations",
-      "content": "# Incident Report\n..."
-    }
-  }],
-  "agent.checklist.updated": [{
-    "id": "session-uuid",
-    "data": {
-      "title": "Incident Response Checklist",
-      "content": "[ ] Isolate affected host\n[ ] Collect evidence\n..."
-    }
-  }],
-  "agent.executive.updated": [{
-    "id": "session-uuid",
-    "data": {
-      "title": "Security Incident Analysis - Execution",
-      "content": "Detected PowerShell technique with 0.95 confidence score"
-    }
-  }],
-  "agent.attack.updated": [{
-    "id": "session-uuid",
-    "data": [{
-      "tacticID": "TA0002",
-      "tacticName": "Execution", 
-      "confidence": 0.95
-    }]
-  }],
-  "agent.timeline.updated": [{
-    "id": "session-uuid",
-    "data": [
-      {"stage": "Received Alert", "status": "success", "errorMessage": ""},
-      {"stage": "Analysis Agent", "status": "success", "errorMessage": ""},
-      {"stage": "Recommendation Agent", "status": "success", "errorMessage": ""}
-    ]
-  }]
-}
-```
-
-## 🔧 Control Agent API
-
-### Base URL: `http://localhost:9002`
-
-### Workflow Endpoints
-
-#### Start Processing Flow
-```bash
-POST /control/start
-{
-  "alert_id": "alert-001",
-  "data": {
-    "alert_name": "Suspicious PowerShell Activity",
-    "severity": "High",
-    "events": [...]
-  }
-}
-```
-
-#### Complete Type Classification
-```bash
-POST /control/type/finished
-{
-  "session_id": "session-uuid",
-  "data": {
-    "technique_id": "T1059.001",
-    "technique_name": "PowerShell",
-    "tactic": "Execution",
-    "confidence_score": 0.95
-  }
-}
-```
-
-#### Complete Workflow
-```bash
-POST /control/flow/finished
-{
-  "session_id": "session-uuid", 
-  "data": {
-    "status": "success",
-    "report": "# Incident Report\n...",
-    "recommendations": [...]
-  }
-}
-```
-
-### Management Endpoints
-
-- `GET /control/sessions` - List all sessions
-- `GET /control/status/{session_id}` - Get session status
-- `DELETE /control/session/{session_id}` - Delete session
-- `GET /control/memory/stats` - Memory usage statistics
-- `POST /control/memory/cleanup` - Manual cleanup
-- `GET /control/health` - Health check
-
-## 🔍 Monitoring & Management
-
-### Memory Management
-- **Automatic Cleanup**: Sessions older than 24 hours are automatically removed
-- **Memory Limits**: Maximum 1000 active sessions in memory
-- **Manual Cleanup**: Use `/control/memory/cleanup` endpoint
-
-### Connection Management
-- **Connection Pooling**: NATS connections are reused and managed centrally
-- **Leak Prevention**: Automatic connection cleanup on shutdown
-
-### Error Handling
-- **Retry Logic**: LLM calls retry up to 3 times with exponential backoff
-- **Timeline Tracking**: All errors are tracked in timeline with detailed messages
-- **Graceful Degradation**: System continues operating even if some components fail
-
-### Logging
-```bash
-# View logs
-tail -f logs/agent_ai.log
-
-# Debug level logging
-LOG_LEVEL=DEBUG python run_demo.py
-```
-
-## 🐳 Docker Deployment
-
-### Using Docker Compose
-```bash
-# Start all services
-docker-compose up -d
-
-# Start with Ollama
-docker-compose --profile ollama up -d
-
-# View logs
-docker-compose logs -f agent-ai
-```
-
-### Manual Docker Build
-```bash
-docker build -t agent-ai .
-docker run -p 9002:9002 -p 5000:5000 agent-ai
-```
-
-## 🧪 Testing
-
-### Run Demo with Sample Data
-```bash
-python run_demo.py
-```
-
-### Test Individual Components
-```bash
-# Test Ollama connection
-curl http://localhost:11434/api/generate -d '{"model":"qwen3:235b","prompt":"Hello","stream":false}'
-
-# Test NATS connection
-python -c "import asyncio; from agntics_ai.utils.nats_handler import NATSHandler; print('NATS OK')"
-
-# Test Control Agent API
-curl http://localhost:9002/control/health
-```
-
-### Load Testing
-```bash
-# Install artillery
-npm install -g artillery
-
-# Run load test
-artillery run load-test.yml
-```
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-1. **NATS Connection Failed**
-   - Check if NATS server is running: `docker ps | grep nats`
-   - Verify connection string in config
-
-2. **Ollama Model Not Found**
-   - Pull the model: `ollama pull qwen3:235b`
-   - Check available models: `ollama list`
-
-3. **Memory Issues**
-   - Monitor memory: `GET /control/memory/stats`
-   - Trigger cleanup: `POST /control/memory/cleanup`
-
-4. **Timeline Not Updating**
-   - Check NATS subjects configuration
-   - Verify agent connections
-
-### Performance Tuning
-
-1. **Increase LLM Timeout**
-   ```python
-   # In llm_handler_ollama.py
-   timeout = aiohttp.ClientTimeout(total=60)  # Increase from 30
-   ```
-
-2. **Adjust Session Limits**
-   ```bash
-   # In .env
-   MAX_SESSIONS=2000
-   SESSION_TTL=172800  # 48 hours
-   ```
-
-3. **NATS Performance**
-   ```bash
-   # Start NATS with more memory
-   docker run -p 4222:4222 nats:latest -js -m 8GB
-   ```
-
-## 📚 Development
-
-### Project Structure
-```
-agent_ai/
-├── agntics_ai/           # Main package
-│   ├── agents/          # Agent implementations  
-│   ├── config/          # Configuration management
-│   ├── control/         # Control Agent (API)
-│   ├── utils/           # Utilities and handlers
-│   └── webapp/          # Web interface
-├── database/            # Persistent data storage
-├── run_demo.py          # Demo script
-├── start_control_agent.py # Control Agent starter
-└── README.md           # This file
-```
-
-### Adding New Agents
-1. Create agent class in `agntics_ai/agents/`
-2. Implement NATS message handling
-3. Add to orchestrator in `cli/run_all.py`
-4. Update timeline stages if needed
-
-### Custom Output Formats
-1. Modify `utils/output_handler.py`
-2. Add new sections to output structure
-3. Update agents to populate new sections
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
-## 🆘 Support
-
-- **Issues**: Report bugs via GitHub Issues
-- **Documentation**: See `/docs` for detailed documentation
-- **API Docs**: Available at `http://localhost:9002/docs` when Control Agent is running
+# Agent AI System
+
+## 1. ภาพรวม (Overview)
+
+Agent AI System คือแพลตฟอร์มอัจฉริยะที่ขับเคลื่อนด้วยอีเวนต์ (event-driven) ซึ่งออกแบบมาเพื่อวิเคราะห์แจ้งเตือน (alerts) จากระบบต่างๆ โดยอัตโนมัติ แพลตฟอร์มนี้จะรับแจ้งเตือน, ทำการวิเคราะห์เชิงลึกโดยใช้ Agent ที่ขับเคลื่อนด้วย AI, และให้คำแนะนำที่สามารถนำไปปฏิบัติได้จริง ระบบถูกสร้างขึ้นด้วยสถาปัตยกรรมแบบ Microservices และใช้ Message Broker สำหรับการสื่อสารแบบ Asynchronous ระหว่างส่วนประกอบต่างๆ
+
+## 2. คุณสมบัติหลัก (Features)
+
+-   **Asynchronous Processing:** สร้างขึ้นบน NATS Message Broker เพื่อการสื่อสารที่มีเสถียรภาพและขยายขนาดได้
+-   **AI-Powered Analysis:** ใช้ประโยชน์จาก Large Language Models (LLMs) เพื่อวิเคราะห์แจ้งเตือนและข้อมูลที่ซับซ้อน
+-   **Automated Recommendations:** สร้างขั้นตอนที่นำไปปฏิบัติได้จริงเพื่อแก้ไขปัญหาที่ตรวจพบ
+-   **RESTful API Control:** มี `Control Agent` กลางสำหรับจัดการกระบวนการทำงานผ่าน FastAPI
+-   **Web Interface:** มี Web Application ที่พัฒนาด้วย Flask สำหรับแสดงสถานะของระบบ
+-   **Containerized Deployment:** สามารถติดตั้งและรันผ่าน Docker และ Docker Compose ได้อย่างสมบูรณ์
+-   **Extensible Tooling:** Agent สามารถติดตั้งเครื่องมือต่างๆ เพิ่มเติมเพื่อเชื่อมต่อกับระบบภายนอกและแหล่งข้อมูลอื่นๆ ได้
+
+## 3. สถาปัตยกรรมและโฟลว์การทำงาน (Architecture & Data Flow)
+
+ระบบประกอบด้วย Service หลัก 3 ส่วนที่ทำงานแยกกันและสื่อสารผ่าน NATS Message Broker ซึ่งเป็นหัวใจของสถาปัตยกรรม
+
+### ส่วนประกอบหลัก (Core Components)
+
+1.  **Control Agent (`control_app.py`):**
+    -   **หน้าที่:** เป็นประตูหลัก (Gateway) ของระบบ สร้างด้วย FastAPI
+    -   รับแจ้งเตือนผ่าน REST API (`/alert` endpoint)
+    -   สร้าง Session ID ที่ไม่ซ้ำกันสำหรับแต่ละแจ้งเตือน
+    -   จัดเก็บแจ้งเตือนเริ่มต้นไว้ใน `data/alerts/`
+    -   เผยแพร่ (Publish) ข้อความแรกไปยัง NATS เพื่อเริ่มต้นกระบวนการ
+
+2.  **Analysis Agent (`analysis_agent.py`):**
+    -   **หน้าที่:** Worker ที่วิเคราะห์แจ้งเตือนเพื่อระบุเทคนิคการโจมตี
+    -   ดึง (Pull) ข้อความจาก NATS ที่ Control Agent ส่งมา
+    -   ใช้ LLM เพื่อวิเคราะห์ข้อมูลแจ้งเตือนและจับคู่กับ **MITRE ATT&CK Framework**
+    -   จัดเก็บผลการวิเคราะห์ (เช่น `T1059.001`) ไว้ใน `data/analyses/`
+    -   เผยแพร่ผลการวิเคราะห์ต่อไปยัง NATS
+
+3.  **Recommendation Agent (`recommendation_agent.py`):**
+    -   **หน้าที่:** Worker ที่สร้างรายงานและคำแนะนำในการรับมือ
+    -   ดึงผลการวิเคราะห์จาก NATS
+    -   ค้นหาเครื่องมือ (Tools) ที่เกี่ยวข้องกับเทคนิคการโจมตีที่พบจาก `agntics_ai/data/tool/`
+    -   ใช้ LLM เพื่อสร้างรายงานฉบับสมบูรณ์ในรูปแบบ Markdown ซึ่งประกอบด้วย: สรุปสำหรับผู้บริหาร, รายละเอียดทางเทคนิค, และคำแนะนำในการรับมือ (โดยอ้างอิงเครื่องมือที่ค้นพบ)
+    -   จัดเก็บรายงานไว้ใน `data/reports/`
+    -   เผยแพร่ผลลัพธ์สุดท้ายไปยัง NATS และอัปเดตไฟล์ `output.json`
+
+### โฟลว์การทำงานผ่าน NATS (NATS Data Flow)
+
+การสื่อสารทั้งหมดเกิดขึ้นผ่าน NATS stream ชื่อ `agentAI_stream` โดยใช้ Subject ที่แตกต่างกันในแต่ละขั้นตอน:
+
+1.  **`agentAI.Input`**:
+    -   **Publisher:** `Control Agent`
+    -   **Consumer:** `Analysis Agent`
+    -   **Payload:** ข้อมูลแจ้งเตือนเริ่มต้นพร้อม `session_id`
+
+2.  **`agentAI.Analysis`**:
+    -   **Publisher:** `Analysis Agent`
+    -   **Consumer:** `Recommendation Agent`
+    -   **Payload:** ข้อมูลแจ้งเตือนเดิมที่เสริมด้วยผลการวิเคราะห์จาก MITRE ATT&CK
+
+3.  **`agentAI.Output`**:
+    -   **Publisher:** `Recommendation Agent`
+    -   **Consumer:** (ไม่มีในปัจจุบัน, แต่สามารถต่อยอดเพื่อส่ง Notification ได้)
+    -   **Payload:** ผลลัพธ์สุดท้ายที่ประกอบด้วยข้อมูลทั้งหมดและรายงานฉบับสมบูรณ์
+
+## 4. การเริ่มต้นใช้งาน (Getting Started)
+
+คุณสามารถรันโปรเจกต์ได้ 2 วิธี:
+
+### วิธีที่ 1: Docker Compose (แนะนำ)
+
+วิธีนี้ง่ายที่สุดและเหมาะสำหรับ Production หรือการทดสอบทั่วไป
+
+1.  **Prerequisites:** ติดตั้ง [Docker](https://www.docker.com/get-started) และ [Docker Compose](https://docs.docker.com/compose/install/)
+
+2.  **Configuration:**
+    -   คัดลอกไฟล์ `.env.example` ไปเป็น `.env`: `cp .env.example .env`
+    -   ในไฟล์ `.env`, ค่า `NATS_URL` และ `CONTROL_AGENT_URL` ถูกตั้งค่าให้ชี้ไปที่ชื่อ Service ภายใน Docker network อยู่แล้ว (`nats` และ `control_agent`) คุณไม่จำเป็นต้องแก้ไข
+
+3.  **Run the System:**
+    ```bash
+    docker-compose up --build
+    ```
+    คำสั่งนี้จะสร้างและรัน Container ทั้งหมด: `control_agent`, `webapp`, และ `nats-server`
+
+### วิธีที่ 2: Local Development (ไม่ใช้ Docker)
+
+วิธีนี้เหมาะสำหรับนักพัฒนาที่ต้องการแก้ไขโค้ดและดีบักการทำงานของแต่ละ Agent
+
+1.  **Prerequisites:**
+    -   ติดตั้ง Python 3.10 หรือสูงกว่า
+    -   ติดตั้ง [NATS Server](https://docs.nats.io/running-a-nats-service/introduction/installation) และรันบนเครื่องของคุณ (หรือมี NATS server ให้เชื่อมต่อ)
+
+2.  **Setup Environment:**
+    -   สร้างและ Activate Virtual Environment:
+        ```bash
+        python -m venv venv
+        source venv/bin/activate  # บน Windows ใช้ `venv\Scripts\activate`
+        ```
+    -   ติดตั้ง Dependencies:
+        ```bash
+        pip install -r agntics_ai/requirements.txt
+        ```
+
+3.  **Configuration:**
+    -   เปิดไฟล์ `agntics_ai/config/config.yaml` และแก้ไข `nats.server_url` ให้ชี้ไปยัง NATS server ของคุณ (เช่น `nats://localhost:4222`)
+    -   แก้ไข `llm.local_url` ให้ชี้ไปยัง Ollama API ของคุณ
+
+4.  **Run Each Service:**
+    เปิด Terminal แยกกัน 3 อัน และรันแต่ละ Agent ตามลำดับ:
+
+    -   **Terminal 1: Control Agent**
+        ```bash
+        python start_control_agent.py
+        ```
+    -   **Terminal 2: Analysis Agent**
+        ```bash
+        python -m agntics_ai.agents.analysis_agent
+        ```
+    -   **Terminal 3: Recommendation Agent**
+        ```bash
+        python -m agntics_ai.agents.recommendation_agent
+        ```
+
+## 5. การตั้งค่าคอนฟิก (Configuration)
+
+### Environment Variables (`.env`)
+
+ใช้สำหรับตั้งค่าที่เปลี่ยนแปลงตามสภาพแวดล้อม (Development vs. Production)
+
+-   `NATS_URL`: ที่อยู่ของ NATS server (เช่น `nats://nats:4222` สำหรับ Docker)
+-   `API_KEY`: Secret key สำหรับป้องกัน API (ยังไม่ได้ใช้งานในปัจจุบัน)
+-   `CONTROL_AGENT_URL`: URL ที่ `run_demo.py` ใช้เพื่อส่งข้อมูลไปยัง Control Agent
+
+### Application Configuration (`agntics_ai/config/config.yaml`)
+
+ไฟล์คอนฟิกหลักสำหรับพฤติกรรมของแอปพลิเคชัน
+
+-   **`nats`**:
+    -   `server_url`: ที่อยู่ NATS server (จะถูก override ด้วยค่าจาก `.env` หากมี)
+    -   `stream_name`: ชื่อของ Stream ใน NATS
+    -   `subjects`: กำหนดชื่อ Subject สำหรับแต่ละขั้นตอน (`input`, `analysis`, `output`)
+-   **`llm`**:
+    -   `local_url`: Endpoint ของ Ollama API
+    -   `local_model`: ชื่อโมเดลที่ต้องการใช้ (เช่น `llama3`)
+    -   `temperature`: ควบคุมความสร้างสรรค์ของ LLM (ค่าต่ำ = ตรงไปตรงมา)
+    -   `max_tokens`: จำนวน Token สูงสุดที่ LLM จะสร้างได้
+-   **`webapp`**: การตั้งค่าสำหรับ Flask web app
+-   **`logging`**: กำหนดระดับและรูปแบบของ Log
+
+## 6. คู่มือการใช้งาน (Usage Guide)
+
+1.  **ส่งแจ้งเตือน:** ใช้ `curl` หรือ `run_demo.py` เพื่อส่งแจ้งเตือนไปยัง `http://localhost:8000/alert`
+    ```bash
+    # รันเดโม
+    python run_demo.py
+    ```
+
+2.  **ติดตามสถานะ:**
+    -   **Web UI:** เปิด [http://localhost:8080](http://localhost:8080) เพื่อดู Timeline การประมวลผล
+    -   **Output Files:** ตรวจสอบไฟล์ที่ถูกสร้างขึ้นในไดเรกทอรี `data/`:
+        -   `data/alerts/`: เก็บแจ้งเตือนเริ่มต้น
+        -   `data/analyses/`: เก็บผลการวิเคราะห์จาก Analysis Agent
+        -   `data/reports/`: เก็บรายงานฉบับเต็มจาก Recommendation Agent
+    -   **Main Output:** ไฟล์ `output.json` จะถูกอัปเดตด้วยผลลัพธ์สรุปของแต่ละเซสชัน
+
+## 7. การแก้ไขและพัฒนาต่อ (Modification & Extension)
+
+### การแก้ไข Prompt ของ Agent
+
+Prompt ถูกสร้างขึ้นแบบไดนามิกในโค้ดเพื่อใส่ข้อมูลจากแจ้งเตือนเข้าไป
+
+-   **Analysis Agent Prompt:** อยู่ในฟังก์ชัน `create_analysis_prompt` ภายในไฟล์ `agntics_ai/utils/llm_handler_ollama.py`
+-   **Recommendation Agent Prompt:** อยู่ในฟังก์ชัน `create_recommendation_prompt` ภายในไฟล์ `agntics_ai/utils/llm_handler_ollama.py`
+
+คุณสามารถเข้าไปแก้ไขข้อความในฟังก์ชันเหล่านี้เพื่อปรับเปลี่ยนพฤติกรรมของ LLM ได้
+
+### การเพิ่มเครื่องมือ (Tool) ใหม่
+
+Recommendation Agent สามารถแนะนำเครื่องมือ (เช่น Splunk, CrowdStrike) ที่เกี่ยวข้องกับเทคนิคการโจมตีได้
+
+1.  **สร้างไฟล์ Tool JSON:**
+    ไปที่ไดเรกทอรี `agntics_ai/data/tool/` และสร้างไฟล์ JSON ใหม่ (หรือแก้ไขไฟล์ที่มีอยู่) โครงสร้างของไฟล์ควรเป็นไปตามตัวอย่าง `Output_N-Health_EndPoint.json`
+
+2.  **โครงสร้างข้อมูล:**
+    ข้อมูลสำคัญอยู่ภายใต้ `onBoarding.currentTechnologies` ซึ่งเป็น list ของ object ที่มี `technology` และ `product`
+
+3.  **Logic การค้นหา:**
+    ไฟล์ `agntics_ai/utils/tool_loader.py` ในฟังก์ชัน `find_relevant_tools` มีการ map ระหว่าง MITRE ATT&CK technique ID กับประเภทของเทคโนโลยี (เช่น `T1059` map กับ `EDR`, `ANTIVIRUS`) คุณสามารถเพิ่มหรือแก้ไข mapping นี้เพื่อให้ระบบรู้จักเครื่องมือของคุณ
+
+### การเพิ่ม Agent ใหม่
+
+หากคุณต้องการเพิ่มขั้นตอนการประมวลผลใหม่ (เช่น Agent สำหรับทำ Enrichment ข้อมูล) ให้ทำตามขั้นตอนต่อไปนี้:
+
+1.  **สร้าง Agent File:** สร้างไฟล์ Python ใหม่ใน `agntics_ai/agents/` (เช่น `enrichment_agent.py`)
+2.  **กำหนด NATS Subjects:**
+    -   ใน `config.yaml`, เพิ่ม subject ใหม่ เช่น `enrichment: "agentAI.Enrichment"`
+    -   ให้ Agent ใหม่ของคุณ **Subscribe** subject ที่เป็นผลลัพธ์ของขั้นตอนก่อนหน้า (เช่น `agentAI.Analysis`)
+    -   ให้ Agent ใหม่ของคุณ **Publish** ผลลัพธ์ไปยัง subject ใหม่ (เช่น `agentAI.Enrichment`)
+3.  **ปรับแก้ Agent ต่อเนื่อง:**
+    -   แก้ไข Agent ที่จะทำงานในขั้นตอนถัดไป (เช่น `RecommendationAgent`) ให้ Subscribe subject ใหม่ที่คุณเพิ่งสร้าง (`agentAI.Enrichment`) แทน subject เดิม
+
