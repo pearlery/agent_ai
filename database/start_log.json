@@ -831,20 +831,5 @@
       },
       "tags": "Alert"
     }
-  },
-  {
-    "session_id": "693ea1bf-6f71-4339-93fd-f41a5a051905",
-    "alert_id": "system_test_alert",
-    "timestamp": "2025-08-07T15:58:44.211569",
-    "alert_data": {
-      "alert_id": "system_test_alert",
-      "timestamp": "2025-08-07T11:00:00Z",
-      "severity": "high",
-      "hostname": "test-system",
-      "process_name": "sdclt.exe",
-      "command_line": "sdclt.exe /kickoffelev",
-      "source_ip": "192.168.1.100",
-      "description": "Potential UAC bypass detected"
-    }
   }
 ]

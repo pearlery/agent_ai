@@ -21,9 +21,16 @@ class TimelineStatus(Enum):
 class TimelineStage(Enum):
     """Standard timeline stages for the agent pipeline."""
     RECEIVED_ALERT = "Received Alert"
+    TYPE_AGENT = "Type Agent"
+    ANALYZE_ROOT_CAUSE = "Analyze Root Cause"
+    TRIAGE_STATUS = "Triage Status"
+    ACTION_TAKEN = "Action Taken"
+    TOOL_STATUS = "Tool Status"
+    RECOMMENDATION = "Recommendation"
+    # Keep some legacy stages for backward compatibility
     INPUT_AGENT = "Input Agent"
-    ANALYSIS_AGENT = "Analysis Agent"
-    RECOMMENDATION_AGENT = "Recommendation Agent"
+    ANALYSIS_AGENT = "Type Agent"  # Map to Type Agent
+    RECOMMENDATION_AGENT = "Recommendation"  # Map to Recommendation
     OUTPUT_GENERATED = "Output Generated"
     PROCESS_COMPLETE = "Process Complete"
 

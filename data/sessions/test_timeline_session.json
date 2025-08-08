@@ -1,0 +1,14 @@
+{
+  "session_id": "test_timeline_session",
+  "timestamp": "2025-08-07T23:30:33.985838",
+  "data": {
+    "session_id": "test_timeline_session",
+    "completed_at": "2025-08-07T23:30:33.984841",
+    "final_results": {
+      "status": "completed",
+      "report": "Timeline test - incident analysis completed",
+      "recommendations": "Timeline test recommendations"
+    },
+    "status": "completed"
+  }
+}

@@ -1,12 +1,14 @@
 """
 Output handler for generating JSON output in the required format.
 """
+import asyncio
 import json
 import logging
 import uuid
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pathlib import Path
+from .graphql_publisher import get_graphql_publisher
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +49,9 @@ class OutputHandler:
             }
         }
         logger.info(f"Updated overview for session {session_id}")
+        
+        # ส่งไป GraphQL ผ่าน NATS
+        self._publish_to_graphql("overview", session_id, description)
     
     def update_tools_status(self, session_id: str, tools: List[Dict[str, str]]) -> None:
         """
@@ -71,16 +76,18 @@ class OutputHandler:
             description: Recommendation description
             content: Full recommendation content
         """
+        recommendation_data = [{
+            "description": description,
+            "content": content
+        }]
         self.output_data["agentAI.recommendation.updated"] = {
             "id": session_id,
-            "data": [
-                {
-                    "description": description,
-                    "content": content
-                }
-            ]
+            "data": recommendation_data
         }
         logger.info(f"Updated recommendation for session {session_id}")
+        
+        # ส่งไป GraphQL ผ่าน NATS
+        self._publish_to_graphql("recommendation", session_id, recommendation_data)
     
     def update_checklist(self, session_id: str, title: str, content: str) -> None:
         """
@@ -121,6 +128,9 @@ class OutputHandler:
             ]
         }
         logger.info(f"Updated executive summary for session {session_id}")
+        
+        # ส่งไป GraphQL ผ่าน NATS
+        self._publish_to_graphql("executive", session_id, {"title": title, "content": content})
     
     def update_attack_mapping(self, session_id: str, tactics: List[Dict[str, Any]]) -> None:
         """
@@ -135,6 +145,9 @@ class OutputHandler:
             "data": tactics
         }
         logger.info(f"Updated attack mapping for session {session_id}")
+        
+        # ส่งไป GraphQL ผ่าน NATS
+        self._publish_to_graphql("attack", session_id, tactics)
     
     def update_timeline(self, session_id: str, timeline_entries: List[Dict[str, str]]) -> None:
         """
@@ -178,6 +191,9 @@ class OutputHandler:
         self.output_data["agentAI.timeline.updated"]["data"].append(new_entry)
         
         logger.info(f"Added timeline entry for session {session_id}: {stage} - {status}")
+        
+        # ส่งไป GraphQL ผ่าน NATS
+        self._publish_to_graphql("timeline", session_id, self.output_data["agentAI.timeline.updated"]["data"])
     
     def save_to_file(self) -> None:
         """Save the current output data to the JSON file."""
@@ -185,6 +201,10 @@ class OutputHandler:
             with open(self.output_file_path, 'w', encoding='utf-8') as f:
                 json.dump(self.output_data, f, indent=2, ensure_ascii=False)
             logger.info(f"Output saved to {self.output_file_path}")
+            
+            # ส่ง full output ไป GraphQL ผ่าน NATS
+            self._publish_to_graphql("full_output", "", self.output_data)
+            
         except Exception as e:
             logger.error(f"Failed to save output to file: {e}")
             raise
@@ -224,6 +244,42 @@ class OutputHandler:
             del self.output_data[key]
         
         logger.info(f"Cleared data for session {session_id}")
+    
+    def _publish_to_graphql(self, update_type: str, session_id: str, data: Any) -> None:
+        """
+        ส่ง update ไป GraphQL ผ่าน NATS
+        
+        Args:
+            update_type: ประเภทของการอัพเดท (overview, attack, recommendation, etc.)
+            session_id: Session ID
+            data: ข้อมูลที่จะส่ง
+        """
+        try:
+            publisher = get_graphql_publisher()
+            if publisher is None:
+                logger.debug("GraphQL publisher not initialized, skipping publish")
+                return
+            
+            # Run async publish in background
+            if update_type == "overview":
+                asyncio.create_task(publisher.publish_overview_update(session_id, data))
+            elif update_type == "attack":
+                asyncio.create_task(publisher.publish_attack_update(session_id, data))
+            elif update_type == "recommendation":
+                asyncio.create_task(publisher.publish_recommendation_update(session_id, data))
+            elif update_type == "timeline":
+                asyncio.create_task(publisher.publish_timeline_update(session_id, data))
+            elif update_type == "executive":
+                title = data.get("title", "")
+                content = data.get("content", "")
+                asyncio.create_task(publisher.publish_executive_summary_update(session_id, title, content))
+            elif update_type == "full_output":
+                asyncio.create_task(publisher.publish_full_output(self.output_data))
+                
+            logger.debug(f"Queued GraphQL publish for {update_type}")
+            
+        except Exception as e:
+            logger.error(f"Failed to publish to GraphQL: {e}")
 
 
 # Global output handler instance

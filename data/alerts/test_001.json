@@ -1,0 +1,10 @@
+{
+  "alert_id": "test_001",
+  "timestamp": "2025-08-07T23:21:21.390487",
+  "data": {
+    "alert_id": "test_001",
+    "timestamp": "2025-08-07T23:20:00Z",
+    "severity": "high",
+    "message": "Test alert for control agent"
+  }
+}

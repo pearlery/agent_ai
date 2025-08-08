@@ -1,0 +1,10 @@
+{
+  "alert_id": "timeline_test_001",
+  "timestamp": "2025-08-07T23:30:33.917843",
+  "data": {
+    "alert_id": "timeline_test_001",
+    "timestamp": "2025-08-07T23:30:00Z",
+    "severity": "high",
+    "message": "Timeline test alert"
+  }
+}

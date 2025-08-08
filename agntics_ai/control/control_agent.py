@@ -34,12 +34,12 @@ class ControlAgent:
     Control Agent that orchestrates the entire Agent AI workflow.
     """
     
-    def __init__(self, nats_handler: NATSHandler, output_file: str = "output.json"):
+    def __init__(self, nats_handler: Optional[NATSHandler], output_file: str = "output.json"):
         """
         Initialize the Control Agent.
         
         Args:
-            nats_handler: Connected NATS handler instance
+            nats_handler: Connected NATS handler instance (can be None for test mode)
             output_file: Path to output JSON file
         """
         self.nats_handler = nats_handler
@@ -119,7 +119,7 @@ class ControlAgent:
         try:
             # Update timeline
             timeline = get_timeline_tracker(session_id, self.output_file)
-            timeline.mark_stage_success(TimelineStage.ANALYSIS_AGENT)
+            timeline.mark_stage_success(TimelineStage.TYPE_AGENT)
             
             # Record type log
             type_log_entry = {
@@ -170,7 +170,7 @@ class ControlAgent:
             
             # Update timeline for successful completion
             timeline = get_timeline_tracker(session_id, self.output_file)
-            timeline.mark_stage_success(TimelineStage.RECOMMENDATION_AGENT)
+            timeline.mark_stage_success(TimelineStage.RECOMMENDATION)
             timeline.complete_processing(True, "Workflow completed successfully")
             
             # Record final results
@@ -224,11 +224,15 @@ class ControlAgent:
             # Convert WorkflowStage to TimelineStage
             timeline_stage_map = {
                 WorkflowStage.RECEIVED_ALERT: TimelineStage.RECEIVED_ALERT,
-                WorkflowStage.TYPE_AGENT: TimelineStage.ANALYSIS_AGENT,
-                WorkflowStage.RECOMMENDATION: TimelineStage.RECOMMENDATION_AGENT
+                WorkflowStage.TYPE_AGENT: TimelineStage.TYPE_AGENT,
+                WorkflowStage.ANALYZE_ROOT_CAUSE: TimelineStage.ANALYZE_ROOT_CAUSE,
+                WorkflowStage.TRIAGE_STATUS: TimelineStage.TRIAGE_STATUS,
+                WorkflowStage.ACTION_TAKEN: TimelineStage.ACTION_TAKEN,
+                WorkflowStage.TOOL_STATUS: TimelineStage.TOOL_STATUS,
+                WorkflowStage.RECOMMENDATION: TimelineStage.RECOMMENDATION
             }
             
-            timeline_stage = timeline_stage_map.get(stage, TimelineStage.RECOMMENDATION_AGENT)
+            timeline_stage = timeline_stage_map.get(stage, TimelineStage.RECOMMENDATION)
             timeline.mark_stage_error(timeline_stage, error_msg)
             timeline.complete_processing(False, f"Processing failed at {stage.name}: {error_msg}")
             
@@ -254,6 +258,10 @@ class ControlAgent:
             error: Error message if any
         """
         try:
+            if self.nats_handler is None:
+                logger.debug(f"NATS not available, skipping timeline update for session {session_id}")
+                return
+                
             timeline_payload = self._build_timeline_payload(stage.value, session_id, error)
             
             # Publish to websocket subject for real-time updates

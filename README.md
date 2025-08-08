@@ -6,9 +6,11 @@
 - [คุณสมบัติหลัก](#คุณสมบัติหลัก-key-features)
 - [การเริ่มต้นใช้งาน](#การเริ่มต้นใช้งาน-getting-started)
 - [การตั้งค่าและการกำหนดค่า](#การตั้งค่าและการกำหนดค่า-configuration)
+- [GraphQL Integration](#graphql-integration)
 - [คู่มือการใช้งาน](#คู่มือการใช้งาน-usage-guide)
 - [Web Interface และ Real-time Monitoring](#web-interface-และ-real-time-monitoring)
 - [API Documentation](#api-documentation)
+- [การทดสอบระบบ](#การทดสอบระบบ-testing)
 - [การพัฒนาและขยายระบบ](#การพัฒนาและขยายระบบ-development--extension)
 - [Troubleshooting](#troubleshooting)
 
@@ -61,13 +63,15 @@ Agent AI System เป็นแพลตฟอร์มวิเคราะห�
           │                      │                       │
           ▼                      ▼                       ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Control Agent (FastAPI)                      │
-│                    - REST API Endpoints                         │
+│                    Control Agent (FastAPI:9004)                 │
+│                    - Timeline API (7 Stages)                    │
 │                    - Session Management                         │
 │                    - Process Orchestration                      │
+│                    - Manual Workflow Control                    │
 └─────────────────────────┬───────────────────────────────────────┘
                           │
-                          ▼
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  NATS JetStream Message Broker                  │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
@@ -78,11 +82,11 @@ Agent AI System เป็นแพลตฟอร์มวิเคราะห�
       │                   │                   │
       ▼                   ▼                   ▼
 ┌─────────────┐  ┌─────────────────┐  ┌─────────────────────────┐
-│ Analysis    │  │ Recommendation  │  │     Web App             │
+│ Analysis    │  │ Recommendation  │  │     Web App (5000)      │
 │ Agent       │  │ Agent           │  │  - Real-time Dashboard  │
-│ - LLM       │  │ - LLM           │  │  - Progress Tracking    │
+│ - LLM       │  │ - LLM           │  │  - Timeline Tracking    │
 │ - MITRE     │  │ - Tool          │  │  - Output Visualization │
-│   Mapping   │  │   Integration   │  │                         │
+│   ATT&CK    │  │   Integration   │  │  - SSE Updates          │
 └─────────────┘  └─────────────────┘  └─────────────────────────┘
 ```
 
@@ -113,6 +117,18 @@ NATS (agentAI.Analysis) → Recommendation Agent → Tool Loader → LLM → NAT
 - ใช้ LLM สร้างรายงานและคำแนะนำ
 - เผยแพร่ผลลัพธ์สุดท้าย
 
+### 📊 Timeline Stages (7 Stages Tracking)
+
+ระบบติดตามขั้นตอนการประมวลผลแบบ real-time ผ่าน **Control Agent Timeline API**:
+
+1. **"Received Alert"** - รับ security alert เข้าระบบ
+2. **"Type Agent"** - วิเคราะห์ประเภทของ threat ด้วย Analysis Agent
+3. **"Analyze Root Cause"** - วิเคราะห์สาเหตุรากของเหตุการณ์
+4. **"Triage Status"** - จัดลำดับความรุนแรงและความสำคัญ
+5. **"Action Taken"** - ดำเนินการตอบสนองและแก้ไข
+6. **"Tool Status"** - ตรวจสอบสถานะเครื่องมือความปลอดภัย
+7. **"Recommendation"** - สร้างคำแนะนำและรายงานด้วย Recommendation Agent
+
 ## ⚡ คุณสมบัติหลัก (Key Features)
 
 ### 🤖 AI-Powered Analysis
@@ -135,10 +151,18 @@ NATS (agentAI.Analysis) → Recommendation Agent → Tool Loader → LLM → NAT
 - **Dynamic Tool Loading**: อ่านข้อมูล tool แบบ dynamic
 - **Intelligent Recommendations**: แนะนำการใช้เครื่องมือตามสถานการณ์
 
+### 🎛️ Control Agent API (NEW!)
+- **Timeline API**: RESTful API สำหรับติดตาม 7 stages แบบ real-time
+- **Session Management**: จัดการ session และ workflow ด้วย API
+- **Manual Control**: สามารถควบคุมขั้นตอนการประมวลผลแบบ manual
+- **FastAPI Integration**: Auto-generated API docs ที่ `/docs`
+- **Health Monitoring**: API endpoints สำหรับตรวจสอบสุขภาพระบบ
+
 ### 🌐 RESTful API
-- **Control Agent API**: FastAPI-based API สำหรับรับ alerts
+- **Control Agent API**: FastAPI-based API สำหรับรับ alerts (Port 9004)
 - **Process Control**: API สำหรับควบคุมและติดตามกระบวนการ
 - **Status Monitoring**: API สำหรับตรวจสอบสถานะระบบ
+- **Web Dashboard API**: Flask-based API สำหรับ UI (Port 5000)
 
 ## 🚀 การเริ่มต้นใช้งาน (Getting Started)
 
@@ -172,7 +196,7 @@ cp .env.example .env
 NATS_URL=nats://192.168.55.158:31653
 
 # API Configuration  
-CONTROL_AGENT_URL=http://localhost:8000
+CONTROL_AGENT_URL=http://localhost:9004
 
 # LLM Configuration (Optional)
 OLLAMA_MODEL=llama4:128x17b
@@ -189,9 +213,10 @@ docker-compose up --build -d
 ```
 
 #### 4. ตรวจสอบการทำงาน
-- **Control Agent API**: http://localhost:8000
-- **Web Dashboard**: http://localhost:8080
-- **API Documentation**: http://localhost:8000/docs
+- **Control Agent API**: http://localhost:9004  
+- **Web Dashboard**: http://localhost:5000
+- **API Documentation**: http://localhost:9004/docs
+- **NATS Monitoring**: http://localhost:8222
 
 ### 💻 วิธีที่ 2: Local Development
 
@@ -244,7 +269,18 @@ llm:
   timeout: 60
 ```
 
-#### 4. เริ่ม Services (แยก Terminal)
+#### 4. เริ่ม Services
+
+**วิธีที่ 1 - All-in-One (แนะนำ):**
+```bash
+# รันทุก services รวมกัน (Control Agent + Web App + Processing Agents)
+python -m agntics_ai.cli.run_all
+
+# หรือโหมด demo
+python -m agntics_ai.cli.run_all --demo
+```
+
+**วิธีที่ 2 - แยก Terminal:**
 
 **Terminal 1 - Control Agent:**
 ```bash
@@ -274,13 +310,13 @@ python -m agntics_ai.webapp.app
 NATS_URL=nats://192.168.55.158:31653
 
 # Control Agent 
-CONTROL_AGENT_URL=http://localhost:8000
+CONTROL_AGENT_URL=http://localhost:9004
 CONTROL_AGENT_HOST=0.0.0.0
-CONTROL_AGENT_PORT=8000
+CONTROL_AGENT_PORT=9004
 
 # Web Application
 WEBAPP_HOST=0.0.0.0
-WEBAPP_PORT=8080
+WEBAPP_PORT=5000
 
 # LLM Configuration
 OLLAMA_BASE_URL=http://localhost:11434
@@ -310,7 +346,7 @@ llm:
 
 webapp:
   host: "0.0.0.0"
-  port: 8080
+  port: 5000
   debug: false
 
 logging:
@@ -346,6 +382,226 @@ logging:
 }]
 ```
 
+## 🔗 GraphQL Integration
+
+### ภาพรวม GraphQL Integration
+
+Agent AI ระบบสามารถส่งข้อมูลไป **Frontend GraphQL Server** ผ่าน **NATS Message Queue** แบบ real-time โดยใช้ pattern การทำ **Mutation** แล้วค่อย **Query** มาแสดงหน้าเว็บ
+
+### สถาปัตยกรรม GraphQL Flow
+
+```
+Agent AI → NATS → GraphQL Server → Frontend UI
+```
+
+#### Data Flow Details:
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────────┐
+│   Agent AI      │    │   NATS Queue     │    │  GraphQL Server     │
+│                 │    │                  │    │                     │
+│ ▶ Output Update │───▶│ agentAI.graphql  │───▶│ ▶ handleMutation()  │
+│ ▶ Timeline      │    │   .mutation      │    │ ▶ pubsub.publish()  │
+│ ▶ Analysis      │    │                  │    │                     │
+│ ▶ Recommendation│    └──────────────────┘    └─────────┬───────────┘
+└─────────────────┘                                      │
+                                                         ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend UI                              │
+│  ▶ GraphQL Subscriptions (Real-time)                      │
+│  ▶ onOverviewUpdated, onTimelineUpdated                   │
+│  ▶ onAttackTypeUpdated, onRecommendationUpdated           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### การตั้งค่า GraphQL Integration
+
+#### 1. NATS Topic Configuration
+ใน `agntics_ai/config/config.yaml`:
+```yaml
+nats:
+  subjects:
+    graphql_mutation: "agentAI.graphql.mutation"
+```
+
+#### 2. GraphQL Publisher
+ระบบใช้ `GraphQLPublisher` class สำหรับส่งข้อมูล:
+```python
+from agntics_ai.utils.graphql_publisher import init_graphql_publisher
+
+# Initialize ใน run_all.py
+publisher = init_graphql_publisher(nats_handler, "agentAI.graphql.mutation")
+```
+
+#### 3. Frontend GraphQL Server Setup
+Frontend Server รับข้อมูลจาก NATS และส่งต่อไป GraphQL subscriptions:
+
+```typescript
+// Frontend_AIAgent/server/SUB_Server.ts
+const topicToFieldMap = {
+  'agentAI.graphql.mutation': 'onMutationReceived',
+  // ... other topics
+}
+```
+
+### GraphQL Mutation Types
+
+ระบบรองรับ mutation types ต่อไปนี้:
+
+#### 1. **updateOverview**
+```json
+{
+  "mutation_type": "updateOverview",
+  "variables": {
+    "sessionId": "session-uuid",
+    "description": "Alert received and processing started",
+    "timestamp": "2025-08-07T16:30:00Z"
+  }
+}
+```
+
+#### 2. **updateAttackAnalysis**
+```json
+{
+  "mutation_type": "updateAttackAnalysis", 
+  "variables": {
+    "sessionId": "session-uuid",
+    "attackData": [
+      {
+        "tacticID": "TA0001",
+        "tacticName": "Initial Access",
+        "confidence": 0.85
+      }
+    ]
+  }
+}
+```
+
+#### 3. **updateTimeline**
+```json
+{
+  "mutation_type": "updateTimeline",
+  "variables": {
+    "sessionId": "session-uuid",
+    "timelineData": [
+      {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+      {"stage": "Type Agent", "status": "in_progress", "errorMessage": ""}
+    ]
+  }
+}
+```
+
+#### 4. **updateRecommendations**
+```json
+{
+  "mutation_type": "updateRecommendations",
+  "variables": {
+    "sessionId": "session-uuid",
+    "recommendations": [
+      {
+        "description": "Immediate Response",
+        "content": "Block suspicious IP addresses"
+      }
+    ]
+  }
+}
+```
+
+#### 5. **updateExecutiveSummary**
+```json
+{
+  "mutation_type": "updateExecutiveSummary",
+  "variables": {
+    "sessionId": "session-uuid",
+    "title": "Incident Summary",
+    "content": "Critical security incident detected"
+  }
+}
+```
+
+### การทำงานของ Output Handler Integration
+
+ทุกครั้งที่มีการอัพเดทข้อมูลผ่าน `OutputHandler` จะส่งข้อมูลไป GraphQL อัตโนมัติ:
+
+```python
+# ตัวอย่าง: เมื่อ update overview
+output_handler.update_overview(session_id, "New incident detected")
+# ▶ จะส่ง mutation ไป NATS topic อัตโนมัติ
+```
+
+### การเริ่มใช้งาน GraphQL Integration
+
+#### 1. เริ่ม NATS Server
+```bash
+nats-server -js
+```
+
+#### 2. เริ่ม Frontend GraphQL Server
+```bash
+cd C:\Users\p\Desktop\Agentic\Frontend_AIAgent
+npm install
+npm start
+```
+- GraphQL Server: http://localhost:4000/graphql
+- WebSocket Subscriptions: ws://localhost:4000/graphql
+
+#### 3. เริ่ม Agent AI System
+```bash
+cd C:\Users\p\Desktop\Agentic\agent_ai
+python -m agntics_ai.cli.run_all --docker
+```
+
+#### 4. ทดสอบ Integration
+```bash
+cd tests
+python test_graphql_integration.py
+```
+
+### Frontend GraphQL Subscriptions
+
+Frontend สามารถ subscribe ข้อมูลแบบ real-time:
+
+```graphql
+subscription {
+  onOverviewUpdated {
+    description
+  }
+  onTimelineUpdated {
+    stage
+    status
+    errorMessage
+  }
+  onAttackTypeUpdated {
+    tacticID
+    tacticName
+    confidence
+  }
+  onRecommendationUpdated {
+    description
+    content
+  }
+}
+```
+
+### การ Monitor และ Debug
+
+#### ตรวจสอบ NATS Messages:
+```bash
+nats sub "agentAI.graphql.mutation"
+```
+
+#### ตรวจสอบ GraphQL Server Console:
+- ดูข้อความ `🔄 GraphQL Mutation: [mutation_type]`
+- ตรวจสอบ WebSocket connections
+- Monitor subscription events
+
+### ข้อดีของ GraphQL Integration
+
+1. **Real-time Updates**: ข้อมูลอัพเดททันทีที่มีการเปลี่ยนแปลง
+2. **Type Safety**: GraphQL schema ป้องกันข้อผิดพลาดด้าน types
+3. **Flexible Queries**: Frontend สามารถเลือกข้อมูลที่ต้องการได้
+4. **Scalable**: รองรับ multiple frontend clients
+5. **Decoupled**: Agent AI ไม่ต้องรู้จัก Frontend directly
+
 ## 📚 คู่มือการใช้งาน (Usage Guide)
 
 ### 🎮 การทดสอบระบบ
@@ -365,7 +621,7 @@ python run_demo.py
 #### 3. การส่ง Alert ผ่าน API
 ```bash
 # ส่ง Alert โดยตรง
-curl -X POST "http://localhost:8000/alert" \
+curl -X POST "http://localhost:9004/start" \
   -H "Content-Type: application/json" \
   -d '{
     "alert_id": "TEST-2024-001",
@@ -378,7 +634,7 @@ curl -X POST "http://localhost:8000/alert" \
 ### 📊 การติดตามและตรวจสอบ
 
 #### 1. Web Dashboard
-เปิด http://localhost:8080 เพื่อดู:
+เปิด http://localhost:5000 เพื่อดู:
 - **Timeline**: ความคืบหน้าของการประมวลผล
 - **Output**: ผลลัพธ์แบบ real-time
 - **System Status**: สถานะของ agents และ services
@@ -400,26 +656,62 @@ docker-compose logs -f webapp
 # ดูใน console ของแต่ละ Terminal
 ```
 
-### 🔧 การใช้งาน Control Agent API
+### 🎛️ การใช้งาน Control Agent Timeline API
 
-#### Start Processing Flow
+#### Start Processing Flow (Received Alert)
 ```bash
-# เริ่มกระบวนการประมวลผล
-curl -X POST "http://localhost:8000/start" \
+# เริ่มกระบวนการประมวลผล - stage 1
+curl -X POST "http://localhost:9004/start" \
   -H "Content-Type: application/json" \
   -d '{"input_file": "test.json"}'
 ```
 
-#### Get Processing Status  
+#### Type Agent Complete (Stage 2)
 ```bash
-# ตรวจสอบสถานะ
-curl "http://localhost:8000/status"
+# แจ้งว่า Type Agent เสร็จแล้ว
+curl -X POST "http://localhost:9004/control/type/finished" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "your-session-id",
+    "data": {
+      "technique_name": "T1055 Process Injection",
+      "confidence": 0.85,
+      "analysis": "Analysis results..."
+    }
+  }'
 ```
 
-#### Health Check
+#### Workflow Complete (Final Stage)
+```bash
+# แจ้งว่า workflow เสร็จสิ้น - stage 7
+curl -X POST "http://localhost:9004/control/flow/finished" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "your-session-id",
+    "data": {
+      "status": "completed",
+      "report": "Final incident report...",
+      "recommendations": "Security recommendations..."
+    }
+  }'
+```
+
+#### Get Session Status
+```bash
+# ตรวจสอบ timeline และสถานะ session
+curl "http://localhost:9004/control/status/your-session-id"
+```
+
+#### List All Sessions  
+```bash
+# ดู sessions ทั้งหมด
+curl "http://localhost:9004/control/sessions"
+```
+
+#### System Health Check
 ```bash  
 # ตรวจสอบสุขภาพระบบ
-curl "http://localhost:8000/health"
+curl "http://localhost:9004/health"
 ```
 
 ## 🌐 Web Interface และ Real-time Monitoring
@@ -449,34 +741,13 @@ curl "http://localhost:8000/health"
 
 ## 📖 API Documentation
 
-### Control Agent Endpoints
+### 🎛️ Control Agent Timeline API (Port 9004)
 
-#### POST /alert
-รับ security alert และเริ่มกระบวนการวิเคราะห์
-
-**Request Body:**
-```json
-{
-  "alert_id": "string",
-  "alert_name": "string", 
-  "alert_status": "string",
-  "rawAlert": "string",
-  "events": [...],
-  "contexts": {...}
-}
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "session_id": "uuid",
-  "message": "Alert processing started"
-}
-```
+**Base URL**: `http://localhost:9004`
+**API Docs**: `http://localhost:9004/docs` (Auto-generated Swagger UI)
 
 #### POST /start
-เริ่มกระบวนการประมวลผลจาก input file
+เริ่มกระบวนการประมวลผล (Stage 1: Received Alert)
 
 **Request Body:**
 ```json
@@ -485,15 +756,85 @@ curl "http://localhost:8000/health"
 }
 ```
 
-#### GET /status
-ตรวจสอบสถานะการประมวลผล
+**Response:**
+```json
+{
+  "status": "success",
+  "session_id": "uuid-session-id",
+  "message": "Flow started successfully"
+}
+```
+
+#### POST /control/type/finished  
+แจ้งว่า Type Agent เสร็จแล้ว (Stage 2: Type Agent)
+
+**Request Body:**
+```json
+{
+  "session_id": "uuid-session-id",
+  "data": {
+    "technique_name": "T1055 Process Injection",
+    "confidence": 0.85,
+    "analysis": "Detailed analysis results..."
+  }
+}
+```
+
+#### POST /control/flow/finished
+แจ้งว่า workflow เสร็จสิ้น (Stage 7: Recommendation)
+
+**Request Body:**
+```json
+{
+  "session_id": "uuid-session-id", 
+  "data": {
+    "status": "completed",
+    "report": "Final incident report...",
+    "recommendations": "Security recommendations..."
+  }
+}
+```
+
+#### GET /control/status/{session_id}
+ดู timeline และสถานะของ session
 
 **Response:**
 ```json
 {
-  "active_sessions": 2,
-  "completed_today": 15,
-  "system_status": "healthy"
+  "session_id": "uuid-session-id",
+  "status": "completed",
+  "timeline": [
+    {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+    {"stage": "Type Agent", "status": "success", "errorMessage": ""},
+    {"stage": "Analyze Root Cause", "status": "success", "errorMessage": ""},
+    {"stage": "Triage Status", "status": "success", "errorMessage": ""},
+    {"stage": "Action Taken", "status": "success", "errorMessage": ""},
+    {"stage": "Tool Status", "status": "success", "errorMessage": ""},
+    {"stage": "Recommendation", "status": "success", "errorMessage": ""}
+  ],
+  "last_updated": "2025-08-07T16:30:00Z"
+}
+```
+
+#### GET /control/sessions
+ดูรายการ sessions ทั้งหมด
+
+**Response:**
+```json
+{
+  "sessions": [
+    {
+      "session_id": "uuid-1",
+      "created_at": "2025-08-07T16:25:00Z", 
+      "status": "completed"
+    },
+    {
+      "session_id": "uuid-2",
+      "created_at": "2025-08-07T16:28:00Z",
+      "status": "in_progress"
+    }
+  ],
+  "total": 2
 }
 ```
 
@@ -504,11 +845,23 @@ Health check endpoint
 ```json
 {
   "status": "healthy",
-  "nats_connected": true,
-  "llm_available": true,
-  "uptime": 3600
+  "service": "Control Agent API",
+  "active_sessions": 3,
+  "active_connections": 1,
+  "nats_connected": true
 }
 ```
+
+### 🌐 Web Dashboard API (Port 5000)
+
+#### GET /api/reports
+ดูรายงานทั้งหมด
+
+#### GET /api/latest  
+ดูรายงานล่าสุด
+
+#### GET /api/output
+ดู output.json ปัจจุบัน
 
 ### Output Format Specification
 
@@ -538,15 +891,202 @@ Health check endpoint
     }]
   },
   "agentAI.timeline.updated": {
-    "id": "session-uuid",
-    "data": [{
-      "stage": "Analysis Agent",
-      "status": "success", 
-      "errorMessage": ""
-    }]
+    "alert_id": "session-uuid",
+    "data": [
+      {"stage": "Received Alert", "status": "success", "errorMessage": ""},
+      {"stage": "Type Agent", "status": "success", "errorMessage": ""},
+      {"stage": "Analyze Root Cause", "status": "success", "errorMessage": ""},
+      {"stage": "Triage Status", "status": "success", "errorMessage": ""},
+      {"stage": "Action Taken", "status": "success", "errorMessage": ""},
+      {"stage": "Tool Status", "status": "success", "errorMessage": ""},
+      {"stage": "Recommendation", "status": "success", "errorMessage": ""}
+    ]
   }
 }
 ```
+
+## 🧪 การทดสอบระบบ (Testing)
+
+### Test Suite Overview
+
+ระบบ Agent AI มี test suite ที่ครอบคลุม สำหรับทดสอบการทำงานของแต่ละส่วน และการเชื่อมต่อระหว่างกัน
+
+### Test Files Structure
+
+```
+tests/
+├── __init__.py
+├── README.md
+├── test_graphql_integration.py    # ทดสอบ GraphQL integration
+└── test_system_integration.py     # ทดสอบระบบทั้งหมด
+```
+
+### 1. GraphQL Integration Test
+
+**ไฟล์**: `tests/test_graphql_integration.py`
+
+**การทดสอบ**:
+- การส่งข้อมูลผ่าน NATS ไป GraphQL mutations
+- การทำงานของ GraphQL Publisher
+- การอัพเดทข้อมูลแบบ real-time ใน Frontend
+
+**การรัน**:
+```bash
+cd tests
+python test_graphql_integration.py
+```
+
+**ผลลัพธ์ที่คาดหวัง**:
+- ✅ NATS connection established
+- ✅ GraphQL Publisher initialized
+- ✅ Overview/Attack/Timeline/Recommendation updates sent
+- ✅ Session management working
+
+### 2. System Integration Test
+
+**ไฟล์**: `tests/test_system_integration.py`
+
+**การทดสอบ**:
+- Complete workflow จาก alert → analysis → recommendation
+- Control Agent และ session management
+- Error handling และ graceful degradation
+- NATS communication และ message flow
+
+**การรัน**:
+```bash
+cd tests
+python test_system_integration.py
+```
+
+**ผลลัพธ์ที่คาดหวัง**:
+- ✅ End-to-end workflow completed
+- ✅ All agents communicate properly
+- ✅ Timeline tracking works
+- ✅ Error scenarios handled gracefully
+
+### การเตรียม Test Environment
+
+#### 1. เริ่ม Required Services
+```bash
+# NATS Server
+nats-server -js
+
+# Frontend GraphQL Server (ใน terminal แยก)
+cd C:\Users\p\Desktop\Agentic\Frontend_AIAgent
+npm install
+npm start
+```
+
+#### 2. ตรวจสอบ Services
+```bash
+# ตรวจสอบ NATS
+curl http://localhost:8222/varz
+
+# ตรวจสอบ GraphQL Server
+curl http://localhost:4000/graphql
+```
+
+### การ Monitor Test Results
+
+#### 1. NATS Messages
+```bash
+# ดู messages ทั้งหมด
+nats sub "agentAI.>"
+
+# ดู GraphQL mutations เฉพาะ
+nats sub "agentAI.graphql.mutation"
+```
+
+#### 2. Frontend GraphQL Console
+ดูใน Frontend Server console สำหรับข้อความ:
+- 📥 Topic → Field mappings
+- 🔄 GraphQL Mutation: [mutation_type]
+- ✅ Full Output Update processed
+
+#### 3. Test Output Files
+- `test_output.json` - Output จากการ test
+- Console logs - รายละเอียดการทดสอบ
+
+### การเขียน Test ใหม่
+
+#### Template สำหรับ Test ใหม่:
+```python
+#!/usr/bin/env python3
+"""
+Test [Component Name] - [Description]
+"""
+import asyncio
+import sys
+from pathlib import Path
+
+# Add agntics_ai to path
+sys.path.append(str(Path(__file__).parent.parent / "agntics_ai"))
+
+from agntics_ai.utils.nats_handler import NATSHandler
+# ... other imports
+
+async def test_your_component():
+    """ทดสอบ component ของคุณ"""
+    try:
+        # Setup
+        print("🔄 Starting test...")
+        
+        # Test logic here
+        
+        print("✅ Test passed")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Test failed: {e}")
+        return False
+        
+    finally:
+        # Cleanup
+        pass
+
+if __name__ == "__main__":
+    asyncio.run(test_your_component())
+```
+
+### Common Test Issues และ Solutions
+
+#### Issue: NATS Connection Timeout
+**Solution**: 
+- ตรวจสอบ NATS server ทำงานอยู่
+- เช็ค port 4222 ว่าเปิดอยู่
+- ดู firewall settings
+
+#### Issue: GraphQL Server Not Receiving Messages
+**Solution**:
+- ตรวจสอบ topic mapping ใน SUB_Server.ts
+- เช็ค WebSocket connections
+- ดู console errors ใน Frontend
+
+#### Issue: Test Data Not Persisted
+**Solution**:
+- เช็ค file permissions
+- ตรวจสอบ path สำหรับ output files
+- ดู error logs ใน console
+
+### Automated Testing
+
+สำหรับการทดสอบแบบอัตโนมัติ:
+
+```bash
+# รัน tests ทั้งหมด
+cd tests
+python test_system_integration.py && python test_graphql_integration.py
+
+# รัน test พร้อม timeout
+timeout 60s python test_graphql_integration.py
+```
+
+### Performance Testing
+
+สำหรับการทดสอบ performance:
+- Monitor memory usage ขณะรัน test
+- วัดเวลาในการส่ง message ไป GraphQL
+- ทดสอบ concurrent sessions
 
 ## 🔧 การพัฒนาและขยายระบบ (Development & Extension)
 
@@ -726,13 +1266,13 @@ llm:
 docker-compose logs -f analysis_agent
 
 # ตรวจสอบ message queue
-curl "http://localhost:8000/status"
+curl "http://localhost:9004/health"
 ```
 
 #### 4. Web App Not Loading
 ```bash
 # ตรวจสอบ port conflicts
-netstat -tulpn | grep :8080
+netstat -tulpn | grep :5000
 
 # Restart web app
 docker-compose restart webapp
@@ -801,4 +1341,34 @@ nats sub "agentAI.>"
 
 ---
 
+## 🎉 Latest Updates
+
+### v2.1 - GraphQL Integration (Current)
+- ✅ **GraphQL Real-time Integration** - ส่งข้อมูลไป Frontend ผ่าน NATS
+- ✅ **GraphQL Publisher** - Auto-publish ทุก output updates
+- ✅ **Frontend GraphQL Subscriptions** - Real-time UI updates
+- ✅ **Mutation Handler** - จัดการ GraphQL mutations จาก Agent AI
+- ✅ **Test Suite** - ครอบคลุม integration และ system tests
+- ✅ **Improved Documentation** - GraphQL flow และ testing guide
+- ✅ **Bug Fixes** - แก้ไข NATS parameter naming และ configuration issues
+
+### v2.0 - Control Agent Integration
+- ✅ **Control Agent API** - FastAPI server พร้อม Timeline API
+- ✅ **7 Stages Timeline** - ติดตามขั้นตอนการประมวลผลแบบ real-time
+- ✅ **Docker Integration** - รวม Control Agent ใน Docker Compose
+- ✅ **Session Management** - จัดการ workflow sessions ด้วย API
+- ✅ **Manual Control Mode** - สามารถควบคุมขั้นตอนแบบ manual
+- ✅ **Auto-generated API Docs** - Swagger UI ที่ `/docs`
+- ✅ **Health Monitoring** - ตรวจสอบสุขภาพระบบแบบ real-time
+
+### v1.0 - Core Agent System
+- ✅ **LLM-Powered Analysis** - MITRE ATT&CK mapping
+- ✅ **Event-Driven Architecture** - NATS JetStream
+- ✅ **Real-time Web Dashboard** - Flask + SSE
+- ✅ **Tool Integration** - Customer-specific tools support
+
+---
+
 **สร้างด้วย ❤️ โดย Agent AI Team**
+
+**🚀 Ready for Production with Control Agent Timeline API!**

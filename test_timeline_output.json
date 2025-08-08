@@ -1,0 +1,93 @@
+{
+  "agentAI.timeline.updated": {
+    "id": "test_timeline_session",
+    "data": [
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Received Alert",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Type Agent",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Recommendation",
+        "status": "success",
+        "errorMessage": ""
+      },
+      {
+        "stage": "Process Complete",
+        "status": "success",
+        "errorMessage": "Workflow completed successfully"
+      }
+    ]
+  },
+  "agentAI.overview.updated": {
+    "id": "test_timeline_session",
+    "data": {
+      "description": "Analysis completed: T1055 Process Injection technique identified"
+    }
+  },
+  "agentAI.tools.updated": {
+    "id": "test_timeline_session",
+    "data": [
+      {
+        "name": "Suricata IDS",
+        "status": "active"
+      },
+      {
+        "name": "OSQuery",
+        "status": "inactive"
+      },
+      {
+        "name": "YARA Scanner",
+        "status": "missing"
+      },
+      {
+        "name": "CrowdStrike Falcon",
+        "status": "active"
+      },
+      {
+        "name": "Splunk SIEM",
+        "status": "active"
+      },
+      {
+        "name": "Zscaler Web Gateway",
+        "status": "active"
+      },
+      {
+        "name": "Windows Defender",
+        "status": "active"
+      },
+      {
+        "name": "Sysmon",
+        "status": "inactive"
+      }
+    ]
+  },
+  "agentAI.executive.updated": {
+    "id": "test_timeline_session",
+    "data": [
+      {
+        "title": "Incident Analysis Complete",
+        "content": "All processing stages completed successfully. Review recommendations and take appropriate action."
+      }
+    ]
+  },
+  "agentAI.recommendation.updated": {
+    "id": "test_timeline_session",
+    "data": [
+      {
+        "description": "Final incident response recommendations",
+        "content": "Timeline test - incident analysis completed"
+      }
+    ]
+  }
+}

@@ -21,12 +21,12 @@ COPY .env.example ./.env
 # Create data directory
 RUN mkdir -p /app/data
 
-# Expose port
-EXPOSE 5000
+# Expose ports for Web App and Control Agent
+EXPOSE 5000 9004
 
-# Health check
+# Health check for both services
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:5000/health || exit 1
+  CMD curl -f http://localhost:5000/health || curl -f http://localhost:9004/health || exit 1
 
-# Run the application
-CMD ["python", "-m", "agntics_ai.webapp.app"]
+# Run the integrated application with Control Agent and Web App
+CMD ["python", "-m", "agntics_ai.cli.run_all", "--docker"]
