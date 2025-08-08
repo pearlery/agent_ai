@@ -28,5 +28,22 @@ EXPOSE 5000 9004
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD curl -f http://localhost:5000/health || curl -f http://localhost:9004/health || exit 1
 
+<<<<<<< Updated upstream
 # Run the integrated application with Control Agent and Web App
 CMD ["python", "-m", "agntics_ai.cli.run_all", "--docker"]
+=======
+# Run the application
+CMD ["python", "-m", "agntics_ai.webapp.app"]
+
+# Dockerfile
+FROM python:3.10
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python", "ControlAgent/NatsFunction.py"]
+>>>>>>> Stashed changes

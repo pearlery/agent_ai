@@ -81,6 +81,16 @@ services:
     profiles:
       - ollama  # Use with: docker-compose --profile ollama up
 
+  control-agent:
+      build: .
+      env_file:
+        - .env
+      depends_on:
+        - nats-server
+      networks:
+        - agent-ai-network
+      ports:
+        - "8000:8000"
 volumes:
   nats-data:
     driver: local
@@ -91,3 +101,4 @@ networks:
   agent-ai-network:
     driver: bridge
     name: agent-ai-network
+
